@@ -17,7 +17,7 @@ templates.env.filters['amount'] = amount
 
 @app.get("/healthz", include_in_schema=False)
 async def healthcheck():
-    return {"status": "ok"}
+    return {"status": "ok!"}
 
 
 @app.get("/", include_in_schema=False)

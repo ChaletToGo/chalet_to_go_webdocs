@@ -24,7 +24,9 @@ A imagem usa Python 3.14, dependências do `uv.lock`, usuário sem privilégios,
 
 Para parar: `docker compose down`. O Compose não executa deploy nem altera o GitHub Actions.
 
-Atrás de um proxy HTTPS, defina `FORWARDED_ALLOW_IPS` com o IP ou CIDR do proxy para que URLs e cookies usem o protocolo correto. Para Cloudflare, veja a seção de localização abaixo. Se o Nginx Proxy Manager também estiver em Docker, conecte os serviços a uma rede Docker compartilhada e use `web:8000` como destino; `127.0.0.1` dentro do proxy aponta para o próprio container.
+Atrás de um proxy HTTPS, defina `FORWARDED_ALLOW_IPS` com o IP ou CIDR do proxy para que URLs e cookies usem o protocolo correto. O Compose usa a rede externa `nginxproxymanager_default` e o alias `chalet-web`; essa rede precisa existir antes da subida. O Proxy Host do Nginx Proxy Manager deve apontar para `http://chalet-web:8000`. O IP `172.22.0.2` observado hoje é dinâmico e não deve ser fixado. Se o nome da rede for diferente na VPS, defina `PROXY_NETWORK` no `.env`.
+
+Na primeira implantação na VPS, confirme a rede com `sudo docker network ls` e, se necessário, ajuste `PROXY_NETWORK`. O container NPM e `web` precisam aparecer em `docker network inspect nginxproxymanager_default`.
 
 O build segue o fluxo de instalação em etapas da [documentação oficial do uv para Docker](https://docs.astral.sh/uv/guides/integration/docker/).
 
