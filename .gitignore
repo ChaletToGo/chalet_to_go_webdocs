@@ -15,3 +15,6 @@ wheels/
 !.env.example
 *.pem
 *.key
+
+# Local PDF inspection outputs
+tmp/pdfs/

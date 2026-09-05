@@ -1,0 +1,451 @@
+{
+  "ui": {
+    "skip": "Skip to reading",
+    "brand_label": "Chalet to Go — cover",
+    "magazine": "Company magazine",
+    "edition": "Edition 01",
+    "tools": "Reading tools",
+    "open_contents": "Open contents",
+    "contents": "Contents",
+    "preferences": "Reading settings",
+    "fullscreen_enter": "Enter full screen",
+    "fullscreen_exit": "Exit full screen",
+    "reader": "Chalet to Go magazine",
+    "cover_eyebrow": "Architecture for new journeys",
+    "cover_1": "A new",
+    "cover_2": "way of",
+    "cover_3": "living.",
+    "cover_deck_1": "Brazilian roots.",
+    "cover_deck_2": "A Swiss horizon.",
+    "cover_deck_3": "Possibilities without borders.",
+    "explore": "Explore our story",
+    "materials": "Wood · Design · Nature",
+    "volume": "Vol. 01",
+    "cover_caption_1": "Spaces that welcome.",
+    "cover_caption_2": "Ideas that move us.",
+    "slogan": "Built to move. Made to inspire.",
+    "history_caption": "Wood as a starting point. / Visual archive",
+    "archive": "Visual archive",
+    "gallery_note": "Images from the visual library. Layouts and finishes are defined for each project.",
+    "collection_caption": "Mobility and timber construction. / Visual archive",
+    "horizon": "A new horizon",
+    "pilot": "Units in the pilot concept",
+    "caption_nature": "Inspired by nature. Illustrative image.",
+    "investment": "Planned initial investment / Switzerland",
+    "thousand": "thousand",
+    "investment_body": "A foundation for premises, equipment, a prototype, launch and working capital. The financing structure is still to be validated.",
+    "plan_note": "Working scenario from the 2027–2031 business plan. Timelines start at implementation; figures and targets require validation and do not represent secured financing.",
+    "back_cover": "Back to cover",
+    "sources": "Content based on the integrated plan, the company dossier and team updates. Editorial edition · September 2026.",
+    "nojs": "The magazine is available as continuous reading. Enable JavaScript for navigation and reading settings.",
+    "progress": "Magazine progress",
+    "position": "Position in magazine",
+    "previous": "Previous chapter",
+    "next": "Next chapter",
+    "contents_title": "A journey through our story.",
+    "saved_position": "Your reading position is saved on this device.",
+    "your_way": "Your way",
+    "close_contents": "Close contents",
+    "close_preferences": "Close settings",
+    "your_reading": "Your reading.",
+    "text_size": "Text size",
+    "normal": "Standard",
+    "large": "Enlarged",
+    "larger": "Larger",
+    "appearance": "Appearance",
+    "paper": "Paper",
+    "night": "Night",
+    "keyboard": "Use the keyboard arrows to change chapters. On touchscreens, swipe sideways.",
+    "announcement": "{title}. Chapter {current} of {total}.",
+    "fullscreen_unavailable": "Full screen is unavailable in this browser.",
+    "language": "Language",
+    "close_language": "Close languages",
+    "language_title": "Choose your language.",
+    "language_hint": "Your choice will be remembered on this device.",
+    "automatic": "Use automatic language",
+    "download_pdf": "Download PDF",
+    "pdf_title": "Print edition",
+    "pdf_description": "Choose the file language. A4 format with text, images and static data. The calculator is excluded from the PDF.",
+    "pdf_language": "PDF language",
+    "close_pdf": "Close download"
+  },
+  "pages": [
+    {
+      "id": "capa",
+      "title": "A new way of living",
+      "section": "Cover",
+      "layout": "cover",
+      "image": "chale_exterior.jpg",
+      "alt": "Timber chalet on wheels with large windows and a raised roof"
+    },
+    {
+      "id": "historia",
+      "title": "From Ron’s experience to building a company.",
+      "section": "Our story",
+      "layout": "history",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Assembly of a chalet’s timber structure",
+      "eyebrow": "01 / Origins and journey",
+      "intro": "Chalet to Go is at the beginning of its organisational development. The experience behind it belongs to Ron Lima, with approximately 25 years in construction and chalet development.",
+      "body": "Work in the United States, Brazil and Switzerland connects two distinct stages: learning to build and organising a company able to manufacture, sell and deliver. Today’s project draws on that journey, with the Brazilian operation’s first unit as the next concrete step.",
+      "timeline": [
+        [
+          "2001+",
+          "United States",
+          "In Miami, Ron develops Belo Horizonte Construction."
+        ],
+        [
+          "Brazil",
+          "Chalet production",
+          "Back in Brazil, Ron starts producing small chalets. An order for 18 units highlights the need to organise capacity and operations."
+        ],
+        [
+          "Switzerland",
+          "Construction experience",
+          "Projects of different sizes broaden operational experience and precede the plan for a base in Jura."
+        ],
+        [
+          "Now",
+          "A new stage",
+          "Prepare Brazilian production and present the Swiss operation to investors and the Municipality of Delémont."
+        ]
+      ]
+    },
+    {
+      "id": "madeira",
+      "title": "Precision in making. Nature in living.",
+      "section": "Our essence",
+      "layout": "craft",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Façade, cladding and window details of a timber chalet",
+      "eyebrow": "02 / Material and purpose",
+      "intro": "Wood is the starting point. Care at every stage turns a material into a place to live.",
+      "body": "Chalet to Go combines timber construction, standardised components and freedom to personalise. Dimensions, equipment and finishes can be adapted to the use and market of each project.",
+      "features": [
+        [
+          "01",
+          "Well-prepared timber",
+          "Material selection, drying and preparation are part of construction quality."
+        ],
+        [
+          "02",
+          "Modular thinking",
+          "Repeatable components to organise production, assembly and transport."
+        ],
+        [
+          "03",
+          "Comfort within",
+          "Insulation and energy solutions considered according to the needs of each development."
+        ]
+      ]
+    },
+    {
+      "id": "espacos",
+      "title": "Small in scale. Rich in possibilities.",
+      "section": "Spaces for living",
+      "layout": "gallery",
+      "eyebrow": "03 / Everyday architecture",
+      "intro": "Natural light, wood and efficient use of space. The aim is to bring together the essentials in settings that welcome different ways of living.",
+      "images": [
+        [
+          "chalé_interior_2.jpg",
+          "Bright kitchen and open living area with a mezzanine",
+          "The essentials, thoughtfully arranged."
+        ],
+        [
+          "chalé_interior_3.jpg",
+          "Bedroom beneath a timber roof with windows",
+          "A place to slow down."
+        ],
+        [
+          "interior_do_chalé_1.jpg",
+          "Timber chalet interior with natural light",
+          "Light flowing through the home."
+        ]
+      ]
+    },
+    {
+      "id": "colecao",
+      "title": "One idea. Different ways to live.",
+      "section": "Our collection",
+      "layout": "collection",
+      "eyebrow": "04 / Proposed portfolio",
+      "intro": "From a compact unit to a housing development. The planned range accommodates different uses, scales and levels of personalisation.",
+      "image": "chalés_prontos_1.jpg",
+      "alt": "A group of small timber chalets on wheels",
+      "models": [
+        [
+          "01",
+          "Basic",
+          "Compact and essential",
+          "A compact chalet or standardised tiny house."
+        ],
+        [
+          "02",
+          "Standard",
+          "Space to share",
+          "A modular chalet for family or tourism use."
+        ],
+        [
+          "03",
+          "Premium",
+          "Tailored to each project",
+          "Personalised equipment and finishes."
+        ],
+        [
+          "04",
+          "Village",
+          "Living together",
+          "Multiple units and shared spaces, designed as a project."
+        ]
+      ]
+    },
+    {
+      "id": "brasil",
+      "title": "The next chapter starts here.",
+      "section": "Brazil in motion",
+      "layout": "brazil",
+      "eyebrow": "05 / Brazilian operation",
+      "image": "homem_trabalhando.jpg",
+      "alt": "A professional working on a building’s roof",
+      "intro": "Minas Caixa, Belo Horizonte. A team ready to build and sell the first unit of this new stage.",
+      "body": "The Brazilian operation brings together physical and digital infrastructure, workforce organisation and commercial preparation. This practical work progresses alongside the project’s presentation in Switzerland.",
+      "features": [
+        [
+          "Belo Horizonte / MG",
+          "Production",
+          "The facility in the Minas Caixa neighbourhood will be the base for building and selling the first unit."
+        ],
+        [
+          "Natal / RN",
+          "Ecological village",
+          "Preliminary agreements and expressed interest are in place, with land prepared for project development."
+        ]
+      ]
+    },
+    {
+      "id": "operacao",
+      "layout": "operation",
+      "title": "From the first unit to a production process.",
+      "section": "How we will produce",
+      "eyebrow": "06 / Production organisation",
+      "intro": "Building the first unit starts the Minas Caixa operation. To repeat that delivery, the plan sets out a sequence from defining the model to installation on the customer’s land.",
+      "body": "The proposed Jura workshop combines manufacturing, assembly, covered storage and display. Timber selection follows each base: Brazilian species for the domestic operation and Swiss timber for the planned establishment in Jura.",
+      "steps": [
+        [
+          "Define",
+          "Model, dimensions, equipment and finishes according to use."
+        ],
+        [
+          "Prepare",
+          "Select, dry and prepare timber and components."
+        ],
+        [
+          "Assemble",
+          "Assembly and quality control before delivery."
+        ],
+        [
+          "Transport",
+          "Check dimensions, weight, access and any need for disassembly."
+        ],
+        [
+          "Install",
+          "Coordinate with local professionals and destination requirements."
+        ]
+      ],
+      "risk_title": "What must accompany every order",
+      "risk_body": "Purchases and timelines depend on the approved project. Materials, labour and transport belong in the budget; deposits and staged deliveries are part of the proposed cash management. Expansion through distributors depends on demonstrated manufacturing and support capacity."
+    },
+    {
+      "id": "suica",
+      "title": "From Delémont, a vision for the world.",
+      "section": "Swiss horizon",
+      "layout": "swiss",
+      "eyebrow": "07 / Planned establishment",
+      "image": "paisagem.jpg",
+      "alt": "A landscape of mountains, forest and green fields",
+      "intro": "The canton of Jura is the intended base for designing, manufacturing, demonstrating and distributing modular homes.",
+      "body": "The priority is to present the dossier to Swiss investors and the project to the Municipality of Delémont. The plan includes a workshop with assembly, storage and showroom areas, connected to local suppliers and professionals.",
+      "features": [
+        [
+          "01",
+          "Switzerland",
+          "Establish the production base and develop the first customers and partnerships."
+        ],
+        [
+          "02",
+          "Europe",
+          "Expand gradually with distributors and installation partners."
+        ],
+        [
+          "03",
+          "Other markets",
+          "Assess exports and international projects according to capacity and local requirements."
+        ]
+      ],
+      "portrait": {
+        "image": "marc.png",
+        "title": "Interest in the first units",
+        "body": "Marc Mathys has expressed personal interest in buying Chalet to Go’s first 15 units. This interest is part of the project’s commercial outlook; it is neither a contracted order nor secured revenue.",
+        "caption": "Marc Mathys · personal purchase interest",
+        "alt": "Marc Mathys"
+      }
+    },
+    {
+      "id": "vilas",
+      "title": "More than units. Places to meet.",
+      "section": "Ecological villages",
+      "layout": "village",
+      "eyebrow": "08 / Living in community",
+      "image": "paisagem.jpg",
+      "alt": "A green valley between mountains",
+      "intro": "The ecological village vision expands the project’s scale: homes, shared spaces and a closer relationship with the setting.",
+      "body": "The plan’s pilot concept envisages 8 to 20 units, green areas, shared spaces, water management and energy solutions. Each development depends on technical design, partners and local conditions.",
+      "features": [
+        [
+          "Natal, Brazil",
+          "Priority initiative",
+          "Prepared land, preliminary agreements and expressed interest in developing an ecological village."
+        ],
+        [
+          "Portugal",
+          "An opportunity in development",
+          "Prepared land and expressed interest also exist here. Scope and schedule are still to be defined."
+        ]
+      ]
+    },
+    {
+      "id": "plano",
+      "title": "Grow on a solid foundation.",
+      "section": "Expansion plan",
+      "layout": "plan",
+      "eyebrow": "09 / 2027–2031 horizon",
+      "intro": "A gradual establishment, with production capacity and team size following the growth of orders.",
+      "milestones": [
+        [
+          "0–6",
+          "months",
+          "Establish",
+          "Validate the plan, organise implementation and seek financing, a workshop and a prototype."
+        ],
+        [
+          "6–12",
+          "months",
+          "Produce",
+          "Develop initial sales and contracts for series production."
+        ],
+        [
+          "12–24",
+          "months",
+          "Consolidate",
+          "Advance industrialisation, the European market and preparation of the pilot ecological village."
+        ],
+        [
+          "24–60",
+          "months",
+          "Expand",
+          "Broaden models, distribution and international projects as demand develops."
+        ]
+      ]
+    },
+    {
+      "id": "resultados",
+      "layout": "projection",
+      "title": "From assumptions to results.",
+      "section": "Earnings projection",
+      "eyebrow": "10 / Earnings projection",
+      "intro": "Starting the business means estimating how much each unit contributes towards overheads. Sales volume and each year’s fixed costs then determine the possible result."
+    },
+    {
+      "id": "impacto",
+      "layout": "social",
+      "title": "Housing and training, at a future stage.",
+      "section": "Housing and training",
+      "eyebrow": "11 / Social ambition",
+      "intro": "The dossier describes an intention beyond sales: combining temporary shelter with training in woodworking, electrical work, plumbing and construction. The proposal seeks to provide housing and skills useful for rebuilding communities.",
+      "body": "The material reports an initial experience started during the pandemic and interrupted by international restrictions. A restart would depend on governments, organisations and partners; no current programme is confirmed.",
+      "concept_title": "Understanding the 1 + 1 proposal",
+      "concept_body": "The concept envisages an institutional purchase accompanied by an equivalent unit for donation. Before committing, funding for the extra unit, logistics and training must be defined. These donations are excluded from sales and earnings projections."
+    },
+    {
+      "id": "futuro",
+      "title": "The task now is to turn the plan into deliveries.",
+      "section": "The future we imagine",
+      "layout": "closing",
+      "eyebrow": "12 / Future vision",
+      "intro": "The priorities are to build and sell the first Brazilian unit, develop the Natal initiative and present the Delémont establishment to investors and the Municipality.",
+      "body": "Portugal, European expansion and social programmes are subsequent possibilities. Progress depends on initial operating results, formalised projects and the capacity to finance them.",
+      "image": "chale_exterior.jpg",
+      "alt": "Timber chalet surrounded by trees"
+    }
+  ],
+  "finance": {
+    "budget_title": "The budget accompanying the plan",
+    "budget_note": "Figures from the reference PDF for the Swiss establishment. The sum has been checked; items still require quotations and a location. These are not incurred expenses or secured funds.",
+    "legal": "Formation, legal work and studies",
+    "premises": "Premises, storage and workshop",
+    "equipment": "Machinery, tools and safety",
+    "prototype": "Prototype and certification",
+    "showroom": "Showroom, identity and website",
+    "marketing": "Marketing and launch",
+    "working_capital": "Working capital",
+    "budget_total": "Reference total",
+    "budget_share": "Share of total",
+    "setup_title": "Setup and launch",
+    "reserve_title": "Working capital reserve",
+    "scope_note": "This budget concerns the Swiss operation. It must not be added to Brazilian costs or deducted in full from each year’s operating result.",
+    "projection_title": "From assumptions to results.",
+    "projection_section": "Earnings projection",
+    "projection_intro": "Starting the business means estimating how much each unit contributes towards overheads. Sales volume and each year’s fixed costs then determine the possible result.",
+    "projection_note": "Selling prices and production costs are provided. Annual results still require capacity, fixed expenses and other variable costs. Enter these assumptions; no volume is filled in as guaranteed sales.",
+    "input_title": "Scenario assumptions",
+    "currency": "Scenario currency",
+    "price": "Selling price",
+    "variable": "Variable cost per unit",
+    "capacity": "Monthly unit capacity",
+    "year": "Year",
+    "units": "Units sold",
+    "fixed": "Annual fixed costs",
+    "calculate": "Calculate scenario",
+    "required": "Complete all fields with operating assumptions.",
+    "invalid": "Check the inputs: valid numbers, whole units and annual sales within declared capacity.",
+    "results_title": "Results conditional on assumptions",
+    "revenue": "Revenue",
+    "costs": "Total costs",
+    "result": "Simplified operating result",
+    "cumulative": "Cumulative three-year result",
+    "breakeven": "Annual break-even units",
+    "no_breakeven": "No break-even with nonpositive unit contribution",
+    "capacity_warning": "Break-even volume exceeds the declared annual capacity.",
+    "table_caption": "Annual projection in the selected currency",
+    "margin": "Operating margin",
+    "chart_title": "Annual revenue and costs",
+    "chart_result": "Annual operating result",
+    "chart_axis": "Amounts in the selected currency",
+    "year_word": "Year",
+    "formula": "Result = units × (selling price − variable cost) − fixed costs.",
+    "note": "Price and variable cost remain constant over three years. Sales inputs are assumptions, capped at monthly capacity × 12, not contracts. Fixed costs should include fixed salaries, payroll charges, rent and administration; variable labour belongs in unit cost without double counting.",
+    "exclusions": "Before interest, income taxes, depreciation and amortisation. This is not net profit, available cash, investor return or investment payback. The scenario excludes land purchases, donation revenue and currency conversion.",
+    "method_title": "What the numbers can tell us",
+    "method_body": "The initial budget shows uses of funds; revenue measures sales; earnings depend on costs. The PDF’s revenue curve cannot establish earnings. This projection therefore calculates by unit and year, showing losses when costs exceed sales.",
+    "reset": "Clear assumptions",
+    "unsupplied": "Awaiting assumptions",
+    "print_note": "Scenario calculated from reader-entered inputs; not a company-approved forecast.",
+    "model": "Model",
+    "production": "Reported production cost",
+    "balance": "Balance after production",
+    "balance_note": "Selling price less production cost. Other expenses are not deducted; this is not net profit.",
+    "supplied": "Prices and costs supplied by the team in September 2026.",
+    "prices_title": "Unit economics",
+    "scenarios_title": "Potential by quantity sold",
+    "scenarios_note": "Conditional scenarios for 1, 5 and 15 units of a single model. These are neither annual targets nor confirmed sales. The model mix of a possible Marc Mathys purchase is undefined.",
+    "extra": "Other variable costs per unit",
+    "production_share": "Production",
+    "currency_note": "Amounts in CHF, without conversion. Production costs include labour, transport and installation, as confirmed by the team. Sales tax treatment remains to be defined.",
+    "by_quote": "By quotation",
+    "by_contract": "By contract",
+    "series": "Series, distributors and developers",
+    "forecast_note": "Selling prices and production costs are provided. Annual results still require capacity, fixed expenses and other variable costs. Enter these assumptions; no volume is filled in as guaranteed sales.",
+    "export": "Export"
+  }
+}

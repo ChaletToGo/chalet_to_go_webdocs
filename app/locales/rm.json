@@ -1,0 +1,451 @@
+{
+  "ui": {
+    "skip": "Ir a la lectura",
+    "brand_label": "Chalet to Go — cuverta",
+    "magazine": "Revista da l’interpresa",
+    "edition": "Ediziun 01",
+    "tools": "Utensils da lectura",
+    "open_contents": "Avrir il cuntegn",
+    "contents": "Cuntegn",
+    "preferences": "Reglar la lectura",
+    "fullscreen_enter": "Avrir il maletg entir",
+    "fullscreen_exit": "Serrar il maletg entir",
+    "reader": "Revista Chalet to Go",
+    "cover_eyebrow": "Architectura per novas vias",
+    "cover_1": "Ina nova",
+    "cover_2": "moda da",
+    "cover_3": "viver.",
+    "cover_deck_1": "Ragischs brasilianas.",
+    "cover_deck_2": "In orizont svizzer.",
+    "cover_deck_3": "Pussaivladads senza cunfins.",
+    "explore": "Scuvri nossa istorgia",
+    "materials": "Lain · Design · Natira",
+    "volume": "Vol. 01",
+    "cover_caption_1": "Spazis che beneventan.",
+    "cover_caption_2": "Ideas che ans movan.",
+    "slogan": "Construì per sa mover. Creà per inspirar.",
+    "history_caption": "Il lain sco punct da partenza. / Archiv visual",
+    "archive": "Archiv visual",
+    "gallery_note": "Maletgs da la biblioteca visuala. La repartiziun e las finiziuns vegnan definidas per mintga project.",
+    "collection_caption": "Mobilitad e construcziun en lain. / Archiv visual",
+    "horizon": "In nov orizont",
+    "pilot": "Unitads en il concept da pilot",
+    "caption_nature": "La natira sco inspiraziun. Maletg illustrativ.",
+    "investment": "Investiziun iniziala planisada / Svizra",
+    "thousand": "milli",
+    "investment_body": "Ina basa per locals, equipament, prototip, lantschament e chapital da gestiun. La structura da finanziaziun sto anc vegnir verifitgada.",
+    "plan_note": "Scenari da lavur dal plan d’affars 2027–2031. Ils termins cumenzan cun la realisaziun; las cifras e las finamiras ston vegnir verifitgadas e na represchentan betg ina finanziaziun garantida.",
+    "back_cover": "Turnar a la cuverta",
+    "sources": "Cuntegn basà sin il plan integrà, il dossier da l’interpresa e las infurmaziuns da l’equipa. Ediziun editoriala · settember 2026.",
+    "nojs": "La revista è disponibla sco lectura cuntinuada. Activai JavaScript per la navigaziun e las regulaziuns da lectura.",
+    "progress": "Progress da lectura",
+    "position": "Posiziun en la revista",
+    "previous": "Chapitel precedent",
+    "next": "Proxim chapitel",
+    "contents_title": "Ina via tras nossa istorgia.",
+    "saved_position": "Vossa posiziun da lectura vegn memorisada sin quest apparat.",
+    "your_way": "A vossa moda",
+    "close_contents": "Serrar il cuntegn",
+    "close_preferences": "Serrar las regulaziuns",
+    "your_reading": "Vossa lectura.",
+    "text_size": "Grondezza dal text",
+    "normal": "Standard",
+    "large": "Engrondì",
+    "larger": "Pli grond",
+    "appearance": "Aspect",
+    "paper": "Palpiri",
+    "night": "Notg",
+    "keyboard": "Duvrai las frizzas da la tastatura per midar chapitel. Sin monitur tactil, stritgai da la vart.",
+    "announcement": "{title}. Chapitel {current} da {total}.",
+    "fullscreen_unavailable": "Il maletg entir n’è betg disponibel en quest navigatur.",
+    "language": "Lingua",
+    "close_language": "Serrar las linguas",
+    "language_title": "Tscherni vossa lingua.",
+    "language_hint": "Vossa tscherna vegn memorisada sin quest apparat.",
+    "automatic": "Duvrar la lingua automatica",
+    "download_pdf": "Telechargiar PDF",
+    "pdf_title": "Ediziun per stampar",
+    "pdf_description": "Tscherna la lingua da la datoteca. Format A4 cun texts, maletgs e datas staticas. Il calculatur na fa betg part dal PDF.",
+    "pdf_language": "Lingua dal PDF",
+    "close_pdf": "Serrar la telechargiada"
+  },
+  "pages": [
+    {
+      "id": "capa",
+      "title": "Ina nova moda da viver",
+      "section": "Cuverta",
+      "layout": "cover",
+      "image": "chale_exterior.jpg",
+      "alt": "Chalet en lain sin rodas cun grondas fanestras ed in tetg auzà"
+    },
+    {
+      "id": "historia",
+      "title": "Da l’experientscha da Ron a la creaziun da l’interpresa.",
+      "section": "Nossa istorgia",
+      "layout": "history",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Montascha da la structura en lain d’in chalet",
+      "eyebrow": "01 / Origin e svilup",
+      "intro": "Chalet to Go è al cumenzament da sia organisaziun. L’experientscha precedenta è quella da Ron Lima: circa 25 onns lavur en la construcziun ed il svilup da chalets.",
+      "body": "La via tras ils Stadis Unids, il Brasil e la Svizra collia duas etappas: emprender da construir ed organisar in’interpresa che po fabritgar, vender e furnir. Il project actual sa basa sin questa via, cun l’emprima unitad brasiliana sco proxim pass concret.",
+      "timeline": [
+        [
+          "2001+",
+          "Stadis Unids",
+          "A Miami sviluppa Ron Belo Horizonte Construction."
+        ],
+        [
+          "Brasil",
+          "Producziun da chalets",
+          "Turnà en il Brasil cumenza Ron a producir pitschens chalets. In’empustaziun da 18 unitads mussa il basegn d’organisar capacitad e structura."
+        ],
+        [
+          "Svizra",
+          "Experientscha da construcziun",
+          "Lavurs da differentas dimensiuns amplifitgeschan l’experientscha operativa e precedan il plan d’ina basa en il Giura."
+        ],
+        [
+          "Oz",
+          "Ina nova etappa",
+          "Preparar la producziun brasiliana e preschentar il project svizzer ad investiders ed a la vischnanca da Delémont."
+        ]
+      ]
+    },
+    {
+      "id": "madeira",
+      "title": "Precisiun en il far. Natira en il viver.",
+      "section": "Nossa essenza",
+      "layout": "craft",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Detagls da la fatschada, dal revestgiment e da las fanestras d’in chalet en lain",
+      "eyebrow": "02 / Material ed intenziun",
+      "intro": "Il lain è il punct da partenza. La premura en mintga etappa transfurma il material en in lieu per viver.",
+      "body": "Chalet to Go cumbinescha construcziun en lain, cumponentas standardisadas e libertad da persunalisar. Dimensiuns, equipament e finiziuns pon vegnir adattads a l’utilisaziun ed al martgà da mintga project.",
+      "features": [
+        [
+          "01",
+          "Lain bain preparà",
+          "La selecziun, la sientada e la preparaziun dals materials fan part da la qualitad da construcziun."
+        ],
+        [
+          "02",
+          "Pensar modular",
+          "Cumponentas repetiblas per organisar la producziun, la montascha ed il transport."
+        ],
+        [
+          "03",
+          "Confort a l’intern",
+          "Isolaziun e soluziuns d’energia tenor ils basegns da mintga project."
+        ]
+      ]
+    },
+    {
+      "id": "espacos",
+      "title": "Pitschen en dimensiun. Grond en pussaivladads.",
+      "section": "Spazis per viver",
+      "layout": "gallery",
+      "eyebrow": "03 / Architectura dal mintgadi",
+      "intro": "Glisch natirala, lain e buna utilisaziun dal spazi. La finamira è da reunir l’essenzial en ambients che permettan differentas modas da viver.",
+      "images": [
+        [
+          "chalé_interior_2.jpg",
+          "Cuschina clera ed ambient avert cun in plaun intermediar",
+          "L’essenzial, bain pensà."
+        ],
+        [
+          "chalé_interior_3.jpg",
+          "Chombra da durmir sut in tetg en lain cun fanestras",
+          "In lieu per vegnir a ruaus."
+        ],
+        [
+          "interior_do_chalé_1.jpg",
+          "Intern d’in chalet en lain cun glisch natirala",
+          "Glisch che traversa la chasa."
+        ]
+      ]
+    },
+    {
+      "id": "colecao",
+      "title": "In’idea. Differentas modas da viver.",
+      "section": "Nossa collecziun",
+      "layout": "collection",
+      "eyebrow": "04 / Purschida planisada",
+      "intro": "D’ina unitad cumpacta ad in cumplex d’abitaziuns. La purschida planisada resguarda differentas utilisaziuns, dimensiuns e pussaivladads da persunalisaziun.",
+      "image": "chalés_prontos_1.jpg",
+      "alt": "Gruppa da pitschens chalets en lain sin rodas",
+      "models": [
+        [
+          "01",
+          "Basic",
+          "Cumpact ed essenzial",
+          "Chalet cumpact u pitschna chasa standardisada."
+        ],
+        [
+          "02",
+          "Standard",
+          "Spazi da parter",
+          "Chalet modular per famiglias u per il turissem."
+        ],
+        [
+          "03",
+          "Premium",
+          "Adattà a mintga project",
+          "Persunalisaziun da l’equipament e da las finiziuns."
+        ],
+        [
+          "04",
+          "Village",
+          "Viver ensemen",
+          "Pliras unitads e spazis cuminaivels, tenor project."
+        ]
+      ]
+    },
+    {
+      "id": "brasil",
+      "title": "Il proxim chapitel cumenza qua.",
+      "section": "Il Brasil en moviment",
+      "layout": "brazil",
+      "eyebrow": "05 / Manaschi brasilian",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Ina persuna spezialisada lavura sin il tetg d’in edifizi",
+      "intro": "Minas Caixa, Belo Horizonte. In’equipa pronta per fabritgar e vender l’emprima unitad da questa nova etappa.",
+      "body": "La realisaziun en il Brasil cumpiglia l’infrastructura fisica e digitala, l’organisaziun da la forza da lavur e la structura commerziala. Questa lavur pratica avanza parallel a la preschentaziun dal project en Svizra.",
+      "features": [
+        [
+          "Belo Horizonte / MG",
+          "Producziun",
+          "Il stabiliment en il quartier Minas Caixa vegn ad esser la basa per fabritgar e vender l’emprima unitad."
+        ],
+        [
+          "Natal / RN",
+          "Vitg ecologic",
+          "I dat cunvegnas preliminaras ed interess manifestà, cun in terren preparà per sviluppar il project."
+        ]
+      ]
+    },
+    {
+      "id": "operacao",
+      "layout": "operation",
+      "title": "Da l’emprima unitad ad in process da producziun.",
+      "section": "Co che nus vegnin a producir",
+      "eyebrow": "06 / Organisaziun da la producziun",
+      "intro": "La construcziun da l’emprima unitad avra il manaschi a Minas Caixa. Per repeter la furniziun organisescha il plan ina successiun da la definiziun dal model fin a l’installaziun sin il terren dal client.",
+      "body": "Il lavuratori previs en il Giura reunescha fabricaziun, montascha, magasin cuvert ed exposiziun. La tscherna dal lain suonda mintga basa: spezias brasilianas per il manaschi naziunal e lain svizzer per la domiciliaziun previsa en il Giura.",
+      "steps": [
+        [
+          "Definir",
+          "Model, dimensiuns, equipament e finiziuns tenor l’utilisaziun."
+        ],
+        [
+          "Preparar",
+          "Selecziun, sientada e preparaziun dal lain e da las cumponentas."
+        ],
+        [
+          "Montar",
+          "Montascha e controlla da qualitad avant la furniziun."
+        ],
+        [
+          "Transportar",
+          "Verifitgar dimensiuns, paisa, access e basegn da demontar."
+        ],
+        [
+          "Installar",
+          "Coordinar ils spezialists locals e las pretensiuns dal lieu."
+        ]
+      ],
+      "risk_title": "Tge che sto accumpagnar mintga empustaziun",
+      "risk_body": "Cumpras e termins dependan dal project approvà. Materials, lavur e transport tutgan en il preventiv; pajaments anticipads e furniziuns en etappas fan part da la gestiun da liquiditad previsa. L’expansiun cun distributurs dependa d’ina capacitad cumprovada da fabritgar e porscher sustegn."
+    },
+    {
+      "id": "suica",
+      "title": "Da Delémont, ina visiun per il mund.",
+      "section": "Orizont svizzer",
+      "layout": "swiss",
+      "eyebrow": "07 / Domiciliaziun planisada",
+      "image": "paisagem.jpg",
+      "alt": "Cuntrada cun muntognas, guaud e prads verds",
+      "intro": "Il chantun Giura è la basa previsa per concepir, fabritgar, preschentar e distribuir abitaziuns modularas.",
+      "body": "La prioritad è da preschentar il dossier ad investiders svizzers ed il project a la vischnanca da Delémont. Il plan prevesa in lavuratori cun zona da montascha, magasin e local d’exposiziun, collià cun furniturs e spezialists locals.",
+      "features": [
+        [
+          "01",
+          "Svizra",
+          "Organisar la basa da producziun e sviluppar ils emprims clients e partenadis."
+        ],
+        [
+          "02",
+          "Europa",
+          "S’expander pass per pass cun distributurs e partenaris d’installaziun."
+        ],
+        [
+          "03",
+          "Auters martgads",
+          "Examinar l’export ed ils projects internaziunals tenor la capacitad e las pretensiuns localas."
+        ]
+      ],
+      "portrait": {
+        "image": "marc.png",
+        "title": "Interess per las emprimas unitads",
+        "body": "Marc Mathys ha manifestà interess persunal da cumprar las emprimas 15 unitads da Chalet to Go. Quest interess fa part da la perspectiva commerziala; el n’è ni in’empustaziun contractuala ni ina svieuta garantida.",
+        "caption": "Marc Mathys · interess persunal da cumpra",
+        "alt": "Marc Mathys"
+      }
+    },
+    {
+      "id": "vilas",
+      "title": "Dapli che unitads. Lieus d’inscunter.",
+      "section": "Vitgs ecologics",
+      "layout": "village",
+      "eyebrow": "08 / Viver en cuminanza",
+      "image": "paisagem.jpg",
+      "alt": "Val natirala verda tranter muntognas",
+      "intro": "La visiun da vitgs ecologics engrondescha il project: chasas, spazis cuminaivels ed ina relaziun pli stretga cun il lieu.",
+      "body": "Il concept da pilot prevesa 8 fin 20 unitads, zonas verdas, spazis cuminaivels, gestiun da l’aua e soluziuns d’energia. Mintga realisaziun dependa da la planisaziun tecnica, da partenaris e da las cundiziuns localas.",
+      "features": [
+        [
+          "Natal, Brasil",
+          "Project prioritar",
+          "Terren preparà, cunvegnas preliminaras ed interess manifestà per sviluppar in vitg ecologic."
+        ],
+        [
+          "Portugal",
+          "Ina pussaivladad en svilup",
+          "Er qua datti in terren preparà ed interess manifestà. La dimensiun ed il chalender ston anc vegnir definids."
+        ]
+      ]
+    },
+    {
+      "id": "plano",
+      "title": "Crescher sin ina basa solida.",
+      "section": "Plan d’expansiun",
+      "layout": "plan",
+      "eyebrow": "09 / Orizont 2027–2031",
+      "intro": "Ina realisaziun graduala, cun capacitad da producziun ed equipa che suondan il svilup da las empustaziuns.",
+      "milestones": [
+        [
+          "0–6",
+          "mais",
+          "Organisar",
+          "Verifitgar il plan, organisar la realisaziun e tschertgar finanziaziun, lavuratori e prototip."
+        ],
+        [
+          "6–12",
+          "mais",
+          "Producir",
+          "Sviluppar las emprimas venditas ed ils contracts per furniziuns en seria."
+        ],
+        [
+          "12–24",
+          "mais",
+          "Consolidar",
+          "Far progress en l’industrialisaziun, sin il martgà europeic e cun la preparaziun dal vitg ecologic da pilot."
+        ],
+        [
+          "24–60",
+          "mais",
+          "Expander",
+          "Amplifitgar models, distribuziun e projects internaziunals tenor la dumonda."
+        ]
+      ]
+    },
+    {
+      "id": "resultados",
+      "layout": "projection",
+      "title": "Da las supposiziuns al resultat.",
+      "section": "Projecziun dals resultats",
+      "eyebrow": "10 / Projecziun dals resultats",
+      "intro": "Al cumenzament ston ins stimar quant che mintga unitad contribuescha a la structura. Il dumber vendì ed ils custs fixs annuals determineschan alura il resultat pussaivel."
+    },
+    {
+      "id": "impacto",
+      "layout": "social",
+      "title": "Abitaziun e furmaziun en in’etappa futura.",
+      "section": "Abitaziun e furmaziun",
+      "eyebrow": "11 / Ambiziun sociala",
+      "intro": "Il dossier descriva in’intenziun sur la vendita ora: colliar alloschi temporar e furmaziun en elavuraziun da lain, electricitad, installaziuns sanitaras e construcziun. La proposta vul porscher abitaziuns e cumpetenzas utilas per reconstruir cuminanzas.",
+      "body": "Il material rapporta d’ina emprima experientscha iniziada durant la pandemia ed interrutta da restricziuns internaziunalas. Ina cuntinuaziun dependa da regenzas, organisaziuns e partenaris; nagin program actual n’è confermà.",
+      "concept_title": "Chapir la proposta 1 + 1",
+      "concept_body": "Ina cumpra instituziunala pudess vegnir accumpagnada da la donaziun d’ina unitad equivalenta. Avant in engaschament sto vegnir definì tgi che finanziescha l’unitad supplementara, la logistica e la furmaziun. Questas donaziuns na fan betg part da las projecziuns da venditas e gudogns."
+    },
+    {
+      "id": "futuro",
+      "title": "Ussa èsi da transfurmar il plan en furniziuns.",
+      "section": "Il futur che nus imaginain",
+      "layout": "closing",
+      "eyebrow": "12 / Visiun dal futur",
+      "intro": "Las prioritads èn da fabritgar e vender l’emprima unitad en il Brasil, sviluppar il project da Natal e preschentar la domiciliaziun da Delémont ad investiders ed a la vischnanca.",
+      "body": "Il Portugal, l’expansiun europeica ed ils programs socials èn pussaivladads posteriuras. Els dependan dals emprims resultats, da la formalisaziun dals projects e da lur finanziaziun.",
+      "image": "chale_exterior.jpg",
+      "alt": "Chalet en lain circumdà d’arbers"
+    }
+  ],
+  "finance": {
+    "budget_title": "Il preventiv che accumpogna il plan",
+    "budget_note": "Imports dal PDF da referenza per la domiciliaziun svizra. La summa è verifitgada; las posiziuns dovran anc offertas ed in lieu. Quai n’èn ni expensas fatgas ni meds obtegnids.",
+    "legal": "Constituziun, dretg e studis",
+    "premises": "Locals, magasin e lavuratori",
+    "equipment": "Maschinas, utensils e segirezza",
+    "prototype": "Prototip ed omologaziun",
+    "showroom": "Exposiziun, identitad e pagina web",
+    "marketing": "Marketing e lantschament",
+    "working_capital": "Chapital da gestiun",
+    "budget_total": "Total da referenza",
+    "budget_share": "Part dal total",
+    "setup_title": "Installaziun e lantschament",
+    "reserve_title": "Reserva da chapital da gestiun",
+    "scope_note": "Quest preventiv pertutga la Svizra. El na dastga betg vegnir maschadà cun ils custs brasilians ni deducì cumplettamain dal resultat operativ da mintga onn.",
+    "projection_title": "Da las supposiziuns al resultat.",
+    "projection_section": "Projecziun dals resultats",
+    "projection_intro": "Al cumenzament ston ins stimar quant che mintga unitad contribuescha a la structura. Il dumber vendì ed ils custs fixs annuals determineschan alura il resultat pussaivel.",
+    "projection_note": "Pretschs da vendita e custs da producziun èn inditgads. Per il resultat annual mancan capacitad, custs fixs ed auters custs variabels. Endatai questas supposiziuns; nagina quantitad n’è preemplenida sco vendita garantida.",
+    "input_title": "Supposiziuns dal scenari",
+    "currency": "Valuta dal scenari",
+    "price": "Pretsch da vendita",
+    "variable": "Cust variabel per unitad",
+    "capacity": "Capacitad mensila en unitads",
+    "year": "Onn",
+    "units": "Unitads vendidas",
+    "fixed": "Custs fixs annuals",
+    "calculate": "Calcular il scenari",
+    "required": "Empleni tut ils champs cun las supposiziuns dal manaschi.",
+    "invalid": "Verifitgai cifras validas, unitads entiras e venditas annualas entaifer la capacitad declerada.",
+    "results_title": "Resultats dependents da las supposiziuns",
+    "revenue": "Svieuta",
+    "costs": "Custs totals",
+    "result": "Resultat operativ simplifitgà",
+    "cumulative": "Resultat cumulà en trais onns",
+    "breakeven": "Equiliber annual en unitads",
+    "no_breakeven": "Nagin equiliber cun contribuziun unitara betg positiva",
+    "capacity_warning": "Il dumber per l’equiliber surpassa la capacitad annuala declerada.",
+    "table_caption": "Projecziun annuala en la valuta tschernida",
+    "margin": "Margia operativa",
+    "chart_title": "Venditas e custs per onn",
+    "chart_result": "Resultat operativ per onn",
+    "chart_axis": "Imports en la valuta tschernida",
+    "year_word": "Onn",
+    "formula": "Resultat = unitads × (pretsch da vendita − cust variabel) − custs fixs.",
+    "note": "Pretsch e cust variabel constants per trais onns. Las venditas èn supposiziuns, limitadas a la capacitad mensila × 12, betg contracts. Custs fixs cumpiglian salaris fixs, contribuziuns, tschains e administraziun; lavur variabla tutga en il cust unitar senza dubla dumbraziun.",
+    "exclusions": "Avant tschains, taglias sin il gudogn ed amortisaziuns. Quai n’è ni gudogn net, ni liquiditad disponibla, ni rendita per investiders, ni temp da recuperaziun. Cumpras da terrens, entradas da donaziuns e conversiun da valutas èn exclusas.",
+    "method_title": "Tge che las cifras permettan da concluder",
+    "method_body": "Il preventiv inizial mussa l’utilisaziun dals meds; la svieuta mesira las venditas; il resultat dependa dals custs. La curva dal PDF na permetta betg da deducir gudogns. Il quint vegn fatg per unitad e per onn e mussa perditas sche ils custs surpassan las venditas.",
+    "reset": "Stizzar las supposiziuns",
+    "unsupplied": "En spetga da supposiziuns",
+    "print_note": "Scenari calculà cun las datas dal lectur; nagina prognosa approvada da l’interpresa.",
+    "model": "Model",
+    "production": "Cust da producziun inditgà",
+    "balance": "Saldo suenter producziun",
+    "balance_note": "Pretsch da vendita minus cust da producziun. Autras expensas n’èn betg deducidas; quai n’è betg gudogn net.",
+    "supplied": "Pretschs e custs inditgads da l’equipa il settember 2026.",
+    "prices_title": "Economia da mintga unitad",
+    "scenarios_title": "Potenzial tenor la quantitad vendida",
+    "scenarios_note": "Scenaris cundiziunals dad 1, 5 e 15 unitads dal medem model. Ni finamiras annualas ni venditas confermadas. La cumposiziun d’ina eventuala cumpra da Marc Mathys n’è betg definida.",
+    "extra": "Auters custs variabels per unitad",
+    "production_share": "Producziun",
+    "currency_note": "Imports en CHF, senza conversiun. Ils custs da producziun includan lavur, transport ed installaziun, sco confermà da la squadra. Il tractament da las taglias sin las venditas sto anc vegnir definì.",
+    "by_quote": "Tenor offerta",
+    "by_contract": "Tenor contract",
+    "series": "Serias, distributurs e promoturs",
+    "forecast_note": "Pretschs da vendita e custs da producziun èn inditgads. Per il resultat annual mancan capacitad, custs fixs ed auters custs variabels. Endatai questas supposiziuns; nagina quantitad n’è preemplenida sco vendita garantida.",
+    "export": "Export"
+  }
+}

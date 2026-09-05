@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const messages = JSON.parse(document.querySelector('#reader-i18n').textContent);
   const chapters = [...document.querySelectorAll('.chapter')];
   const reading = document.querySelector('#reading');
   const previous = document.querySelector('#previous');
@@ -35,7 +36,8 @@
       const heading = chapter.querySelector('h1, h2');
       heading.tabIndex = -1;
       heading.focus({ preventScroll: true });
-      document.querySelector('#announcement').textContent = `${chapter.dataset.title}. Capítulo ${index + 1} de ${chapters.length}.`;
+      document.querySelector('#announcement').textContent = messages.announcement
+        .replace('{title}', chapter.dataset.title).replace('{current}', index + 1).replace('{total}', chapters.length);
     }
   }
   const fromId = id => chapters.findIndex(chapter => chapter.id === id);
@@ -63,7 +65,7 @@
   });
   let touchStart;
   reading.addEventListener('touchstart', event => {
-    if (event.touches.length !== 1 || event.target.closest('button,a')) { touchStart = null; return; }
+    if (event.touches.length !== 1 || event.target.closest('button,a,input,select,textarea,.table-scroll')) { touchStart = null; return; }
     touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
   }, { passive: true });
   reading.addEventListener('touchend', event => {
@@ -76,6 +78,11 @@
   reading.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
   document.querySelectorAll('[data-dialog]').forEach(button => button.addEventListener('click', () => document.getElementById(button.dataset.dialog).showModal()));
   document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => button.closest('dialog').close()));
+  document.querySelectorAll('[data-language]').forEach(link => link.addEventListener('click', () => {
+    const destination = new URL(link.href);
+    destination.hash = chapters[current].id;
+    link.href = destination.href;
+  }));
   document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => {
     const rect = dialog.getBoundingClientRect();
     if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
@@ -99,7 +106,7 @@
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
       else await document.documentElement.requestFullscreen();
-    } catch { document.querySelector('#announcement').textContent = 'Tela cheia indisponível neste navegador.'; }
+    } catch { document.querySelector('#announcement').textContent = messages.fullscreen_unavailable; }
   });
-  document.addEventListener('fullscreenchange', () => fullscreen.setAttribute('aria-label', document.fullscreenElement ? 'Sair da tela cheia' : 'Entrar em tela cheia'));
+  document.addEventListener('fullscreenchange', () => fullscreen.setAttribute('aria-label', document.fullscreenElement ? messages.fullscreen_exit : messages.fullscreen_enter));
 })();
