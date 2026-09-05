@@ -11,6 +11,11 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 
+@app.get("/healthz", include_in_schema=False)
+async def healthcheck():
+    return {"status": "ok"}
+
+
 @app.get("/", include_in_schema=False)
 async def home():
     return RedirectResponse(url="/revista", status_code=307)
