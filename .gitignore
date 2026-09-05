@@ -8,3 +8,13 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Local configuration and deployment credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local PDF inspection outputs
+tmp/pdfs/

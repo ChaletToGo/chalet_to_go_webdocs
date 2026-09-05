@@ -1,79 +1,113 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="{{ locale }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0E2A20">
-  <meta name="description" content="Conheça a história, a construção em madeira e os próximos capítulos da Chalet to Go. Uma revista digital sobre novas maneiras de habitar.">
-  <title>Chalet to Go — Uma nova maneira de habitar</title>
+  <meta name="description" content="{{ ui.magazine }} — {{ pages[0].title }}. {{ ui.cover_deck_1 }} {{ ui.cover_deck_2 }}">
+  <title>Chalet to Go — {{ pages[0].title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/editorial.css') }}">
+  <script type="module" src="{{ url_for('static', path='js/finance-reader.mjs') }}"></script>
   <script src="{{ url_for('static', path='js/reader.js') }}" defer></script>
 </head>
-<body>
+<body data-locale="{{ locale }}" data-country="{{ country }}" data-locale-source="{{ locale_source }}">
+<script id="reader-i18n" type="application/json">{{ ui|tojson }}</script>
+<script id="finance-i18n" type="application/json">{{ finance|tojson }}</script>
+<script id="finance-products" type="application/json">{{ products|tojson }}</script>
 <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5"/><rect x="15" y="4" width="5" height="5"/><rect x="4" y="15" width="5" height="5"/><rect x="15" y="15" width="5" height="5"/></symbol>
   <symbol id="i-full" viewBox="0 0 24 24"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
-  <symbol id="i-mark" viewBox="0 0 48 48"><path d="m4 25 19-20 19 20M10 19v23h25V24M20 42V29h8v13M40 14v28m-5-22 5-7 5 7m-10 6 5-7 5 7"/></symbol>
 </defs></svg>
-<a class="skip-link" href="#reading">Ir para a leitura</a>
+<a class="skip-link" href="#reading">{{ ui.skip }}</a>
 <header class="reader-header">
-  <a class="brand" href="#capa" aria-label="Chalet to Go — capa"><svg><use href="#i-mark"/></svg><span>CHALET<span class="brand-bottom">TO GO<span class="brand-dot">+</span></span></span></a>
-  <div class="edition-label">REVISTA INSTITUCIONAL <span> / </span> EDIÇÃO 01</div>
-  <nav class="reader-tools" aria-label="Ferramentas de leitura">
-    <button class="tool toc-trigger" data-dialog="contents" aria-label="Abrir sumário"><svg><use href="#i-grid"/></svg><span>Sumário</span></button>
-    <button class="tool type-trigger" data-dialog="preferences" aria-label="Ajustar leitura"><span class="type-icon">Aa</span></button>
-    <button class="tool fullscreen-trigger" id="fullscreen" aria-label="Entrar em tela cheia"><svg><use href="#i-full"/></svg></button>
+  <a class="brand" href="#capa" aria-label="{{ ui.brand_label }}"><img class="brand-logo" src="{{ url_for('static', path='images/Logomarca.svg') }}" alt="Chalet to Go" width="100" height="100"></a>
+  <div class="edition-label">{{ ui.magazine }} <span> / </span> {{ ui.edition }}</div>
+  <nav class="reader-tools" aria-label="{{ ui.tools }}">
+    <button class="tool toc-trigger" data-dialog="contents" aria-label="{{ ui.open_contents }}"><svg><use href="#i-grid"/></svg><span>{{ ui.contents }}</span></button>
+    <button class="tool language-trigger" data-dialog="languages" aria-label="{{ ui.language }}"><span>{{ locale|upper }}</span></button>
+    <button class="tool pdf-trigger" data-dialog="pdf-download" aria-label="{{ ui.download_pdf }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/></svg></button>
+    <button class="tool type-trigger" data-dialog="preferences" aria-label="{{ ui.preferences }}"><span class="type-icon">Aa</span></button>
+    <button class="tool fullscreen-trigger" id="fullscreen" aria-label="{{ ui.fullscreen_enter }}"><svg><use href="#i-full"/></svg></button>
   </nav>
 </header>
-<main id="reading" tabindex="-1" aria-label="Revista Chalet to Go">
+<main id="reading" tabindex="-1" aria-label="{{ ui.reader }}">
 {% for page in pages %}
 <article class="chapter {{ page.layout }}" id="{{ page.id }}" aria-labelledby="title-{{ page.id }}" data-title="{{ page.section }}" {% if not loop.first %}hidden{% endif %}>
 {% if page.layout == 'cover' %}
   <div class="cover-copy">
-    <div class="eyebrow"><span class="tiny-cross">+</span> ARQUITETURA PARA NOVOS CAMINHOS</div>
-    <h1 id="title-{{ page.id }}">Uma nova<br>maneira de<br><span>habitar.</span></h1>
-    <p class="cover-deck">Raízes brasileiras.<br>Um horizonte suíço.<br>Possibilidades sem fronteiras.</p>
-    <button class="start-reading" data-next>Explore nossa história <span><svg><use href="#i-arrow"/></svg></span></button>
-    <div class="cover-bottom"><span>MADEIRA · DESIGN · NATUREZA</span><span>VOL. 01<br>2026</span></div>
+    <div class="eyebrow"><span class="tiny-cross">+</span> {{ ui.cover_eyebrow }}</div>
+    <h1 id="title-{{ page.id }}">{{ ui.cover_1 }}<br>{{ ui.cover_2 }}<br><span>{{ ui.cover_3 }}</span></h1>
+    <p class="cover-deck">{{ ui.cover_deck_1 }}<br>{{ ui.cover_deck_2 }}<br>{{ ui.cover_deck_3 }}</p>
+    <button class="start-reading" data-next>{{ ui.explore }} <span><svg><use href="#i-arrow"/></svg></span></button>
+    <div class="cover-bottom"><span>{{ ui.materials }}</span><span>{{ ui.volume }}<br>2026</span></div>
   </div>
-  <figure class="cover-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" fetchpriority="high"><figcaption><span>ESPAÇOS QUE ACOLHEM.<br>IDEIAS QUE NOS MOVEM.</span><span class="photo-index">01 / {{ pages|length }}</span></figcaption><div class="photo-side">CHALET TO GO — BUILT TO MOVE. MADE TO INSPIRE.</div></figure>
+  <figure class="cover-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" fetchpriority="high"><figcaption><span>{{ ui.cover_caption_1 }}<br>{{ ui.cover_caption_2 }}</span><span class="photo-index">01 / {{ pages|length }}</span></figcaption><div class="photo-side">CHALET TO GO — {{ ui.slogan }}</div></figure>
 {% elif page.layout == 'history' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="history-grid"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>A madeira como ponto de partida. / Acervo visual</figcaption></figure><div><p class="body-copy">{{ page.body }}</p><div class="timeline">{% for date, title, text in page.timeline %}<div class="timeline-row"><span class="timeline-date">{{ date }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>{% endfor %}</div></div></div>
+  <div class="history-grid"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.history_caption }}</figcaption></figure><div><p class="body-copy">{{ page.body }}</p><div class="timeline">{% for date, title, text in page.timeline %}<div class="timeline-row"><span class="timeline-date">{{ date }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>{% endfor %}</div></div></div>
 {% elif page.layout == 'craft' or page.layout == 'brazil' %}
-  <figure class="side-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>CHALET TO GO / ACERVO VISUAL</figcaption></figure>
+  <figure class="side-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>CHALET TO GO / {{ ui.archive }}</figcaption></figure>
   <div class="side-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="features">{% for number, title, text in page.features %}<div class="feature"><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div></div>
 {% elif page.layout == 'gallery' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="gallery-grid">{% for src, alt, caption in page.images %}<figure><img src="{{ url_for('static', path='images/' ~ src) }}" alt="{{ alt }}" loading="lazy"><figcaption><span>0{{ loop.index }}</span>{{ caption }}</figcaption></figure>{% endfor %}</div><p class="editorial-note">Imagens da biblioteca visual. Configurações e acabamentos são definidos em cada projeto.</p>
+  <div class="gallery-grid">{% for src, alt, caption in page.images %}<figure><img src="{{ url_for('static', path='images/' ~ src) }}" alt="{{ alt }}" loading="lazy"><figcaption><span>0{{ loop.index }}</span>{{ caption }}</figcaption></figure>{% endfor %}</div><p class="editorial-note">{{ ui.gallery_note }}</p>
 {% elif page.layout == 'collection' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="collection-grid"><div class="model-list">{% for number, title, subtitle, text in page.models %}<div class="model"><span>{{ number }}</span><div><h3>{{ title }}</h3><strong>{{ subtitle }}</strong><p>{{ text }}</p></div><svg><use href="#i-arrow"/></svg></div>{% endfor %}</div><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>Mobilidade e construção em madeira. / Acervo visual</figcaption></figure></div>
+  <div class="collection-grid"><div class="model-list">{% for number, title, subtitle, text in page.models %}<div class="model"><span>{{ number }}</span><div><h3>{{ title }}</h3><strong>{{ subtitle }}</strong><p>{{ text }}</p><p class="model-price">{% if loop.index0 < 3 %}CHF {{ products[loop.index0].price|amount(locale) }}{% else %}{{ finance.by_quote }}{% endif %}</p></div><svg><use href="#i-arrow"/></svg></div>{% endfor %}</div><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.collection_caption }}</figcaption></figure></div>
+<p class="b2b-note">{{ finance.export }} / B2B · {{ finance.series }} — {{ finance.by_contract }}</p>
+{% elif page.layout == 'operation' %}
+  <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
+  <p class="operation-body body-copy">{{ page.body }}</p>
+  <ol class="production-flow">{% for title,text in page.steps %}<li><span class="flow-number">{{ '%02d'|format(loop.index) }}</span><h3>{{ title }}</h3><p>{{ text }}</p></li>{% endfor %}</ol>
+  <div class="operation-risk"><h3>{{ page.risk_title }}</h3><p class="body-copy">{{ page.risk_body }}</p></div>
+{% elif page.layout == 'social' %}
+  <div class="social-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p></div>
+  <div class="social-concept"><span class="concept-number" aria-hidden="true">1 + 1</span><h3>{{ page.concept_title }}</h3><p>{{ page.concept_body }}</p></div>
 {% elif page.layout == 'swiss' %}
-  <div class="landscape-band"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><span>UM NOVO HORIZONTE <b>+</b></span></div>
+  <div class="landscape-band"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><span>{{ ui.horizon }} <b>+</b></span></div>
   <div class="swiss-grid"><div><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2></div><div><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p></div></div><div class="expansion-grid">{% for number, title, text in page.features %}<div><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
+  <aside class="marc-profile" aria-labelledby="marc-title"><figure><img src="{{ url_for('static', path='images/' ~ page.portrait.image) }}" alt="{{ page.portrait.alt }}" loading="lazy"><figcaption>{{ page.portrait.caption }}</figcaption></figure><div><p class="eyebrow">Marc Mathys</p><h3 id="marc-title">{{ page.portrait.title }}</h3><p class="body-copy">{{ page.portrait.body }}</p></div></aside>
 {% elif page.layout == 'village' %}
-  <div class="village-intro"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="village-stat"><strong>8–20</strong><span>UNIDADES NO<br>CONCEITO DE PILOTO</span></div></div><div class="village-detail"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>Natureza como inspiração. Imagem ilustrativa.</figcaption></figure>{% for title, subtitle, text in page.features %}<div class="location"><p class="eyebrow">{{ subtitle }}</p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
+  <div class="village-intro"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="village-stat"><strong>8–20</strong><span>{{ ui.pilot }}</span></div></div><div class="village-detail"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.caption_nature }}</figcaption></figure>{% for title, subtitle, text in page.features %}<div class="location"><p class="eyebrow">{{ subtitle }}</p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
 {% elif page.layout == 'plan' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="investment"><div><span class="eyebrow">INVESTIMENTO INICIAL PREVISTO / SUÍÇA</span><p><small>CHF</small> 575 <span>mil</span></p></div><p>Uma base para instalação, equipamentos, protótipo, lançamento e capital de giro. Estrutura de financiamento ainda a validar.</p></div>
-  <div class="roadmap">{% for period, unit, title, text in page.milestones %}<div><p class="period">{{ period }} <span>{{ unit }}</span></p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div><p class="editorial-note">Cenário de trabalho do business plan 2027–2031. Prazos contados a partir da implantação; valores e metas dependem de validação e não representam financiamento contratado.</p>
+  <section class="budget-panel"><h3>{{ finance.budget_title }}</h3><p>{{ finance.budget_note }}</p><p class="budget-total">CHF {{ budget.total|amount(locale) }}</p><p>{{ finance.setup_title }}: CHF {{ budget.setup|amount(locale) }} · {{ finance.reserve_title }}: CHF {{ budget.working_capital|amount(locale) }}</p>
+  <dl class="budget-bars">{% for item in budget['items'] %}<div><dt>{{ finance[item.key] }}</dt><dd><span>CHF {{ item.amount|amount(locale) }}</span><span class="budget-track" aria-hidden="true"><i style="width:{{ item.percentage }}%"></i></span></dd></div>{% endfor %}</dl><p class="editorial-note">{{ finance.budget_share }} · 0–100%. {{ finance.scope_note }}</p></section>
+  <div class="roadmap">{% for period, unit, title, text in page.milestones %}<div><p class="period">{{ period }} <span>{{ unit }}</span></p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div><p class="editorial-note">{{ ui.plan_note }}</p>
+{% elif page.layout == 'projection' %}
+  {% include 'financial_projection.html' %}
 {% elif page.layout == 'closing' %}
-  <div class="closing-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="closing-signature">CHALET <span>TO GO</span><small>BUILT TO MOVE. MADE TO INSPIRE.</small></div><button class="text-button" data-goto="capa">Voltar à capa <svg><use href="#i-arrow"/></svg></button><p class="editorial-note">Conteúdo baseado no plano integrado, no dossiê institucional e nas atualizações da equipe. Edição editorial · setembro de 2026.</p></div><figure class="closing-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"></figure>
+  <div class="closing-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="closing-signature">CHALET <span>TO GO</span><small>{{ ui.slogan }}</small></div><button class="text-button" data-goto="capa">{{ ui.back_cover }} <svg><use href="#i-arrow"/></svg></button><p class="editorial-note">{{ ui.sources }}</p></div><figure class="closing-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"></figure>
 {% endif %}
 </article>
 {% endfor %}
-<noscript><style>.chapter[hidden]{display:grid!important}body{height:auto;overflow:auto}#reading{overflow:visible}.reader-footer,.reader-tools,.start-reading,.text-button{display:none}.chapter{min-height:90vh}</style><p>A revista está disponível em leitura contínua. Ative JavaScript para usar a navegação e os ajustes de leitura.</p></noscript>
+<noscript><style>.chapter[hidden]{display:grid!important}body{height:auto;overflow:auto}#reading{overflow:visible}.reader-footer,.reader-tools,.start-reading,.text-button{display:none}.chapter{min-height:90vh}</style><p>{{ ui.nojs }}</p><nav class="noscript-languages" aria-label="{{ ui.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code) }}" lang="{{ code }}">{{ name }}</a>{% endfor %}</nav></noscript>
 </main>
 <footer class="reader-footer">
-  <div class="footer-section"><span id="chapter-number">00</span><span id="chapter-name">Capa</span></div>
-  <div class="reading-progress" aria-label="Progresso da revista"><div class="progress-track" role="progressbar" aria-label="Posição na revista" aria-valuemin="1" aria-valuemax="{{ pages|length }}" aria-valuenow="1"><span id="progress-fill"></span></div><span id="progress-label">1 / {{ pages|length }}</span></div>
-  <div class="page-controls"><button class="tool" id="previous" aria-label="Capítulo anterior" disabled><svg class="reverse"><use href="#i-arrow"/></svg></button><span id="page-counter">01 <span>/ {{ '%02d'|format(pages|length) }}</span></span><button class="tool next-button" id="next" aria-label="Próximo capítulo"><svg><use href="#i-arrow"/></svg></button></div>
+  <div class="footer-section"><span id="chapter-number">00</span><span id="chapter-name">{{ pages[0].section }}</span></div>
+  <div class="reading-progress" aria-label="{{ ui.progress }}"><div class="progress-track" role="progressbar" aria-label="{{ ui.position }}" aria-valuemin="1" aria-valuemax="{{ pages|length }}" aria-valuenow="1"><span id="progress-fill"></span></div><span id="progress-label">1 / {{ pages|length }}</span></div>
+  <div class="page-controls"><button class="tool" id="previous" aria-label="{{ ui.previous }}" disabled><svg class="reverse"><use href="#i-arrow"/></svg></button><span id="page-counter">01 <span>/ {{ '%02d'|format(pages|length) }}</span></span><button class="tool next-button" id="next" aria-label="{{ ui.next }}"><svg><use href="#i-arrow"/></svg></button></div>
 </footer>
 <div class="sr-only" aria-live="polite" id="announcement"></div>
-<dialog id="contents" class="contents-dialog" aria-labelledby="contents-title"><div class="dialog-heading"><p class="eyebrow">CHALET TO GO / EDIÇÃO 01</p><button class="tool" data-close aria-label="Fechar sumário"><svg><use href="#i-close"/></svg></button></div><h2 id="contents-title">Um caminho<br>pela nossa história.</h2><nav aria-label="Capítulos">{% for page in pages %}<a href="#{{ page.id }}" data-goto="{{ page.id }}"><span>{{ '%02d'|format(loop.index0) }}</span>{{ page.section }}<svg><use href="#i-arrow"/></svg></a>{% endfor %}</nav><p class="dialog-footnote">Sua posição de leitura é salva neste dispositivo.</p></dialog>
-<dialog id="preferences" class="preferences-dialog" aria-labelledby="preferences-title"><div class="dialog-heading"><p class="eyebrow">DO SEU JEITO</p><button class="tool" data-close aria-label="Fechar ajustes"><svg><use href="#i-close"/></svg></button></div><h2 id="preferences-title">Sua leitura.</h2><fieldset><legend>Tamanho do texto</legend><div class="preference-options"><button data-size="normal" aria-pressed="true">Padrão</button><button data-size="large" aria-pressed="false">Ampliado</button><button data-size="larger" aria-pressed="false">Maior</button></div></fieldset><fieldset><legend>Aparência</legend><div class="preference-options"><button data-theme="paper" aria-pressed="true">Papel</button><button data-theme="night" aria-pressed="false">Noturna</button></div></fieldset><p class="dialog-footnote">Use as setas do teclado para mudar de capítulo. Em telas sensíveis ao toque, deslize para os lados.</p></dialog>
+<dialog id="contents" class="contents-dialog" aria-labelledby="contents-title"><div class="dialog-heading"><p class="eyebrow">CHALET TO GO / {{ ui.edition }}</p><button class="tool" data-close aria-label="{{ ui.close_contents }}"><svg><use href="#i-close"/></svg></button></div><h2 id="contents-title">{{ ui.contents_title }}</h2><nav aria-label="{{ ui.contents }}">{% for page in pages %}<a href="#{{ page.id }}" data-goto="{{ page.id }}"><span>{{ '%02d'|format(loop.index0) }}</span>{{ page.section }}<svg><use href="#i-arrow"/></svg></a>{% endfor %}</nav><p class="dialog-footnote">{{ ui.saved_position }}</p></dialog>
+<dialog id="preferences" class="preferences-dialog" aria-labelledby="preferences-title"><div class="dialog-heading"><p class="eyebrow">{{ ui.your_way }}</p><button class="tool" data-close aria-label="{{ ui.close_preferences }}"><svg><use href="#i-close"/></svg></button></div><h2 id="preferences-title">{{ ui.your_reading }}</h2><fieldset><legend>{{ ui.text_size }}</legend><div class="preference-options"><button data-size="normal" aria-pressed="true">{{ ui.normal }}</button><button data-size="large" aria-pressed="false">{{ ui.large }}</button><button data-size="larger" aria-pressed="false">{{ ui.larger }}</button></div></fieldset><fieldset><legend>{{ ui.appearance }}</legend><div class="preference-options"><button data-theme="paper" aria-pressed="true">{{ ui.paper }}</button><button data-theme="night" aria-pressed="false">{{ ui.night }}</button></div></fieldset><p class="dialog-footnote">{{ ui.keyboard }}</p></dialog>
+<dialog id="languages" class="language-dialog" aria-labelledby="language-title">
+  <div class="dialog-heading"><p class="eyebrow">CHALET TO GO</p><button class="tool" data-close aria-label="{{ ui.close_language }}"><svg><use href="#i-close"/></svg></button></div>
+  <h2 id="language-title">{{ ui.language_title }}</h2>
+  <p class="dialog-footnote">{{ ui.language_hint }}</p>
+  <nav class="language-options" aria-label="{{ ui.language }}">
+    {% for code, name in language_options %}<a href="{{ request.url.include_query_params(lang=code) }}" lang="{{ code }}" hreflang="{{ code }}" data-language="{{ code }}" {% if code == locale %}aria-current="true"{% endif %}>{{ name }}<span aria-hidden="true">{% if code == locale %}✓{% endif %}</span></a>{% endfor %}
+    <a class="automatic-language" href="{{ request.url.include_query_params(lang='auto') }}" data-language="auto">{{ ui.automatic }}</a>
+  </nav>
+</dialog>
+<dialog id="pdf-download" class="pdf-dialog" aria-labelledby="pdf-title">
+  <div class="dialog-heading"><p class="eyebrow">CHALET TO GO / PDF</p><button class="tool" data-close aria-label="{{ ui.close_pdf }}"><svg><use href="#i-close"/></svg></button></div>
+  <h2 id="pdf-title">{{ ui.pdf_title }}</h2><p>{{ ui.pdf_description }}</p>
+  <form action="{{ url_for('revista_pdf') }}" method="get"><label for="pdf-language">{{ ui.pdf_language }}</label><select name="lang" id="pdf-language">{% for code,name in language_options %}<option value="{{ code }}" {% if code == locale %}selected{% endif %}>{{ name }}</option>{% endfor %}</select><button type="submit">{{ ui.download_pdf }}</button></form>
+</dialog>
+<noscript><a class="pdf-nojs" href="{{ url_for('revista_pdf') }}?lang={{ locale }}">{{ ui.download_pdf }}</a></noscript>
 </body>
 </html>

@@ -1,0 +1,13 @@
+# Only production application files enter the build context.
+**
+!Dockerfile
+!pyproject.toml
+!uv.lock
+!app/
+!app/**
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.env
+**/*.pem
+**/*.key
