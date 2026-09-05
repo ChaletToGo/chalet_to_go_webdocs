@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0E2A20">
+  <meta name="description" content="Conheça a história, a construção em madeira e os próximos capítulos da Chalet to Go. Uma revista digital sobre novas maneiras de habitar.">
+  <title>Chalet to Go — Uma nova maneira de habitar</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+  <script src="{{ url_for('static', path='js/reader.js') }}" defer></script>
+</head>
+<body>
+<svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5"/><rect x="15" y="4" width="5" height="5"/><rect x="4" y="15" width="5" height="5"/><rect x="15" y="15" width="5" height="5"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  <symbol id="i-mark" viewBox="0 0 48 48"><path d="m4 25 19-20 19 20M10 19v23h25V24M20 42V29h8v13M40 14v28m-5-22 5-7 5 7m-10 6 5-7 5 7"/></symbol>
+</defs></svg>
+<a class="skip-link" href="#reading">Ir para a leitura</a>
+<header class="reader-header">
+  <a class="brand" href="#capa" aria-label="Chalet to Go — capa"><svg><use href="#i-mark"/></svg><span>CHALET<span class="brand-bottom">TO GO<span class="brand-dot">+</span></span></span></a>
+  <div class="edition-label">REVISTA INSTITUCIONAL <span> / </span> EDIÇÃO 01</div>
+  <nav class="reader-tools" aria-label="Ferramentas de leitura">
+    <button class="tool toc-trigger" data-dialog="contents" aria-label="Abrir sumário"><svg><use href="#i-grid"/></svg><span>Sumário</span></button>
+    <button class="tool type-trigger" data-dialog="preferences" aria-label="Ajustar leitura"><span class="type-icon">Aa</span></button>
+    <button class="tool fullscreen-trigger" id="fullscreen" aria-label="Entrar em tela cheia"><svg><use href="#i-full"/></svg></button>
+  </nav>
+</header>
+<main id="reading" tabindex="-1" aria-label="Revista Chalet to Go">
+{% for page in pages %}
+<article class="chapter {{ page.layout }}" id="{{ page.id }}" aria-labelledby="title-{{ page.id }}" data-title="{{ page.section }}" {% if not loop.first %}hidden{% endif %}>
+{% if page.layout == 'cover' %}
+  <div class="cover-copy">
+    <div class="eyebrow"><span class="tiny-cross">+</span> ARQUITETURA PARA NOVOS CAMINHOS</div>
+    <h1 id="title-{{ page.id }}">Uma nova<br>maneira de<br><span>habitar.</span></h1>
+    <p class="cover-deck">Raízes brasileiras.<br>Um horizonte suíço.<br>Possibilidades sem fronteiras.</p>
+    <button class="start-reading" data-next>Explore nossa história <span><svg><use href="#i-arrow"/></svg></span></button>
+    <div class="cover-bottom"><span>MADEIRA · DESIGN · NATUREZA</span><span>VOL. 01<br>2026</span></div>
+  </div>
+  <figure class="cover-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" fetchpriority="high"><figcaption><span>ESPAÇOS QUE ACOLHEM.<br>IDEIAS QUE NOS MOVEM.</span><span class="photo-index">01 / {{ pages|length }}</span></figcaption><div class="photo-side">CHALET TO GO — BUILT TO MOVE. MADE TO INSPIRE.</div></figure>
+{% elif page.layout == 'history' %}
+  <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
+  <div class="history-grid"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>A madeira como ponto de partida. / Acervo visual</figcaption></figure><div><p class="body-copy">{{ page.body }}</p><div class="timeline">{% for date, title, text in page.timeline %}<div class="timeline-row"><span class="timeline-date">{{ date }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>{% endfor %}</div></div></div>
+{% elif page.layout == 'craft' or page.layout == 'brazil' %}
+  <figure class="side-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>CHALET TO GO / ACERVO VISUAL</figcaption></figure>
+  <div class="side-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="features">{% for number, title, text in page.features %}<div class="feature"><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div></div>
+{% elif page.layout == 'gallery' %}
+  <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
+  <div class="gallery-grid">{% for src, alt, caption in page.images %}<figure><img src="{{ url_for('static', path='images/' ~ src) }}" alt="{{ alt }}" loading="lazy"><figcaption><span>0{{ loop.index }}</span>{{ caption }}</figcaption></figure>{% endfor %}</div><p class="editorial-note">Imagens da biblioteca visual. Configurações e acabamentos são definidos em cada projeto.</p>
+{% elif page.layout == 'collection' %}
+  <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
+  <div class="collection-grid"><div class="model-list">{% for number, title, subtitle, text in page.models %}<div class="model"><span>{{ number }}</span><div><h3>{{ title }}</h3><strong>{{ subtitle }}</strong><p>{{ text }}</p></div><svg><use href="#i-arrow"/></svg></div>{% endfor %}</div><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>Mobilidade e construção em madeira. / Acervo visual</figcaption></figure></div>
+{% elif page.layout == 'swiss' %}
+  <div class="landscape-band"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><span>UM NOVO HORIZONTE <b>+</b></span></div>
+  <div class="swiss-grid"><div><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2></div><div><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p></div></div><div class="expansion-grid">{% for number, title, text in page.features %}<div><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
+{% elif page.layout == 'village' %}
+  <div class="village-intro"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="village-stat"><strong>8–20</strong><span>UNIDADES NO<br>CONCEITO DE PILOTO</span></div></div><div class="village-detail"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>Natureza como inspiração. Imagem ilustrativa.</figcaption></figure>{% for title, subtitle, text in page.features %}<div class="location"><p class="eyebrow">{{ subtitle }}</p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
+{% elif page.layout == 'plan' %}
+  <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
+  <div class="investment"><div><span class="eyebrow">INVESTIMENTO INICIAL PREVISTO / SUÍÇA</span><p><small>CHF</small> 575 <span>mil</span></p></div><p>Uma base para instalação, equipamentos, protótipo, lançamento e capital de giro. Estrutura de financiamento ainda a validar.</p></div>
+  <div class="roadmap">{% for period, unit, title, text in page.milestones %}<div><p class="period">{{ period }} <span>{{ unit }}</span></p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div><p class="editorial-note">Cenário de trabalho do business plan 2027–2031. Prazos contados a partir da implantação; valores e metas dependem de validação e não representam financiamento contratado.</p>
+{% elif page.layout == 'closing' %}
+  <div class="closing-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="closing-signature">CHALET <span>TO GO</span><small>BUILT TO MOVE. MADE TO INSPIRE.</small></div><button class="text-button" data-goto="capa">Voltar à capa <svg><use href="#i-arrow"/></svg></button><p class="editorial-note">Conteúdo baseado no plano integrado, no dossiê institucional e nas atualizações da equipe. Edição editorial · setembro de 2026.</p></div><figure class="closing-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"></figure>
+{% endif %}
+</article>
+{% endfor %}
+<noscript><style>.chapter[hidden]{display:grid!important}body{height:auto;overflow:auto}#reading{overflow:visible}.reader-footer,.reader-tools,.start-reading,.text-button{display:none}.chapter{min-height:90vh}</style><p>A revista está disponível em leitura contínua. Ative JavaScript para usar a navegação e os ajustes de leitura.</p></noscript>
+</main>
+<footer class="reader-footer">
+  <div class="footer-section"><span id="chapter-number">00</span><span id="chapter-name">Capa</span></div>
+  <div class="reading-progress" aria-label="Progresso da revista"><div class="progress-track" role="progressbar" aria-label="Posição na revista" aria-valuemin="1" aria-valuemax="{{ pages|length }}" aria-valuenow="1"><span id="progress-fill"></span></div><span id="progress-label">1 / {{ pages|length }}</span></div>
+  <div class="page-controls"><button class="tool" id="previous" aria-label="Capítulo anterior" disabled><svg class="reverse"><use href="#i-arrow"/></svg></button><span id="page-counter">01 <span>/ {{ '%02d'|format(pages|length) }}</span></span><button class="tool next-button" id="next" aria-label="Próximo capítulo"><svg><use href="#i-arrow"/></svg></button></div>
+</footer>
+<div class="sr-only" aria-live="polite" id="announcement"></div>
+<dialog id="contents" class="contents-dialog" aria-labelledby="contents-title"><div class="dialog-heading"><p class="eyebrow">CHALET TO GO / EDIÇÃO 01</p><button class="tool" data-close aria-label="Fechar sumário"><svg><use href="#i-close"/></svg></button></div><h2 id="contents-title">Um caminho<br>pela nossa história.</h2><nav aria-label="Capítulos">{% for page in pages %}<a href="#{{ page.id }}" data-goto="{{ page.id }}"><span>{{ '%02d'|format(loop.index0) }}</span>{{ page.section }}<svg><use href="#i-arrow"/></svg></a>{% endfor %}</nav><p class="dialog-footnote">Sua posição de leitura é salva neste dispositivo.</p></dialog>
+<dialog id="preferences" class="preferences-dialog" aria-labelledby="preferences-title"><div class="dialog-heading"><p class="eyebrow">DO SEU JEITO</p><button class="tool" data-close aria-label="Fechar ajustes"><svg><use href="#i-close"/></svg></button></div><h2 id="preferences-title">Sua leitura.</h2><fieldset><legend>Tamanho do texto</legend><div class="preference-options"><button data-size="normal" aria-pressed="true">Padrão</button><button data-size="large" aria-pressed="false">Ampliado</button><button data-size="larger" aria-pressed="false">Maior</button></div></fieldset><fieldset><legend>Aparência</legend><div class="preference-options"><button data-theme="paper" aria-pressed="true">Papel</button><button data-theme="night" aria-pressed="false">Noturna</button></div></fieldset><p class="dialog-footnote">Use as setas do teclado para mudar de capítulo. Em telas sensíveis ao toque, deslize para os lados.</p></dialog>
+</body>
+</html>
