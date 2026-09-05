@@ -10,6 +10,10 @@ services:
     init: true
     ports:
       - "${BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-8000}:8000"
+    networks:
+      proxy:
+        aliases:
+          - chalet-web
     environment:
       TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
@@ -26,3 +30,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+networks:
+  proxy:
+    name: ${PROXY_NETWORK:-nginxproxymanager_default}
+    external: true
