@@ -191,3 +191,11 @@ READING_LABELS = {
 }
 for _locale, _labels in READING_LABELS.items():
     CONTENT[_locale]['reading'] = dict(zip(('title','close','size','normal','large','larger','theme','paper','night'),_labels))
+
+for _locale, _label in {'pt-BR':'Tela cheia','pt-PT':'Ecrã inteiro','en':'Full screen','fr':'Plein écran','de':'Vollbild','it':'Schermo intero','rm':'Maletg entir'}.items():
+    CONTENT[_locale]['fullscreen'] = _label
+HERO_ENDINGS={'pt-BR':'da natureza.','pt-PT':'da natureza.','en':'to nature.','fr':'de la nature.','de':'Natur.','it':'alla natura.','rm':'natira.'}
+for _locale, _text in CONTENT.items():
+    _words=_text['hero'].rsplit(' ',2)
+    _text['hero_start']=' '.join(_words[:-2]) if len(_words)==3 else _text['hero']
+    _text['hero_accent']=' '.join(_words[-2:]) if len(_words)==3 else ''
