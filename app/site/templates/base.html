@@ -2,7 +2,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ seo.title }}</title><meta name="description" content="{{ seo.description }}"><meta name="robots" content="{{ seo.robots }}"><meta name="theme-color" content="#0e2a20">
 <link rel="canonical" href="{{ seo.canonical }}">{% for code,url in seo.alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}">{% endfor %}<link rel="alternate" hreflang="x-default" href="{{ seo.default_url }}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Chalet to Go"><meta property="og:title" content="{{ seo.title }}"><meta property="og:description" content="{{ seo.description }}"><meta property="og:url" content="{{ seo.canonical }}"><meta property="og:image" content="{{ seo.image }}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ seo.title }}"><meta name="twitter:description" content="{{ seo.description }}"><meta name="twitter:image" content="{{ seo.image }}">
-<link rel="icon" href="{{ url_for('static',path='images/Logomarca.svg') }}" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',path='brand/brand.css') }}"><link rel="stylesheet" href="{{ url_for('site_static',path='css/site.css') }}">
+<link rel="icon" href="{{ url_for('static',path='images/Logomarca.svg')|local_url }}" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',path='brand/brand.css')|local_url }}"><link rel="stylesheet" href="{{ url_for('site_static',path='css/site.css')|local_url }}">
 <script type="application/ld+json">{{ seo.schema|tojson }}</script>
 </head><body>
 {% include '_header.html' %}

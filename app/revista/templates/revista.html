@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#0E2A20">
   <meta name="description" content="{{ ui.magazine }} — {{ pages[0].title }}. {{ ui.cover_deck_1 }} {{ ui.cover_deck_2 }}">
   <title>Chalet to Go — {{ pages[0].title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='brand/brand.css') }}">
-  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/main.css') }}">
-  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/editorial.css') }}">
-  <script type="module" src="{{ url_for('revista_static', path='js/finance-reader.mjs') }}"></script>
-  <script src="{{ url_for('revista_static', path='js/reader.js') }}" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='brand/brand.css')|local_url }}">
+  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/main.css')|local_url }}">
+  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/editorial.css')|local_url }}">
+  <script type="module" src="{{ url_for('revista_static', path='js/finance-reader.mjs')|local_url }}"></script>
+  <script src="{{ url_for('revista_static', path='js/reader.js')|local_url }}" defer></script>
 </head>
 <body data-locale="{{ locale }}" data-country="{{ country }}" data-locale-source="{{ locale_source }}">
 <script id="reader-i18n" type="application/json">{{ ui|tojson }}</script>
@@ -24,7 +24,7 @@
 </defs></svg>
 <a class="skip-link" href="#reading">{{ ui.skip }}</a>
 <header class="reader-header">
-  <a class="brand" href="#capa" aria-label="{{ ui.brand_label }}"><img class="brand-logo" src="{{ url_for('static', path='images/Logomarca.svg') }}" alt="Chalet to Go" width="100" height="100"></a>
+  <a class="brand" href="#capa" aria-label="{{ ui.brand_label }}"><img class="brand-logo" src="{{ url_for('static', path='images/Logomarca.svg')|local_url }}" alt="Chalet to Go" width="100" height="100"></a>
   <div class="edition-label">{{ ui.magazine }} <span> / </span> {{ ui.edition }}</div>
   <nav class="reader-tools" aria-label="{{ ui.tools }}">
     <button class="tool toc-trigger" data-dialog="contents" aria-label="{{ ui.open_contents }}"><svg><use href="#i-grid"/></svg><span>{{ ui.contents }}</span></button>
@@ -45,19 +45,19 @@
     <button class="start-reading" data-next>{{ ui.explore }} <span><svg><use href="#i-arrow"/></svg></span></button>
     <div class="cover-bottom"><span>{{ ui.materials }}</span><span>{{ ui.volume }}<br>2026</span></div>
   </div>
-  <figure class="cover-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" fetchpriority="high"><figcaption><span>{{ ui.cover_caption_1 }}<br>{{ ui.cover_caption_2 }}</span><span class="photo-index">01 / {{ pages|length }}</span></figcaption><div class="photo-side">CHALET TO GO — {{ ui.slogan }}</div></figure>
+  <figure class="cover-photo"><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" fetchpriority="high"><figcaption><span>{{ ui.cover_caption_1 }}<br>{{ ui.cover_caption_2 }}</span><span class="photo-index">01 / {{ pages|length }}</span></figcaption><div class="photo-side">CHALET TO GO — {{ ui.slogan }}</div></figure>
 {% elif page.layout == 'history' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="history-grid"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.history_caption }}</figcaption></figure><div><p class="body-copy">{{ page.body }}</p><div class="timeline">{% for date, title, text in page.timeline %}<div class="timeline-row"><span class="timeline-date">{{ date }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>{% endfor %}</div></div></div>
+  <div class="history-grid"><figure><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.history_caption }}</figcaption></figure><div><p class="body-copy">{{ page.body }}</p><div class="timeline">{% for date, title, text in page.timeline %}<div class="timeline-row"><span class="timeline-date">{{ date }}</span><div><h3>{{ title }}</h3><p>{{ text }}</p></div></div>{% endfor %}</div></div></div>
 {% elif page.layout == 'craft' or page.layout == 'brazil' %}
-  <figure class="side-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>CHALET TO GO / {{ ui.archive }}</figcaption></figure>
+  <figure class="side-photo"><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"><figcaption>CHALET TO GO / {{ ui.archive }}</figcaption></figure>
   <div class="side-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="features">{% for number, title, text in page.features %}<div class="feature"><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div></div>
 {% elif page.layout == 'gallery' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="gallery-grid">{% for src, alt, caption in page.images %}<figure><img src="{{ url_for('static', path='images/' ~ src) }}" alt="{{ alt }}" loading="lazy"><figcaption><span>0{{ loop.index }}</span>{{ caption }}</figcaption></figure>{% endfor %}</div><p class="editorial-note">{{ ui.gallery_note }}</p>
+  <div class="gallery-grid">{% for src, alt, caption in page.images %}<figure><img src="{{ url_for('static', path='images/' ~ src)|local_url }}" alt="{{ alt }}" loading="lazy"><figcaption><span>0{{ loop.index }}</span>{{ caption }}</figcaption></figure>{% endfor %}</div><p class="editorial-note">{{ ui.gallery_note }}</p>
 {% elif page.layout == 'collection' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
-  <div class="collection-grid"><div class="model-list">{% for number, title, subtitle, text in page.models %}<div class="model"><span>{{ number }}</span><div><h3>{{ title }}</h3><strong>{{ subtitle }}</strong><p>{{ text }}</p><p class="model-price">{% if loop.index0 < 3 %}CHF {{ products[loop.index0].price|amount(locale) }}{% else %}{{ finance.by_quote }}{% endif %}</p></div><svg><use href="#i-arrow"/></svg></div>{% endfor %}</div><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.collection_caption }}</figcaption></figure></div>
+  <div class="collection-grid"><div class="model-list">{% for number, title, subtitle, text in page.models %}<div class="model"><span>{{ number }}</span><div><h3>{{ title }}</h3><strong>{{ subtitle }}</strong><p>{{ text }}</p><p class="model-price">{% if loop.index0 < 3 %}CHF {{ products[loop.index0].price|amount(locale) }}{% else %}{{ finance.by_quote }}{% endif %}</p></div><svg><use href="#i-arrow"/></svg></div>{% endfor %}</div><figure><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.collection_caption }}</figcaption></figure></div>
 <p class="b2b-note">{{ finance.export }} / B2B · {{ finance.series }} — {{ finance.by_contract }}</p>
 {% elif page.layout == 'operation' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
@@ -68,11 +68,11 @@
   <div class="social-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p></div>
   <div class="social-concept"><span class="concept-number" aria-hidden="true">1 + 1</span><h3>{{ page.concept_title }}</h3><p>{{ page.concept_body }}</p></div>
 {% elif page.layout == 'swiss' %}
-  <div class="landscape-band"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><span>{{ ui.horizon }} <b>+</b></span></div>
+  <div class="landscape-band"><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"><span>{{ ui.horizon }} <b>+</b></span></div>
   <div class="swiss-grid"><div><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2></div><div><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p></div></div><div class="expansion-grid">{% for number, title, text in page.features %}<div><span>{{ number }}</span><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
-  <aside class="marc-profile" aria-labelledby="marc-title"><figure><img src="{{ url_for('static', path='images/' ~ page.portrait.image) }}" alt="{{ page.portrait.alt }}" loading="lazy"><figcaption>{{ page.portrait.caption }}</figcaption></figure><div><p class="eyebrow">Marc Mathys</p><h3 id="marc-title">{{ page.portrait.title }}</h3><p class="body-copy">{{ page.portrait.body }}</p></div></aside>
+  <aside class="marc-profile" aria-labelledby="marc-title"><figure><img src="{{ url_for('static', path='images/' ~ page.portrait.image)|local_url }}" alt="{{ page.portrait.alt }}" loading="lazy"><figcaption>{{ page.portrait.caption }}</figcaption></figure><div><p class="eyebrow">Marc Mathys</p><h3 id="marc-title">{{ page.portrait.title }}</h3><p class="body-copy">{{ page.portrait.body }}</p></div></aside>
 {% elif page.layout == 'village' %}
-  <div class="village-intro"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="village-stat"><strong>8–20</strong><span>{{ ui.pilot }}</span></div></div><div class="village-detail"><figure><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.caption_nature }}</figcaption></figure>{% for title, subtitle, text in page.features %}<div class="location"><p class="eyebrow">{{ subtitle }}</p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
+  <div class="village-intro"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="village-stat"><strong>8–20</strong><span>{{ ui.pilot }}</span></div></div><div class="village-detail"><figure><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"><figcaption>{{ ui.caption_nature }}</figcaption></figure>{% for title, subtitle, text in page.features %}<div class="location"><p class="eyebrow">{{ subtitle }}</p><h3>{{ title }}</h3><p>{{ text }}</p></div>{% endfor %}</div>
 {% elif page.layout == 'plan' %}
   <div class="editorial-heading"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p></div>
   <section class="budget-panel"><h3>{{ finance.budget_title }}</h3><p>{{ finance.budget_note }}</p><p class="budget-total">CHF {{ budget.total|amount(locale) }}</p><p>{{ finance.setup_title }}: CHF {{ budget.setup|amount(locale) }} · {{ finance.reserve_title }}: CHF {{ budget.working_capital|amount(locale) }}</p>
@@ -81,11 +81,11 @@
 {% elif page.layout == 'projection' %}
   {% include 'financial_projection.html' %}
 {% elif page.layout == 'closing' %}
-  <div class="closing-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="closing-signature">CHALET <span>TO GO</span><small>{{ ui.slogan }}</small></div><button class="text-button" data-goto="capa">{{ ui.back_cover }} <svg><use href="#i-arrow"/></svg></button><p class="editorial-note">{{ ui.sources }}</p></div><figure class="closing-photo"><img src="{{ url_for('static', path='images/' ~ page.image) }}" alt="{{ page.alt }}" loading="lazy"></figure>
+  <div class="closing-copy"><p class="eyebrow">{{ page.eyebrow }}</p><h2 id="title-{{ page.id }}">{{ page.title }}</h2><p class="intro">{{ page.intro }}</p><p class="body-copy">{{ page.body }}</p><div class="closing-signature">CHALET <span>TO GO</span><small>{{ ui.slogan }}</small></div><button class="text-button" data-goto="capa">{{ ui.back_cover }} <svg><use href="#i-arrow"/></svg></button><p class="editorial-note">{{ ui.sources }}</p></div><figure class="closing-photo"><img src="{{ url_for('static', path='images/' ~ page.image)|local_url }}" alt="{{ page.alt }}" loading="lazy"></figure>
 {% endif %}
 </article>
 {% endfor %}
-<noscript><style>.chapter[hidden]{display:grid!important}body{height:auto;overflow:auto}#reading{overflow:visible}.reader-footer,.reader-tools,.start-reading,.text-button{display:none}.chapter{min-height:90vh}</style><p>{{ ui.nojs }}</p><nav class="noscript-languages" aria-label="{{ ui.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code) }}" lang="{{ code }}">{{ name }}</a>{% endfor %}</nav></noscript>
+<noscript><style>.chapter[hidden]{display:grid!important}body{height:auto;overflow:auto}#reading{overflow:visible}.reader-footer,.reader-tools,.start-reading,.text-button{display:none}.chapter{min-height:90vh}</style><p>{{ ui.nojs }}</p><nav class="noscript-languages" aria-label="{{ ui.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code)|local_url }}" lang="{{ code }}">{{ name }}</a>{% endfor %}</nav></noscript>
 </main>
 <footer class="reader-footer">
   <div class="footer-section"><span id="chapter-number">00</span><span id="chapter-name">{{ pages[0].section }}</span></div>
@@ -100,15 +100,15 @@
   <h2 id="language-title">{{ ui.language_title }}</h2>
   <p class="dialog-footnote">{{ ui.language_hint }}</p>
   <nav class="language-options" aria-label="{{ ui.language }}">
-    {% for code, name in language_options %}<a href="{{ request.url.include_query_params(lang=code) }}" lang="{{ code }}" hreflang="{{ code }}" data-language="{{ code }}" {% if code == locale %}aria-current="true"{% endif %}>{{ name }}<span aria-hidden="true">{% if code == locale %}✓{% endif %}</span></a>{% endfor %}
-    <a class="automatic-language" href="{{ request.url.include_query_params(lang='auto') }}" data-language="auto">{{ ui.automatic }}</a>
+    {% for code, name in language_options %}<a href="{{ request.url.include_query_params(lang=code)|local_url }}" lang="{{ code }}" hreflang="{{ code }}" data-language="{{ code }}" {% if code == locale %}aria-current="true"{% endif %}>{{ name }}<span aria-hidden="true">{% if code == locale %}✓{% endif %}</span></a>{% endfor %}
+    <a class="automatic-language" href="{{ request.url.include_query_params(lang='auto')|local_url }}" data-language="auto">{{ ui.automatic }}</a>
   </nav>
 </dialog>
 <dialog id="pdf-download" class="pdf-dialog" aria-labelledby="pdf-title">
   <div class="dialog-heading"><p class="eyebrow">CHALET TO GO / PDF</p><button class="tool" data-close aria-label="{{ ui.close_pdf }}"><svg><use href="#i-close"/></svg></button></div>
   <h2 id="pdf-title">{{ ui.pdf_title }}</h2><p>{{ ui.pdf_description }}</p>
-  <form action="{{ url_for('revista_pdf') }}" method="get"><label for="pdf-language">{{ ui.pdf_language }}</label><select name="lang" id="pdf-language">{% for code,name in language_options %}<option value="{{ code }}" {% if code == locale %}selected{% endif %}>{{ name }}</option>{% endfor %}</select><button type="submit">{{ ui.download_pdf }}</button></form>
+  <form action="{{ url_for('revista_pdf')|local_url }}" method="get"><label for="pdf-language">{{ ui.pdf_language }}</label><select name="lang" id="pdf-language">{% for code,name in language_options %}<option value="{{ code }}" {% if code == locale %}selected{% endif %}>{{ name }}</option>{% endfor %}</select><button type="submit">{{ ui.download_pdf }}</button></form>
 </dialog>
-<noscript><a class="pdf-nojs" href="{{ url_for('revista_pdf') }}?lang={{ locale }}">{{ ui.download_pdf }}</a></noscript>
+<noscript><a class="pdf-nojs" href="{{ url_for('revista_pdf')|local_url }}?lang={{ locale }}">{{ ui.download_pdf }}</a></noscript>
 </body>
 </html>

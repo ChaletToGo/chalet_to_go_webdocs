@@ -11,10 +11,10 @@ from app.revista.i18n import catalog
 from app.main import app
 
 
-def get(query=None, headers=None, trusted=False, path='/revista'):
+def get(query=None, headers=None, trusted=False, path='/revista', scheme='https'):
     messages = []
     scope = {'type':'http','asgi':{'version':'3.0'},'http_version':'1.1','method':'GET',
-             'scheme':'https','path':path,'raw_path':path.encode(),'root_path':'',
+             'scheme':scheme,'path':path,'raw_path':path.encode(),'root_path':'',
              'query_string':urlencode(query or {}).encode(),
              'headers':[(k.lower().encode(),v.encode()) for k,v in (headers or {}).items()],
              'client':('127.0.0.1',1234),'server':('testserver',443)}
