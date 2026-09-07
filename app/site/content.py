@@ -179,3 +179,15 @@ for _locale, _captions in GALLERY_CAPTIONS.items():
 
 for _locale, _label in {'pt-BR':'Menu','pt-PT':'Menu','en':'Menu','fr':'Menu','de':'Menü','it':'Menu','rm':'Menu'}.items():
     CONTENT[_locale]['menu_label'] = _label
+
+READING_LABELS = {
+ 'pt-BR':['Sua leitura','Fechar','Tamanho do texto','Normal','Grande','Maior','Aparência','Papel','Noturno'],
+ 'pt-PT':['A sua leitura','Fechar','Tamanho do texto','Normal','Grande','Maior','Aparência','Papel','Noturno'],
+ 'en':['Your reading','Close','Text size','Normal','Large','Larger','Appearance','Paper','Night'],
+ 'fr':['Votre lecture','Fermer','Taille du texte','Normale','Grande','Plus grande','Apparence','Papier','Nuit'],
+ 'de':['Ihre Leseansicht','Schließen','Textgröße','Normal','Groß','Größer','Darstellung','Papier','Nacht'],
+ 'it':['La tua lettura','Chiudi','Dimensione del testo','Normale','Grande','Più grande','Aspetto','Carta','Notte'],
+ 'rm':['Vossa lectura','Serrar','Grondezza dal text','Normala','Gronda','Pli gronda','Aspect','Palpiri','Notg'],
+}
+for _locale, _labels in READING_LABELS.items():
+    CONTENT[_locale]['reading'] = dict(zip(('title','close','size','normal','large','larger','theme','paper','night'),_labels))
