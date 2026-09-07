@@ -7,7 +7,8 @@ SOURCE=ROOT/'app/shared/static/images'
 TARGET=ROOT/'app/site/static/images'
 FILES={'basic':'planbo_basic.png','standard':'plano_standard.png','premium':'plano_premium.png',
        'interior-1':'interior_beaultiful1.png','interior-2':'interior_beaultiful2.png','interior-3':'interior_beaultiful3.png',
-       'kitchen':'interior_gallery3.jfif','bedroom':'interior_gallery8.jfif','exterior':'chale_exterior.jpg'}
+       'kitchen':'interior_gallery3.jfif','bedroom':'interior_gallery8.jfif','exterior':'chale_exterior.jpg',
+       'living':'interior_beaultiful4.jfif'}
 
 def main():
     TARGET.mkdir(parents=True,exist_ok=True)

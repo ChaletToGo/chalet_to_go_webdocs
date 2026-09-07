@@ -164,3 +164,18 @@ HOME_STORIES = {
 }
 for _locale, _story in HOME_STORIES.items():
     CONTENT[_locale].update(zip(('story_title','story_paragraphs','gallery_label','exterior_alt','expand_image','close_image'),_story))
+
+GALLERY_CAPTIONS = {
+ 'pt-BR':['Luz natural e madeira','A arquitetura por fora','Um olhar sobre o espaço','Pausa para estar','Detalhes do cotidiano','Madeira na paisagem'],
+ 'pt-PT':['Luz natural e madeira','A arquitetura por fora','Um olhar sobre o espaço','Uma pausa para estar','Detalhes do quotidiano','Madeira na paisagem'],
+ 'en':['Natural light and timber','The exterior architecture','A view of the space','Room to unwind','Everyday details','Timber in the landscape'],
+ 'fr':['Lumière naturelle et bois','L’architecture extérieure','Un regard sur l’espace','Une pause au salon','Les détails du quotidien','Le bois dans le paysage'],
+ 'de':['Tageslicht und Holz','Architektur von außen','Ein Blick in den Raum','Raum zum Entspannen','Details des Alltags','Holz in der Landschaft'],
+ 'it':['Luce naturale e legno','L’architettura esterna','Uno sguardo allo spazio','Una pausa in soggiorno','Dettagli quotidiani','Il legno nel paesaggio'],
+ 'rm':['Glisch natirala e lain','L’architectura exteriura','In sguard en il spazi','Spazi per sa recrear','Detagls dal mintgadi','Lain en la cuntrada'],
+}
+for _locale, _captions in GALLERY_CAPTIONS.items():
+    CONTENT[_locale]['gallery_captions'] = _captions
+
+for _locale, _label in {'pt-BR':'Menu','pt-PT':'Menu','en':'Menu','fr':'Menu','de':'Menü','it':'Menu','rm':'Menu'}.items():
+    CONTENT[_locale]['menu_label'] = _label

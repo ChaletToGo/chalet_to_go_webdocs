@@ -1,0 +1,16 @@
+<header class="site-header">
+  <a class="site-brand" href="{{ url_for('site_home') }}?lang={{ locale }}" aria-label="Chalet to Go"><img src="{{ url_for('static',path='images/Logomarca.svg') }}" alt="Chalet to Go" width="110" height="110"></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="{{ text.menu_label }}"><span>{{ text.menu_label }}</span><i aria-hidden="true"></i></button>
+  <div class="navigation-panel" id="site-navigation">
+    <nav aria-label="{{ text.menu_label }}">
+      <a href="{{ url_for('site_home') }}?lang={{ locale }}#produto">{{ text.home }}</a>
+      <a href="{{ url_for('site_home') }}?lang={{ locale }}#chales">{{ text.collection }}</a>
+      <a href="{{ url_for('site_home') }}?lang={{ locale }}#madeira">{{ text.material }}</a>
+      <a href="{{ url_for('site_home') }}?lang={{ locale }}#galeria">{{ text.gallery_label }}</a>
+      <a href="{{ url_for('site_home') }}?lang={{ locale }}#garantias">{{ text.warranty }}</a>
+    </nav>
+    <details class="languages"><summary>{{ locale|upper }} <span aria-hidden="true">⌄</span></summary><div class="language-links" aria-label="{{ text.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code).replace(fragment='') }}" lang="{{ code }}" hreflang="{{ code }}" {% if code==locale %}aria-current="page"{% endif %}>{{ name }}</a>{% endfor %}</div></details>
+    <a class="header-contact" href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<script src="{{ url_for('site_static',path='js/header.js') }}" defer></script>
