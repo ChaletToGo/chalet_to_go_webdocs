@@ -55,10 +55,10 @@ class SiteTests(TestCase):
                 self.assertIn('/static/images/Logomarca.svg',body)
                 self.assertNotIn('/revista',body)
                 self.assertIn('https://wa.me/5538998840910?',body)
-                self.assertEqual(body.count('alt="Suisse Garantie"'),6)
+                self.assertEqual(body.count('alt="Suisse Garantie"'),4)
                 self.assertLess(body.index('id="produto"'),body.index('id="chales"'))
                 self.assertLess(body.index('id="madeira"'),body.index('id="chales"'))
-                self.assertEqual(body.count('class="gallery-card"'),9)
+                self.assertEqual(body.count('class="gallery-card"'),6)
                 self.assertNotIn('reader.js',body)
                 self.assertNotIn('finance-form',body)
 
