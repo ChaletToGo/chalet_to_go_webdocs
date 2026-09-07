@@ -9,9 +9,11 @@ from fastapi.templating import Jinja2Templates
 from ..shared.i18n import language_context, apply_language_headers, LOCALES
 from .content import CONTENT, PRODUCTS
 from .seo import metadata, public_url, indexable
+from ..shared.urls import local_url
 
 router=APIRouter()
 templates=Jinja2Templates(directory=Path(__file__).parent/'templates')
+templates.env.filters['local_url'] = local_url
 
 def amount(value,locale):
     separator=',' if locale=='en' else '’' if locale=='rm' else '\u202f' if locale in ('fr','pt-PT') else '.'

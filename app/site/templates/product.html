@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% block main %}
-<div class="breadcrumb"><a href="{{ url_for('site_home') }}?lang={{ locale }}">{{ text.home }}</a> / <span>{{ product.name }}</span></div>
+<div class="breadcrumb"><a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}">{{ text.home }}</a> / <span>{{ product.name }}</span></div>
 <section class="product-hero"><div>{% with item=product,eager=true,image_sizes='(max-width:600px) 100vw, 60vw' %}{% include '_product_photo.html' %}{% endwith %}<p class="image-note">{{ text.image_note }}</p></div><div class="product-intro"><p class="eyebrow">CHALET TO GO / {{ text.collection }}</p><h1>{{ product.name }}</h1><h2>{{ product.benefit }}</h2><p>{{ product.description }}</p><p class="price">CHF {{ product.price|amount(locale) }}</p><p class="price-note">{{ text.price_note }}</p><a class="button sales-action" href="{{ product.whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.plan_cta }} <span aria-hidden="true">↗</span></a></div></section>
 <section class="section story"><p class="eyebrow">{{ text.material }}</p><div class="story-grid"><h2>{{ text.material_title }}</h2><p>{{ text.material_body }}</p></div></section>
-{% include '_warranty.html' %}<div class="back-link"><a class="text-link" href="{{ url_for('site_home') }}?lang={{ locale }}#chales">← {{ text.back }}</a></div>
+{% include '_warranty.html' %}<div class="back-link"><a class="text-link" href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#chales">← {{ text.back }}</a></div>
 {% endblock %}

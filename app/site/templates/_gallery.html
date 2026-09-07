@@ -5,7 +5,7 @@
   {% for slug,kind,w,h in [('interior-3','inside',1122,1402),('exterior','outside',900,673),('interior-2','inside',1464,1075),('living','inside',1151,1139),('interior-1','inside',1033,1522),('premium','plan',1536,1024)] %}
     {% set caption = text.gallery_captions[loop.index0] %}
     <figure class="gallery-card">
-      <a href="{{ url_for('site_static',path='images/' ~ slug ~ '-1440.webp') }}" class="gallery-open" aria-label="{{ text.expand_image }} — {{ caption }}"><img src="{{ url_for('site_static',path='images/' ~ slug ~ '-960.webp') }}" alt="{{ caption }}" width="{{ w }}" height="{{ h }}" loading="lazy" decoding="async">{% if kind == 'plan' %}<img class="gallery-seal" src="{{ url_for('static',path='images/suisse_garantie.png') }}" alt="Suisse Garantie" width="68" height="68" loading="lazy">{% endif %}<span class="gallery-expand" aria-hidden="true">↗</span></a>
+      <a href="{{ url_for('site_static',path='images/' ~ slug ~ '-1440.webp')|local_url }}" class="gallery-open" aria-label="{{ text.expand_image }} — {{ caption }}"><img src="{{ url_for('site_static',path='images/' ~ slug ~ '-960.webp')|local_url }}" alt="{{ caption }}" width="{{ w }}" height="{{ h }}" loading="lazy" decoding="async">{% if kind == 'plan' %}<img class="gallery-seal" src="{{ url_for('static',path='images/suisse_garantie.png')|local_url }}" alt="Suisse Garantie" width="68" height="68" loading="lazy">{% endif %}<span class="gallery-expand" aria-hidden="true">↗</span></a>
       <figcaption><span class="gallery-index">0{{ loop.index }}</span><span>{{ caption }}</span></figcaption>
     </figure>
   {% endfor %}
