@@ -6,14 +6,15 @@ from unittest import TestCase
 from unittest.mock import patch
 from urllib.parse import urlencode
 
-from app.i18n import LOCALES, COUNTRIES, browser_locale, catalog
+from app.shared.i18n import LOCALES, COUNTRIES, browser_locale
+from app.revista.i18n import catalog
 from app.main import app
 
 
-def get(query=None, headers=None, trusted=False):
+def get(query=None, headers=None, trusted=False, path='/revista'):
     messages = []
     scope = {'type':'http','asgi':{'version':'3.0'},'http_version':'1.1','method':'GET',
-             'scheme':'https','path':'/revista','raw_path':b'/revista','root_path':'',
+             'scheme':'https','path':path,'raw_path':path.encode(),'root_path':'',
              'query_string':urlencode(query or {}).encode(),
              'headers':[(k.lower().encode(),v.encode()) for k,v in (headers or {}).items()],
              'client':('127.0.0.1',1234),'server':('testserver',443)}

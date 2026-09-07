@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {project} from '../app/static/js/finance-model.mjs';
+import {project} from '../app/revista/static/js/finance-model.mjs';
 // Synthetic fixtures for arithmetic verification, not company forecasts.
 const fixture={price:100,variableCost:60,monthlyCapacity:2,years:[{units:10,fixedCosts:500},{units:20,fixedCosts:500},{units:24,fixedCosts:600}]};
 test('reconciles revenue, variable costs, fixed costs and signed result',()=>{

@@ -3,8 +3,8 @@ from io import BytesIO
 from unittest import TestCase
 from urllib.parse import urlencode
 from pypdf import PdfReader
-from app.pdf_export import build_pdf
-from app.i18n import LOCALES, catalog
+from app.revista.pdf_export import build_pdf
+from app.revista.i18n import LOCALES, catalog
 from app.main import app
 
 
