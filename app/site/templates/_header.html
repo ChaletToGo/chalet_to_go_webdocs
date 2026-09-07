@@ -1,16 +1,13 @@
-<header class="site-header">
-  <a class="site-brand" href="{{ url_for('site_home')|local_url }}?lang={{ locale }}" aria-label="Chalet to Go"><img src="{{ url_for('static',path='images/Logomarca.svg')|local_url }}" alt="Chalet to Go" width="110" height="110"></a>
-  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="{{ text.menu_label }}"><span>{{ text.menu_label }}</span><i aria-hidden="true"></i></button>
-  <div class="navigation-panel" id="site-navigation">
-    <nav aria-label="{{ text.menu_label }}">
-      <a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#produto">{{ text.home }}</a>
-      <a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#chales">{{ text.collection }}</a>
-      <a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#madeira">{{ text.material }}</a>
-      <a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#galeria">{{ text.gallery_label }}</a>
-      <a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#garantias">{{ text.warranty }}</a>
-    </nav>
-    <details class="languages"><summary>{{ locale|upper }} <span aria-hidden="true">⌄</span></summary><div class="language-links" aria-label="{{ text.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code).replace(fragment='')|local_url }}" lang="{{ code }}" hreflang="{{ code }}" {% if code==locale %}aria-current="page"{% endif %}>{{ name }}</a>{% endfor %}</div></details>
-    <a class="header-contact" href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
-  </div>
-</header>
+<header class="site-header editorial-header">
+<a class="site-brand" href="{{ url_for('site_home')|local_url }}?lang={{ locale }}" aria-label="Chalet to Go"><img src="{{ url_for('static',path='images/Logomarca.svg')|local_url }}" alt="Chalet to Go" width="100" height="100"></a>
+<div class="site-edition">CHALET TO GO <span>/</span> {{ text.collection }}</div>
+<div class="site-tools">
+<button class="menu-toggle editorial-tool" aria-expanded="false" aria-haspopup="dialog" aria-controls="site-navigation" aria-label="{{ text.menu_label }}"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="5" height="5"/><rect x="15" y="4" width="5" height="5"/><rect x="4" y="15" width="5" height="5"/><rect x="15" y="15" width="5" height="5"/></svg><span>{{ text.menu_label }}</span></button>
+<details class="languages"><summary>{{ locale|upper }}</summary><div class="language-links" aria-label="{{ text.language }}">{% for code,name in language_options %}<a href="{{ request.url.include_query_params(lang=code)|local_url }}" lang="{{ code }}" {% if code==locale %}aria-current="page"{% endif %}>{{ name }}</a>{% endfor %}</div></details>
+<button class="reading-launch editorial-tool" aria-label="{{ text.reading.title }}" aria-haspopup="dialog" aria-controls="site-reading">Aa</button>
+<button class="site-fullscreen editorial-tool" aria-label="{{ text.fullscreen }}" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg></button>
+</div></header>
+<dialog id="site-navigation" class="editorial-navigation" aria-labelledby="nav-title"><div class="nav-heading"><h2 id="nav-title">{{ text.menu_label }}</h2><button class="nav-close editorial-tool" aria-label="{{ text.reading.close }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><nav>
+{% for anchor,label in [('produto',text.home),('chales',text.collection),('madeira',text.material),('galeria',text.gallery_label),('garantias',text.warranty)] %}<a href="{{ url_for('site_home')|local_url }}?lang={{ locale }}#{{ anchor }}"><span>0{{ loop.index }}</span>{{ label }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>{% endfor %}
+<a href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer"><span>06</span>WhatsApp ↗</a></nav></dialog>
 <script src="{{ url_for('site_static',path='js/header.js')|local_url }}" defer></script>
