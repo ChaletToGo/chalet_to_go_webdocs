@@ -1,9 +1,5 @@
-"""Server-rendered magazine translations and country/language negotiation."""
-import json
+"""Language negotiation shared by all Chalet to Go projects."""
 import os
-from functools import lru_cache
-from pathlib import Path
-from .financials import budget_context, product_context
 
 LOCALES = {
     'pt-BR': 'Português · Brasil', 'pt-PT': 'Português · Portugal',
@@ -12,13 +8,6 @@ LOCALES = {
 }
 COUNTRIES = {'BR': 'pt-BR', 'CH': 'en', 'IT': 'it', 'FR': 'fr', 'DE': 'de', 'PT': 'pt-PT'}
 SWISS_LOCALES = ('en', 'rm', 'de', 'it', 'fr')
-CATALOG_DIR = Path(__file__).parent / 'locales'
-
-
-@lru_cache(maxsize=7)
-def catalog(locale):
-    with (CATALOG_DIR / f'{locale}.json').open(encoding='utf-8') as file:
-        return json.load(file)
 
 
 def normalize_locale(value):
@@ -71,14 +60,22 @@ def resolve_locale(request):
     return browser_locale(request.headers.get('accept-language', '')), country, 'browser'
 
 
-def context_for(request):
+def language_context(request):
     locale, country, source = resolve_locale(request)
-    data = catalog(locale)
     options = list(SWISS_LOCALES) + ['pt-BR', 'pt-PT'] if country == 'CH' else list(LOCALES)
     return {
-        'pages': data['pages'], 'ui': data['ui'], 'locale': locale,
+        'locale': locale,
         'country': country, 'locale_source': source,
         'language_options': [(code, LOCALES[code]) for code in options],
-        'budget': budget_context(),
-        'products': product_context(), 'finance':data['finance'],
     }
+
+def apply_language_headers(response, request, context):
+    response.headers['Content-Language'] = context['locale']
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Vary'] = 'Accept-Language, Cookie, CF-IPCountry'
+    if context['locale_source'] == 'explicit':
+        response.set_cookie('chalet-language', context['locale'], max_age=31536000,
+                            httponly=True, samesite='lax', secure=request.url.scheme == 'https')
+    elif request.query_params.get('lang') == 'auto':
+        response.delete_cookie('chalet-language', httponly=True, samesite='lax', secure=request.url.scheme == 'https')
+    return response

@@ -1,5 +1,5 @@
 import unittest
-from app.financials import budget_context, product_context
+from app.revista.financials import budget_context, product_context
 
 class FinancialTests(unittest.TestCase):
     def test_budget_reconciles(self):

@@ -1,6 +1,6 @@
-# Revista — leitor web
+# Chalet to Go — site e revista
 
-Protótipo de um leitor editorial responsivo, feito com FastAPI e Jinja.
+Aplicação FastAPI e Jinja com projetos separados para o site institucional, a revista digital e futuras landing pages.
 
 ## Executar localmente
 
@@ -8,7 +8,7 @@ Protótipo de um leitor editorial responsivo, feito com FastAPI e Jinja.
 uv run hello.py
 ```
 
-Abra [http://127.0.0.1:3000/revista](http://127.0.0.1:3000/revista).
+Abra o site em [http://127.0.0.1:3000/](http://127.0.0.1:3000/) e a revista em [http://127.0.0.1:3000/revista](http://127.0.0.1:3000/revista).
 
 ## Docker Compose
 
@@ -34,25 +34,42 @@ O build segue o fluxo de instalação em etapas da [documentação oficial do uv
 
 ```text
 app/
-├── main.py                 # aplicação e rota /revista
-├── templates/              # páginas Jinja
-│   └── revista.html
-└── static/
-    ├── css/main.css        # layout responsivo do leitor
-    └── js/reader.js        # paginação e interações
+├── main.py                 # registra os projetos e recursos estáticos
+├── site/                   # / — site institucional
+│   ├── routes.py
+│   ├── content.py          # conteúdo institucional nos sete idiomas
+│   ├── templates/
+│   └── static/
+├── revista/                # /revista e /revista.pdf
+│   ├── routes.py
+│   ├── i18n.py
+│   ├── content.py          # conteúdo exclusivo da revista
+│   ├── financials.py       # orçamento e projeções da revista
+│   ├── pdf_export.py
+│   ├── locales/
+│   ├── templates/
+│   └── static/
+├── landing_pages/          # um pacote por futura campanha
+└── shared/
+    ├── i18n.py             # negociação de idioma e preferência
+    └── static/
+        ├── brand/         # paleta compartilhada
+        └── images/        # logomarca e biblioteca visual
 ```
 
 O leitor possui 13 capítulos, sumário, navegação por botões, setas esquerda/direita e gestos horizontais em telas de toque. A rolagem vertical permanece livre para leitura de capítulos longos. A posição e as preferências de tamanho do texto e aparência são salvas localmente no navegador. Links como `/revista#brasil` abrem capítulos específicos.
 
-O capítulo `/revista#resultados` apresenta preços e custos confirmados, cenários por quantidade e um simulador anual com premissas obrigatórias. Os valores comerciais e o orçamento estão centralizados em `app/financials.py`. A metodologia e os limites das fontes estão em `docs/EDITORIAL_SOURCES.md`. Testes do cálculo: `node --test tests/finance.test.mjs`.
+O capítulo `/revista#resultados` apresenta preços e custos confirmados, cenários por quantidade e um simulador anual com premissas obrigatórias. Os valores comerciais e o orçamento estão centralizados em `app/revista/financials.py`. A metodologia e os limites das fontes estão em `docs/EDITORIAL_SOURCES.md`. Testes do cálculo: `node --test tests/finance.test.mjs`.
 
-O conteúdo editorial e os textos da interface ficam em `app/locales/*.json`, com versões completas em português brasileiro, português de Portugal, inglês, alemão, francês, italiano e romanche (Rumantsch Grischun). A identidade visual está documentada em `IDENTIDADE_VISUAL.md`; as fontes usadas nesta versão são alternativas locais, sem dependência de serviços externos. A rota `/` redireciona para a revista. Sem JavaScript, todos os capítulos são apresentados em leitura contínua e os links de idioma continuam disponíveis.
+O conteúdo da revista fica em `app/revista/locales/*.json`, nos sete idiomas. O site tem conteúdo independente em `app/site/content.py`. A raiz `/` exibe o site institucional. Os endereços `/revista`, `/revista.pdf` e `/static/images/...` foram preservados. Os estilos e scripts da revista usam `/static/revista/...`; URLs antigas `/static/css/...` e `/static/js/...` continuam disponíveis por compatibilidade. A identidade visual está documentada em `IDENTIDADE_VISUAL.md`.
 
 ## Download para impressão
 
+As configurações comerciais, o WhatsApp, as imagens dos planos e a implementação de SEO do site estão documentados em [docs/SITE_SEO.md](docs/SITE_SEO.md).
+
 O botão de download no cabeçalho abre um seletor com os sete idiomas, pré-selecionando o idioma da leitura. `/revista.pdf?lang=fr`, por exemplo, baixa a edição francesa sem modificar a preferência de idioma da revista. O PDF é A4, com fontes incorporadas, margens e paginação próprias; inclui o conteúdo editorial, orçamento, preços e cenários estáticos, mas exclui a calculadora e seus resultados.
 
-A geração usa ReportLab em `app/pdf_export.py`, sem navegador ou serviço externo. Os arquivos são gerados em memória e armazenados em cache por idioma até reiniciar o processo. Após alterações nos textos ou imagens, reinicie o servidor para renovar o cache. As dependências estão no `pyproject.toml`/`uv.lock`; `uv sync` prepara o ambiente. Os testes de desenvolvimento usam pypdf para validar os sete arquivos, o formato, o idioma e a ausência dos elementos interativos.
+A geração usa ReportLab em `app/revista/pdf_export.py`, sem navegador ou serviço externo. Os arquivos são gerados em memória e armazenados em cache por idioma até reiniciar o processo. Após alterações nos textos ou imagens, reinicie o servidor para renovar o cache. As dependências estão no `pyproject.toml`/`uv.lock`; `uv sync` prepara o ambiente. Os testes de desenvolvimento usam pypdf para validar os sete arquivos, o formato, o idioma e a ausência dos elementos interativos.
 
 ## Idioma e localização
 
@@ -62,4 +79,4 @@ A escolha explícita e a preferência salva têm prioridade sobre a detecção. 
 
 Para detecção de país em produção, habilitar IP Geolocation no Cloudflare e definir `TRUST_COUNTRY_HEADER=true` na aplicação somente atrás do proxy controlado, que deve encaminhar o `CF-IPCountry` sobrescrito pelo Cloudflare. O acesso direto à origem deve estar restrito. Sem esse cabeçalho (inclusive em localhost), a aplicação usa `Accept-Language`; o idioma do navegador é uma alternativa, não prova de localização. Países detectados fora da política usam inglês por padrão. A aplicação não solicita GPS nem envia IPs a serviços externos.
 
-Detalhes de manutenção em `app/locales/README.md`. Testes: `.venv/Scripts/python.exe -m unittest discover -s tests -v` no Windows, ou `uv run python -m unittest discover -s tests -v`.
+Detalhes de manutenção em `app/revista/locales/README.md`. Testes: `.venv/Scripts/python.exe -m unittest discover -s tests -v` no Windows, ou `uv run python -m unittest discover -s tests -v`.

@@ -1,0 +1,5 @@
+<section id="produto" class="section product-story" data-reveal>
+  <p class="eyebrow">01 / CHALET TO GO</p>
+  <div class="story-grid"><h2>{{ text.story_title }}</h2><div class="story-prose">{% for paragraph in text.story_paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</div></div>
+  <div class="use-grid">{% for benefit in text.benefits %}<article><span class="eyebrow">0{{ loop.index }}</span><h3>{{ benefit }}</h3><p>{{ text.models[loop.index0] }}</p></article>{% endfor %}</div>
+</section>

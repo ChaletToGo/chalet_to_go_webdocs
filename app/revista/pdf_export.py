@@ -20,7 +20,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, 
 from .financials import amount, budget_context, product_context
 from .i18n import catalog, LOCALES
 
-ASSETS = Path(__file__).parent / 'static' / 'images'
+ASSETS = Path(__file__).parent.parent / 'shared' / 'static' / 'images'
 FONT_DIR = Path(reportlab.__file__).parent / 'fonts'
 pdfmetrics.registerFont(TTFont('Editorial', str(FONT_DIR / 'Vera.ttf')))
 pdfmetrics.registerFont(TTFont('EditorialBold', str(FONT_DIR / 'VeraBd.ttf')))

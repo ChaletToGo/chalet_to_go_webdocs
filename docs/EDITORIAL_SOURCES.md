@@ -6,7 +6,7 @@ Revisão de setembro de 2026. Fonte: `D:/Cursos/Chalet_To_Go_Revista_US.pdf (3).
 - Páginas 5, 14 e 15: fluxo de produção, implantação por etapas e riscos de execução. Instalações suíças são propostas, não infraestrutura já disponível.
 - Páginas 6 e 10: vilas e expansão como projetos condicionados a acordos, capacidade, financiamento e aprovação local.
 - Páginas 7 e 8: habitação, formação profissional e conceito 1 + 1 como possibilidades futuras, sem financiamento ou programa vigente confirmado.
-- Páginas 9 e 16: substituídas pela confirmação do usuário: Marc Mathys manifestou interesse pessoal nas primeiras 15 unidades. Não há envolvimento empresarial de seu empregador, contrato confirmado, composição de modelos ou receita assegurada. Foto fornecida em `app/static/images/marc.png`.
+- Páginas 9 e 16: substituídas pela confirmação do usuário: Marc Mathys manifestou interesse pessoal nas primeiras 15 unidades. Não há envolvimento empresarial de seu empregador, contrato confirmado, composição de modelos ou receita assegurada. Foto fornecida em `app/shared/static/images/marc.png`.
 - Página 11: sete rubricas somam CHF 575.000; CHF 425.000 de estrutura e lançamento e CHF 150.000 de capital de giro. São referências do plano suíço, sem cotações verificadas. Não representam captação nem gastos realizados.
 - Página 12: curvas originais não trazem base suficiente para inferir lucros ou intervalos estatísticos. Foram substituídas por rubricas reconciliadas, economia unitária e cenários condicionais. Não se afirma que metas antigas foram estatisticamente refutadas; falta sustentação para adotá-las como previsão.
 

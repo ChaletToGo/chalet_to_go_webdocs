@@ -6,10 +6,11 @@
   <meta name="theme-color" content="#0E2A20">
   <meta name="description" content="{{ ui.magazine }} — {{ pages[0].title }}. {{ ui.cover_deck_1 }} {{ ui.cover_deck_2 }}">
   <title>Chalet to Go — {{ pages[0].title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', path='css/editorial.css') }}">
-  <script type="module" src="{{ url_for('static', path='js/finance-reader.mjs') }}"></script>
-  <script src="{{ url_for('static', path='js/reader.js') }}" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='brand/brand.css') }}">
+  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('revista_static', path='css/editorial.css') }}">
+  <script type="module" src="{{ url_for('revista_static', path='js/finance-reader.mjs') }}"></script>
+  <script src="{{ url_for('revista_static', path='js/reader.js') }}" defer></script>
 </head>
 <body data-locale="{{ locale }}" data-country="{{ country }}" data-locale-source="{{ locale_source }}">
 <script id="reader-i18n" type="application/json">{{ ui|tojson }}</script>
