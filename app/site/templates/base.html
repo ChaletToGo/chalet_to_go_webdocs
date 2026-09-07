@@ -9,4 +9,5 @@
 <main>{% block main %}{% endblock %}</main>
 <section class="sales-cta"><p class="eyebrow">CHALET TO GO</p><h2>{{ text.closing_title }}</h2><p>{{ text.closing_body }}</p><a class="button sales-action" href="{{ product.whatsapp if product else whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.whatsapp }} <span aria-hidden="true">↗</span></a></section>
 <footer><span>CHALET TO GO</span><a href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">WhatsApp</a><span>© 2026</span></footer>
+{% include '_reading.html' %}
 </body></html>
