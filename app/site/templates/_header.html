@@ -1,5 +1,5 @@
 <header class="site-header editorial-header">
-<a class="site-brand" href="{{ url_for('site_home')|local_url }}?lang={{ locale }}" aria-label="Chalet to Go"><img src="{{ url_for('static',path='images/Logomarca.svg')|local_url }}" alt="Chalet to Go" width="100" height="100"></a>
+<a class="site-brand" href="{{ url_for('site_home')|local_url }}?lang={{ locale }}" aria-label="Chalet to Go"><img src="{{ url_for('static',path='images/logo.svg')|local_url }}" alt="Chalet to Go" width="100" height="100"></a>
 <div class="site-edition">CHALET TO GO <span>/</span> {{ text.collection }}</div>
 <div class="site-tools">
 <button class="menu-toggle editorial-tool" aria-expanded="false" aria-haspopup="dialog" aria-controls="site-navigation" aria-label="{{ text.menu_label }}"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="5" height="5"/><rect x="15" y="4" width="5" height="5"/><rect x="4" y="15" width="5" height="5"/><rect x="15" y="15" width="5" height="5"/></svg><span>{{ text.menu_label }}</span></button>

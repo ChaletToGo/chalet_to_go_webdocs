@@ -16,6 +16,7 @@ RUN groupadd --gid 10001 chalet && \
     useradd --uid 10001 --gid chalet --no-create-home --shell /usr/sbin/nologin chalet
 COPY --from=builder /app/.venv /app/.venv
 COPY --chown=chalet:chalet app ./app
+RUN mkdir -p /app/data && chown chalet:chalet /app/data
 USER chalet
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
