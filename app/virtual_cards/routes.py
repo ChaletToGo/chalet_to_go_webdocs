@@ -2,20 +2,35 @@ import json
 import logging
 import re
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlencode
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, Response
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, ConfigDict, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from ..shared.urls import local_url
+from ..shared.i18n import LOCALES, language_context, apply_language_headers
+from .i18n import CATALOGS
 
 CARD_DIR = Path(__file__).resolve().parent
 router = APIRouter(prefix='/card', tags=['Cards'])
 templates = Jinja2Templates(directory=CARD_DIR / 'templates')
 templates.env.filters['local_url'] = local_url
 logger = logging.getLogger(__name__)
+
+
+class CardTranslation(BaseModel):
+    model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
+    cargo: str = ''
+    sobre: str = ''
+
+    @field_validator('*')
+    @classmethod
+    def clean_text(cls, value):
+        if len(value) > 2000 or any(ord(char) < 32 for char in value):
+            raise ValueError('Texto inválido')
+        return value
 
 
 class Card(BaseModel):
@@ -31,10 +46,20 @@ class Card(BaseModel):
     linkedin: str = ''
     localizacao: str = ''
     sobre: str = ''
+    traducoes: dict[str, CardTranslation] = Field(default_factory=dict)
+
+    @field_validator('traducoes')
+    @classmethod
+    def supported_translations(cls, value):
+        if any(locale not in LOCALES for locale in value):
+            raise ValueError('Idioma não suportado')
+        return value
 
     @field_validator('*')
     @classmethod
     def clean_text(cls, value):
+        if not isinstance(value, str):
+            return value
         if len(value) > 2000 or any(ord(char) < 32 for char in value):
             raise ValueError('Use texto sem caracteres de controle, com até 2000 caracteres')
         return value
@@ -86,17 +111,24 @@ def load_card(slug: str) -> Card:
 @router.get('/{slug}', response_class=HTMLResponse, name='virtual_card')
 def card_page(request: Request, slug: str):
     card = load_card(slug)
+    context = language_context(request)
+    t = CATALOGS[context['locale']]
+    if translation := card.traducoes.get(context['locale']):
+        card = card.model_copy(update={key: value for key, value in translation.model_dump().items() if value})
     actions = []
     if card.whatsapp:
-        actions.append(('WhatsApp', 'Vamos conversar', 'https://wa.me/' + re.sub(r'\D', '', card.whatsapp), 'chat'))
+        actions.append(('WhatsApp', t['connect'], 'https://wa.me/' + re.sub(r'\D', '', card.whatsapp), 'chat'))
     if card.telefone:
-        actions.append(('Telefone', card.telefone, 'tel:+' + re.sub(r'\D', '', card.telefone), 'phone'))
+        actions.append((t['phone'], card.telefone, 'tel:+' + re.sub(r'\D', '', card.telefone), 'phone'))
     if card.email:
-        actions.append(('E-mail', card.email, 'mailto:' + card.email, 'mail'))
-    for field, label, subtitle in [('site', 'Conheça a Chalet to Go', 'Nosso site'), ('instagram', 'Instagram', 'Acompanhe nossas histórias'), ('linkedin', 'LinkedIn', 'Vamos nos conectar')]:
+        actions.append((t['email'], card.email, 'mailto:' + card.email, 'mail'))
+    if card.localizacao:
+        actions.append((t['maps'], card.localizacao, 'https://www.google.com/maps/search/?' + urlencode({'api': '1', 'query': card.localizacao}), 'map'))
+    for field, label, subtitle in [('site', t['site'], t['site_sub']), ('instagram', 'Instagram', t['instagram_sub']), ('linkedin', 'LinkedIn', t['linkedin_sub'])]:
         if value := getattr(card, field):
             actions.append((label, subtitle, value, 'arrow'))
-    return templates.TemplateResponse(request, 'card.html', {'card': card, 'slug': slug, 'actions': actions}, headers={'Cache-Control': 'no-store'})
+    response = templates.TemplateResponse(request, 'card.html', {**context, 't': t, 'card': card, 'slug': slug, 'actions': actions})
+    return apply_language_headers(response, request, context)
 
 
 def vcard_escape(value: str) -> str:
@@ -114,13 +146,19 @@ def fold_line(line: str) -> str:
 
 
 @router.get('/{slug}/contact.vcf', name='virtual_card_contact')
-def card_contact(slug: str):
+def card_contact(request: Request, slug: str):
     card = load_card(slug)
+    context = language_context(request)
+    if translation := card.traducoes.get(context['locale']):
+        card = card.model_copy(update={key: value for key, value in translation.model_dump().items() if value})
     lines = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + vcard_escape(card.nome), 'N:;' + vcard_escape(card.nome) + ';;;', 'ORG:' + vcard_escape(card.empresa), 'TITLE:' + vcard_escape(card.cargo)]
     for field, key in [('telefone', 'TEL;TYPE=WORK,VOICE'), ('email', 'EMAIL;TYPE=WORK'), ('site', 'URL'), ('sobre', 'NOTE')]:
         if value := getattr(card, field):
             lines.append(key + ':' + vcard_escape(value))
     if card.whatsapp and not card.telefone:
         lines.append('TEL;TYPE=CELL:+' + re.sub(r'\D', '', card.whatsapp))
+    if card.localizacao:
+        lines.append('ADR;TYPE=WORK:;;' + vcard_escape(card.localizacao) + ';;;;')
     lines.append('END:VCARD')
-    return Response('\r\n'.join(map(fold_line, lines)) + '\r\n', media_type='text/vcard; charset=utf-8', headers={'Content-Disposition': f'attachment; filename="{slug}.vcf"', 'Cache-Control': 'no-store'})
+    response = Response('\r\n'.join(map(fold_line, lines)) + '\r\n', media_type='text/vcard; charset=utf-8', headers={'Content-Disposition': f'attachment; filename="{slug}.vcf"'})
+    return apply_language_headers(response, request, context)

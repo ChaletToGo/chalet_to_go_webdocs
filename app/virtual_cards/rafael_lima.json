@@ -9,5 +9,14 @@
   "instagram": "",
   "linkedin": "",
   "localizacao": " Rua Julita Nunes Lima, 200 - Minas Caixa, Belo Horizonte - MG",
-  "sobre": ""
+  "sobre": "",
+  "traducoes": {
+    "pt-BR": {"cargo": "Gerente Geral - Chalet to Go Brasil"},
+    "pt-PT": {"cargo": "Diretor-Geral - Chalet to Go Brasil"},
+    "en": {"cargo": "General Manager - Chalet to Go Brazil"},
+    "de": {"cargo": "Geschäftsleiter - Chalet to Go Brasilien"},
+    "fr": {"cargo": "Directeur général - Chalet to Go Brésil"},
+    "it": {"cargo": "Direttore generale - Chalet to Go Brasile"},
+    "rm": {"cargo": "Directur general - Chalet to Go Brasil"}
+  }
 }

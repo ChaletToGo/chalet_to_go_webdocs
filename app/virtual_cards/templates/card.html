@@ -1,46 +1,54 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="{{ locale }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#26372d">
   <title>{{ card.nome }} · {{ card.empresa }}</title>
-  <meta name="description" content="{{ card.nome }} — {{ card.cargo }} · {{ card.empresa }}. Salve o contato e conecte-se.">
+  <meta name="description" content="{{ card.nome }} — {{ card.cargo }} · {{ card.empresa }}. {{ t.description }}">
   <meta property="og:title" content="{{ card.nome }} · {{ card.empresa }}">
-  <meta property="og:description" content="{{ card.cargo }}. Salve meu contato e vamos conversar.">
+  <meta property="og:description" content="{{ card.cargo }}. {{ t.description }}">
   <meta property="og:type" content="profile">
   <link rel="stylesheet" href="{{ url_for('cards_static', path='card.css') | local_url }}">
   <script src="{{ url_for('cards_static', path='card.js') | local_url }}" defer></script>
 </head>
-<body>
+<body data-locale-source="{{ locale_source }}" data-copied="{{ t.copied }}" data-copy-help="{{ t.copy_help }}">
   {% macro icon(name) -%}
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     {% if name == 'phone' %}<path d="m7 3 3 5-2 2a15 15 0 0 0 6 6l2-2 5 3-1 4C10 22 2 14 3 4Z"/>
     {% elif name == 'mail' %}<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>
     {% elif name == 'chat' %}<path d="M21 11.5a9 9 0 0 1-13 8L3 21l1.5-5A9 9 0 1 1 21 11.5Z"/><path fill="currentColor" stroke="none" d="M8.2 6.8c-.3-.6-.6-.6-.9-.6h-.7c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3s1 2.6 1.2 2.8c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.8s1.7-.7 1.9-1.4c.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.4l-2-1c-.3-.1-.5-.2-.7.2l-.9 1c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6Z"/>
-    {% elif name == 'save' %}<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>
+    {% elif name == 'map' %}<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>{% elif name == 'save' %}<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>
     {% elif name == 'share' %}<path d="M12 16V3m-4 4 4-4 4 4M7 10H4v11h16V10h-3"/>
     {% else %}<path d="M5 19 19 5M5 5h14v14"/>{% endif %}
   </svg>
   {%- endmacro %}
   <main class="card">
+    <form class="card-language" method="get">
+      <label for="card-language">{{ t.language }}</label>
+      <select id="card-language" name="lang">
+        <option value="auto" {% if locale_source not in ('explicit', 'saved') %}selected{% endif %}>{{ t.automatic }}</option>
+        {% for code, label in language_options %}<option value="{{ code }}" lang="{{ code }}" {% if code == locale and locale_source in ('explicit', 'saved') %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+      <button type="submit">{{ t.apply }}</button>
+    </form>
     <header class="identity">
       <svg class="architecture" viewBox="0 0 280 370" fill="none" stroke="currentColor" aria-hidden="true">
         <path d="M10 190 190 10 370 190H10l180-160 160 160M45 190v160h235M60 190v146h220M32 350h248v12H32ZM90 336V210h96v126M101 336V223h73v113M199 210h55v62h-55ZM226 210v62M199 241h55M73 160h206M100 135h152M127 110h99M155 85h44M73 194v140M197 283v53M213 283v53M229 283v53M245 283v53"/>
       </svg>
-      <a class="brand" href="{{ url_for('site_home') | local_url }}" aria-label="Chalet to Go — página inicial">
+      <a class="brand" href="{{ url_for('site_home') | local_url }}" aria-label="Chalet to Go — {{ t.home }}">
         <img src="{{ url_for('static', path='images/Logomarca.png') | local_url }}" alt="Chalet to Go" width="300" height="300">
       </a>
       <div class="person"><span class="eyebrow">{{ card.empresa }}</span><h1>{{ card.nome }}</h1><p class="role">{{ card.cargo }}</p>{% if card.localizacao %}<p class="location">{{ card.localizacao }}</p>{% endif %}</div>
       <span class="edition">BUILT TO MOVE. MADE TO INSPIRE.</span>
     </header>
-    <section class="contact" aria-label="Contato e redes sociais">
-      <div class="section-title"><span>VAMOS NOS CONECTAR</span><span class="dot" aria-hidden="true"></span></div>
+    <section class="contact" aria-label="{{ t.contact }}">
+      <div class="section-title"><span>{{ t.connect }}</span><span class="dot" aria-hidden="true"></span></div>
       {% if card.sobre %}<p class="about">{{ card.sobre }}</p>{% endif %}
       {% for label, subtitle, href, kind in actions if kind == 'chat' %}
-      <a class="whatsapp-button" href="{{ href }}" target="_blank" rel="noopener noreferrer">{{ icon('chat') }}<span>Conversar no WhatsApp</span><span aria-hidden="true">↗</span></a>
+      <a class="whatsapp-button" href="{{ href }}" target="_blank" rel="noopener noreferrer">{{ icon('chat') }}<span>{{ t.whatsapp }}</span><span aria-hidden="true">↗</span></a>
       {% endfor %}
-      <a class="save" href="{{ url_for('virtual_card_contact', slug=slug) | local_url }}" download>{{ icon('save') }}<span>Salvar contato</span><span aria-hidden="true">+</span></a>
+      <a class="save" href="{{ url_for('virtual_card_contact', slug=slug) | local_url }}?lang={{ locale }}" download>{{ icon('save') }}<span>{{ t.save }}</span><span aria-hidden="true">+</span></a>
       <div class="links">
         {% for label, subtitle, href, kind in actions if kind != 'chat' %}
         <a class="contact-link" href="{{ href }}" {% if href.startswith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
@@ -48,11 +56,11 @@
         </a>
         {% endfor %}
       </div>
-      <button class="share" type="button" hidden>{{ icon('share') }} Compartilhar cartão</button>
+      <button class="share" type="button" hidden>{{ icon('share') }} {{ t.share }}</button>
       <p class="status" role="status" aria-live="polite"></p>
-      <div class="copy-fallback" hidden><label for="card-link">Copie o link do cartão:</label><input id="card-link" type="url" readonly></div>
+      <div class="copy-fallback" hidden><label for="card-link">{{ t.copy_label }}</label><input id="card-link" type="url" readonly></div>
     </section>
-    <footer>CHALET TO GO <span>·</span> NATUREZA EM CADA DETALHE</footer>
+    <footer>CHALET TO GO <span>·</span> {{ t.footer }}</footer>
   </main>
 </body>
 </html>

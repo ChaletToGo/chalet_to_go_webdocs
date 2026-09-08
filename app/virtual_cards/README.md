@@ -17,3 +17,21 @@ O botão **Salvar contato** baixa `/card/rafael_lima/contact.vcf`, compatível c
 ## Docker
 
 O Compose monta esta pasta como somente leitura dentro do contêiner. Depois de recriar o serviço com a nova configuração, adicionar/editar JSONs no host atualiza os cartões no próximo acesso. Em deploys que usam apenas a imagem, sem esse volume, é necessário reconstruir e publicar a imagem para incluir novos arquivos.
+# Mapas e idiomas
+
+Quando `localizacao` contém um endereço, o cartão exibe “Abrir no mapa”. O link HTTPS do Google Maps pesquisa o endereço e pode abrir o aplicativo instalado, conforme as configurações do dispositivo; caso contrário, abre a versão web. O endereço também é incluído no arquivo de contato `.vcf`.
+
+A interface suporta `pt-BR`, `pt-PT`, `en`, `de`, `fr`, `it` e `rm`. A prioridade é: parâmetro `?lang=`, preferência salva, país informado pelo proxy confiável e idioma do navegador. O seletor permite mudar de idioma ou voltar a Automático. Links compartilhados não fixam o idioma, permitindo que cada destinatário receba sua própria versão.
+
+Para usar localização por país, habilite IP Geolocation no Cloudflare e `TRUST_COUNTRY_HEADER=true` no `.env` da VPS, apenas quando o proxy controlar o cabeçalho `CF-IPCountry`. Sem isso, o idioma do navegador é utilizado; não há solicitação de GPS. Recrie o contêiner após alterar variáveis de ambiente.
+
+Textos pessoais podem ser traduzidos pelo campo opcional `traducoes` em cada JSON:
+
+```json
+"traducoes": {
+  "en": {"cargo": "Sales manager", "sobre": "Contact our team."},
+  "fr": {"cargo": "Responsable commercial", "sobre": "Contactez notre équipe."}
+}
+```
+
+Os campos `cargo` e `sobre` originais são o fallback para traduções ausentes. Nome, empresa, endereço e dados de contato são preservados. O `.vcf` usa o cargo e a apresentação do idioma selecionado. JSONs existentes continuam funcionando sem alterações.

@@ -16,7 +16,7 @@ shareButton.addEventListener('click', async () => {
   }
   try {
     await navigator.clipboard.writeText(url.href);
-    status.textContent = 'Link copiado. Pronto para compartilhar!';
+    status.textContent = document.body.dataset.copied;
   } catch {
     const fallback = document.querySelector('.copy-fallback');
     const input = fallback.querySelector('input');
@@ -24,6 +24,6 @@ shareButton.addEventListener('click', async () => {
     input.value = url.href;
     input.focus();
     input.select();
-    status.textContent = 'Selecione e copie o link abaixo.';
+    status.textContent = document.body.dataset.copyHelp;
   }
 });
