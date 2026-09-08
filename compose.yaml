@@ -21,6 +21,8 @@ services:
       TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
     read_only: true
+    volumes:
+      - ./app/virtual_cards:/app/app/virtual_cards:ro
     tmpfs:
       - /tmp:size=64m,mode=1777
     cap_drop:

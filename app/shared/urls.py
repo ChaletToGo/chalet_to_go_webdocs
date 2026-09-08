@@ -6,6 +6,7 @@ from hashlib import sha256
 
 _APP = Path(__file__).resolve().parents[1]
 _STATIC = (('/static/site/', _APP/'site/static'),
+           ('/static/cards/', _APP/'virtual_cards/static'),
            ('/static/revista/', _APP/'revista/static'),
            ('/static/', _APP/'shared/static'))
 
