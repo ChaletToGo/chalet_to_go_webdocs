@@ -2,12 +2,14 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.gzip import GZipMiddleware
 from .revista.routes import router as revista_router
 from .site.routes import router as site_router
 from .virtual_cards.routes import router as cards_router
 from .admin_pages.routes import router as admin_router
 BASE_DIR = Path(__file__).resolve().parent
 app = FastAPI(title="Chalet to Go")
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.mount('/static/admin', StaticFiles(directory=BASE_DIR/'admin_pages'/'static'), name='admin_static')
 app.mount('/static/cards', StaticFiles(directory=BASE_DIR/'virtual_cards'/'static'), name='cards_static')
 app.mount('/static/revista', StaticFiles(directory=BASE_DIR/'revista'/'static'), name='revista_static')

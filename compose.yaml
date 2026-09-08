@@ -16,6 +16,10 @@ services:
           - chalet-web
     environment:
       SITE_URL: "${SITE_URL:-https://www.chalettogo.com}"
+      GOOGLE_SITE_VERIFICATION: "${GOOGLE_SITE_VERIFICATION:-}"
+      BING_SITE_VERIFICATION: "${BING_SITE_VERIFICATION:-}"
+      SITE_METRICS_ENABLED: "${SITE_METRICS_ENABLED:-true}"
+      SITE_METRICS_PATH: /app/data/site-metrics.json
       ADMIN_USERNAME: "${ADMIN_USERNAME:-}"
       ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
       ADMIN_DB_PATH: /app/data/admin.json
