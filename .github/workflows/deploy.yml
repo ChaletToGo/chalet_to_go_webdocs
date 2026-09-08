@@ -102,6 +102,6 @@ jobs:
             exit 1
           fi
           "${docker_cmd[@]}" compose exec -T web python -c \
-            'import json; from urllib.request import urlopen; response=urlopen("http://127.0.0.1:8000/healthz", timeout=10); assert response.status == 200; assert json.load(response)["status"] == "ok!"'
+            'import json; from urllib.request import urlopen; response=urlopen("http://127.0.0.1:8000/healthz", timeout=10); assert response.status == 200; assert json.load(response)["status"] == "ok"'
           echo "Deployment healthy: $expected_sha"
           REMOTE
