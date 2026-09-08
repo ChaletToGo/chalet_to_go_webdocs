@@ -5,8 +5,10 @@ from fastapi.staticfiles import StaticFiles
 from .revista.routes import router as revista_router
 from .site.routes import router as site_router
 from .virtual_cards.routes import router as cards_router
+from .admin_pages.routes import router as admin_router
 BASE_DIR = Path(__file__).resolve().parent
 app = FastAPI(title="Chalet to Go")
+app.mount('/static/admin', StaticFiles(directory=BASE_DIR/'admin_pages'/'static'), name='admin_static')
 app.mount('/static/cards', StaticFiles(directory=BASE_DIR/'virtual_cards'/'static'), name='cards_static')
 app.mount('/static/revista', StaticFiles(directory=BASE_DIR/'revista'/'static'), name='revista_static')
 app.mount('/static/site', StaticFiles(directory=BASE_DIR/'site'/'static'), name='site_static')
@@ -17,6 +19,7 @@ app.mount('/static', StaticFiles(directory=BASE_DIR/'shared'/'static'), name='st
 app.include_router(site_router)
 app.include_router(revista_router)
 app.include_router(cards_router)
+app.include_router(admin_router)
 
 
 @app.get("/healthz", include_in_schema=False)

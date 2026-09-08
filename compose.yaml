@@ -16,12 +16,17 @@ services:
           - chalet-web
     environment:
       SITE_URL: "${SITE_URL:-https://www.chalettogo.com}"
+      ADMIN_USERNAME: "${ADMIN_USERNAME:-}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
+      ADMIN_DB_PATH: /app/data/admin.json
+      QR_BASE_URL: "${QR_BASE_URL:-https://www.chalettogo.com}"
       SITE_INDEXABLE: "${SITE_INDEXABLE:-true}"
       WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:-5538998840910}"
       TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
     read_only: true
     volumes:
+      - admin_data:/app/data
       - ./app/virtual_cards:/app/app/virtual_cards:ro
     tmpfs:
       - /tmp:size=64m,mode=1777
@@ -35,6 +40,9 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+volumes:
+  admin_data:
 
 networks:
   proxy:
