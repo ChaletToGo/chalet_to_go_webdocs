@@ -24,4 +24,4 @@ app.include_router(admin_router)
 
 @app.get("/healthz", include_in_schema=False)
 async def healthcheck():
-    return {"status": "ok!"}
+    return {"status": "ok"}

@@ -20,9 +20,11 @@ docker compose logs -f web
 
 Acesse http://localhost:8080/revista. A porta padrão é diferente do servidor de desenvolvimento (3000). Para alterar, copie `.env.example` para `.env` e ajuste `APP_PORT`. `BIND_ADDRESS=0.0.0.0` permite acesso por outras máquinas; o padrão publica apenas no localhost.
 
-A imagem usa Python 3.14, dependências do `uv.lock`, usuário sem privilégios, sistema de arquivos somente leitura e verificação de saúde em `/healthz`. Textos, imagens e fontes do PDF acompanham a imagem. Não há banco de dados ou volume persistente: o PDF é gerado em memória. Depois de alterar conteúdo ou código, execute novamente `docker compose up -d --build`.
+A imagem usa Python 3.14, dependências do `uv.lock`, usuário sem privilégios, sistema de arquivos somente leitura e verificação de saúde em `/healthz`. Textos, imagens e fontes do PDF acompanham a imagem. O PDF é gerado em memória; o painel administrativo usa TinyDB no volume persistente `admin_data`. Depois de alterar conteúdo ou código, execute novamente `docker compose up -d --build`.
 
-Para parar: `docker compose down`. O Compose não executa deploy nem altera o GitHub Actions.
+Para parar: `docker compose down`. Não adicione `-v` se quiser preservar os dados administrativos.
+
+O workflow `.github/workflows/deploy.yml` faz deploy automático na VPS após pushes na `main`, via SSH, build Docker e verificação de saúde. Configure os secrets e os pré-requisitos descritos em [docs/DEPLOY.md](docs/DEPLOY.md) antes de ativá-lo.
 
 Atrás de um proxy HTTPS, defina `FORWARDED_ALLOW_IPS` com o IP ou CIDR do proxy para que URLs e cookies usem o protocolo correto. O Compose usa a rede externa `nginxproxymanager_default` e o alias `chalet-web`; essa rede precisa existir antes da subida. O Proxy Host do Nginx Proxy Manager deve apontar para `http://chalet-web:8000`. O IP `172.22.0.2` observado hoje é dinâmico e não deve ser fixado. Se o nome da rede for diferente na VPS, defina `PROXY_NETWORK` no `.env`.
 
