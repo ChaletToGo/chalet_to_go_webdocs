@@ -11,6 +11,7 @@ from .content import CONTENT, PRODUCTS
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
+from .maps import map_context
 from urllib.parse import urlsplit
 import logging
 from starlette.concurrency import run_in_threadpool
@@ -36,6 +37,7 @@ def render(request,slug=None,article_slug=None):
     if redirect:
         return redirect
     context=language_context(request)
+    context['location_map'] = map_context(context['locale']) if not slug and not article_slug else None
     locale=context['locale']
     text=CONTENT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
