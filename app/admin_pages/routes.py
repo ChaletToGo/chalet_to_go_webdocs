@@ -214,3 +214,10 @@ def redirect(code: str):
         daily[day] = daily.get(day, 0) + 1
         table.update({'total': row['total'] + 1, 'last_access': timestamp, 'daily': daily}, doc_ids=[row.doc_id])
     return RedirectResponse(row['destination'], status_code=302, headers=HEADERS)
+
+@router.get('/admin/site-metrics', dependencies=[Depends(admin)], include_in_schema=False)
+def site_metrics_report():
+    from fastapi.responses import JSONResponse
+    from app.site.metrics import report, enabled
+    return JSONResponse({'enabled':enabled(),'metric':'whatsapp_clicks','unique_visitors':False,
+                         'retention_days':90,'rows':report()},headers=HEADERS)

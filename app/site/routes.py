@@ -8,7 +8,13 @@ from fastapi.responses import HTMLResponse, Response, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from ..shared.i18n import language_context, apply_language_headers, LOCALES
 from .content import CONTENT, PRODUCTS
-from .seo import metadata, public_url, indexable
+from .seo import metadata, public_url, indexable, canonical_redirect
+from .discovery import PAGES, page_content, resources
+from . import metrics
+from .maps import map_context
+from urllib.parse import urlsplit
+import logging
+from starlette.concurrency import run_in_threadpool
 from ..shared.urls import local_url
 
 router=APIRouter()
@@ -26,8 +32,12 @@ def whatsapp(message):
         raise ValueError('WHATSAPP_NUMBER must contain country code and digits only')
     return 'https://wa.me/'+number+'?'+urlencode({'text':message})
 
-def render(request,slug=None):
+def render(request,slug=None,article_slug=None):
+    redirect=canonical_redirect(request)
+    if redirect:
+        return redirect
     context=language_context(request)
+    context['location_map'] = map_context(context['locale']) if not slug and not article_slug else None
     locale=context['locale']
     text=CONTENT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
@@ -35,9 +45,10 @@ def render(request,slug=None):
     selected=next((p for p in products if p['slug']==slug),None)
     if slug and not selected:
         raise HTTPException(status_code=404)
-    context.update(text=text,products=products,product=selected,whatsapp=whatsapp(text['message']),
-                   seo=metadata(request,text,locale,selected))
-    response=templates.TemplateResponse(request,'product.html' if selected else 'index.html',context)
+    article=page_content(article_slug,locale) if article_slug else None
+    context.update(text=text,products=products,product=selected,article=article,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
+                   seo=metadata(request,text,locale,selected,article))
+    response=templates.TemplateResponse(request,'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
     return apply_language_headers(response,request,context)
 
@@ -51,16 +62,74 @@ async def product_page(request: Request,slug:str):
 
 @router.get('/robots.txt',response_class=PlainTextResponse,include_in_schema=False)
 def robots(request: Request):
+    redirect=canonical_redirect(request)
+    if redirect:
+        return redirect
     if not indexable(request):
         return 'User-agent: *\nDisallow: /\n'
-    return 'User-agent: *\nAllow: /\nSitemap: '+public_url('/sitemap.xml')+'\n'
+    # Search crawlers, including AI search, inherit the public Allow rule.
+    return ('User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n'
+            'Disallow: /docs\nDisallow: /redoc\nDisallow: /openapi.json\n'
+            'Sitemap: '+public_url('/sitemap.xml')+'\n')
 
 @router.get('/sitemap.xml',include_in_schema=False)
-def sitemap():
+def sitemap(request: Request):
+    redirect=canonical_redirect(request)
+    if redirect:
+        return redirect
     entries=[]
-    for path in ['/']+[f"/chales/{p['slug']}" for p in PRODUCTS]:
+    for path in ['/']+[f"/chales/{p['slug']}" for p in PRODUCTS]+['/'+slug for slug in PAGES]:
         alternate=''.join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{escape(public_url(path,lang))}"/>' for lang in LOCALES)
         alternate+=f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(public_url(path,"en"))}"/>'
         for lang in LOCALES:
             entries.append('<url><loc>'+escape(public_url(path,lang))+'</loc>'+alternate+'</url>')
     return Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(entries)+'</urlset>',media_type='application/xml')
+
+@router.get('/sobre',response_class=HTMLResponse)
+async def about(request: Request):
+    return render(request,article_slug='sobre')
+
+@router.get('/perguntas-frequentes',response_class=HTMLResponse)
+async def faq(request: Request):
+    return render(request,article_slug='perguntas-frequentes')
+
+@router.get('/chales-para-hospedagem',response_class=HTMLResponse)
+async def hospitality(request: Request):
+    return render(request,article_slug='chales-para-hospedagem')
+
+@router.get('/llms.txt',response_class=PlainTextResponse,include_in_schema=False)
+def llms(request: Request):
+    redirect=canonical_redirect(request)
+    if redirect:
+        return redirect
+    lines=['# Chalet To GO','', '> Timber chalets and tiny houses. Official product and company information.',
+           '', '## Products']
+    for item in PRODUCTS:
+        lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): CHF {item['price']:,}; scope and terms in the proposal.")
+    lines += ['', '## Company and buying information']
+    lines += [f"- [{item['title']}]({public_url('/'+item['slug'],'en')})" for item in resources('en')]
+    lines += ['', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
+    return '\n'.join(lines)+'\n'
+
+@router.post('/api/site-metrics',include_in_schema=False)
+async def capture_click(request: Request):
+    if not metrics.enabled():
+        return Response(status_code=204)
+    origin=request.headers.get('origin','')
+    if not origin or urlsplit(origin).netloc!=request.url.netloc:
+        raise HTTPException(403,'Invalid origin')
+    raw=b''
+    async for chunk in request.stream():
+        raw+=chunk
+        if len(raw)>1024:
+            raise HTTPException(413,'Payload too large')
+    try:
+        click=metrics.Click.model_validate_json(raw)
+    except ValueError:
+        raise HTTPException(422,'Invalid event')
+    try:
+        await run_in_threadpool(metrics.record,click)
+    except Exception:
+        logging.getLogger(__name__).warning('Site click count could not be stored')
+        return Response(status_code=503)
+    return Response(status_code=204,headers={'Cache-Control':'no-store'})

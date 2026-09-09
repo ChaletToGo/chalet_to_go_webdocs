@@ -9,15 +9,51 @@ from test_i18n import get
 from app.virtual_cards.routes import load_card
 
 
-def test_example_and_optional_fields():
-    status, headers, body = get(path='/card/rafael_lima')
+def test_example_and_optional_fields(tmp_path):
+    (tmp_path / 'rafael_lima.json').write_text(json.dumps({'nome': 'Rafael Lima', 'cargo': 'Vendas', 'whatsapp': '+553197471887'}), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, headers, body = get({'lang': 'pt-BR'}, path='/card/rafael_lima')
     assert status == 200
     assert 'Rafael Lima' in body
     assert '/card/rafael_lima/contact.vcf' in body
     assert 'https://wa.me/553197471887' in body
     assert 'Conversar no WhatsApp' in body
     assert 'mailto:' not in body
-    assert headers[b'cache-control'] == b'no-store'
+    assert headers[b'cache-control'] == b'private, no-store'
+
+
+def test_maps_and_translated_content(tmp_path):
+    from urllib.parse import urlencode
+    address = 'Rua São João, 20 & 22, Belo Horizonte - MG'
+    data = {'nome': 'Ana Silva', 'cargo': 'Vendas', 'localizacao': address, 'traducoes': {'en': {'cargo': 'Sales', 'sobre': 'Contact our team'}}}
+    (tmp_path / 'ana.json').write_text(json.dumps(data), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, headers, body = get({'lang': 'en'}, path='/card/ana')
+        assert status == 200 and headers[b'content-language'] == b'en'
+        assert 'Open in maps' in body and '>Sales<' in body and 'Contact our team' in body
+        assert urlencode({'api':'1', 'query':address}).replace('&', '&amp;') in body
+        assert 'contact.vcf?lang=en' in body
+        vcf = get({'lang':'en'}, path='/card/ana/contact.vcf')[2].replace('\r\n ', '')
+        assert 'TITLE:Sales' in vcf and 'ADR;TYPE=WORK:;;Rua São João\\, 20 & 22\\, Belo Horizonte - MG;;;;' in vcf
+        data['localizacao'] = '  '
+        (tmp_path / 'ana.json').write_text(json.dumps(data), encoding='utf-8')
+        assert 'google.com/maps' not in get(path='/card/ana')[2]
+
+
+@pytest.mark.parametrize('country,locale,label', [('BR','pt-BR','Salvar contato'),('PT','pt-PT','Guardar contacto'),('US','en','Save contact'),('DE','de','Kontakt speichern'),('FR','fr','Enregistrer le contact'),('IT','it','Salva contatto'),('CH','en','Save contact')])
+def test_country_languages(country, locale, label):
+    _, headers, body = get(path='/card/rafael_lima', headers={'CF-IPCountry':country}, trusted=True)
+    assert headers[b'content-language'].decode() == locale
+    assert label in body and f'<html lang="{locale}">' in body
+
+
+def test_manual_language_browser_and_cookie():
+    _, headers, body = get({'lang':'rm'}, path='/card/rafael_lima', headers={'CF-IPCountry':'BR'}, trusted=True)
+    assert 'Memorisar il contact' in body
+    assert b'chalet-language=rm' in headers[b'set-cookie']
+    assert get(path='/card/rafael_lima', headers={'CF-IPCountry':'BR','Accept-Language':'fr'})[1][b'content-language'] == b'fr'
+    assert get(path='/card/rafael_lima', headers={'cookie':'chalet-language=de'})[1][b'content-language'] == b'de'
+    assert get({'lang':'auto'}, path='/card/rafael_lima', headers={'cookie':'chalet-language=de','Accept-Language':'it'})[1][b'content-language'] == b'it'
 
 
 def test_new_json_and_changes_are_available_without_restart():

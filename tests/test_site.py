@@ -34,7 +34,7 @@ class SiteTests(TestCase):
         status,headers,body=get(path='/sitemap.xml')
         self.assertEqual(status,200)
         root=ET.fromstring(body)
-        self.assertEqual(len(root),28)
+        self.assertEqual(len(root),49)
         for entry in root:
             self.assertTrue(entry[0].text.startswith('https://www.chalettogo.com/'))
             self.assertEqual(len(entry),9)

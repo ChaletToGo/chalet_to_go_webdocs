@@ -1,0 +1,11 @@
+{% if location_map %}
+<section id="localizacao" class="section location-section" aria-labelledby="location-title">
+  <div class="location-copy">
+    <p class="eyebrow">CHALET TO GO / {{ location_map.labels[0] }}</p>
+    <h2 id="location-title">{{ location_map.labels[1] }}</h2>
+    <p>{{ location_map.address }}</p>
+    <a class="text-link" href="{{ location_map.link }}" target="_blank" rel="noopener noreferrer">{{ location_map.labels[2] }} <span aria-hidden="true">↗</span></a>
+  </div>
+  <iframe class="location-map" title="{{ location_map.labels[0] }} — Chalet To GO" src="{{ location_map.src }}" width="800" height="480" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</section>
+{% endif %}

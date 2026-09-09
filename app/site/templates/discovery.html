@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block main %}
+<div class="breadcrumb"><a href="/?lang={{ locale }}">{{ text.home }}</a> / {{ article.title }}</div>
+<article class="section knowledge-page"><p class="eyebrow">CHALET TO GO</p><h1>{{ article.title }}</h1>
+{% if article.paragraphs %}<div class="knowledge-prose">{% for paragraph in article.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}</div>{% else %}<p class="section-intro">{{ article.intro }}</p>{% endif %}
+<h2>{{ article.labels[7] }}</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">{{ article.labels[8] }}</th><th scope="col">{{ article.labels[9] }}</th></tr></thead><tbody>{% for item in products %}<tr><th scope="row"><a href="/chales/{{ item.slug }}?lang={{ locale }}">{{ item.name }}</a><p>{{ item.description }}</p></th><td>CHF {{ item.price|amount(locale) }}</td></tr>{% endfor %}</tbody></table></div><p class="price-note">{{ text.price_note }}</p>
+{% if article.slug=='perguntas-frequentes' %}<div class="faq-list">{% for question,answer in article.questions %}<section><h2>{{ question }}</h2><p>{{ answer }}</p></section>{% endfor %}</div>{% endif %}
+</article>
+{% endblock %}
