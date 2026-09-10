@@ -1,5 +1,6 @@
 """Public URLs and search metadata, independent of request Host headers."""
 import os
+from .company import NAME, ADDRESS, profiles
 from urllib.parse import urlsplit, urlencode
 from ..shared.i18n import LOCALES
 from fastapi.responses import RedirectResponse
@@ -35,10 +36,14 @@ def metadata(request,text,locale,product=None,article=None):
                   'url':origin()+'/', 'logo':public_url('/static/images/Logomarca.png')}
     organization['contactPoint']={'@type':'ContactPoint','contactType':'sales',
         'telephone':'+'+os.getenv('WHATSAPP_NUMBER','5538998840910').lstrip('+')}
+    organization['address'] = ADDRESS.copy()
+    official_profiles = profiles()
+    if official_profiles:
+        organization['sameAs'] = [item['url'] for item in official_profiles]
     page={'@type':'WebPage','@id':canonical+'#page','url':canonical,'inLanguage':locale,
           'name':article['title']+' | Chalet To GO' if article else text['seo_title'] if not product else text['product_title'].format(model=product['name']),
           'isPartOf':{'@id':origin()+'/#website'}}
-    website={'@type':'WebSite','@id':origin()+'/#website','name':'Chalet to Go','url':origin()+'/',
+    website={'@type':'WebSite','@id':origin()+'/#website','name':NAME,'alternateName':'Chalettogo','url':origin()+'/',
              'publisher':{'@id':organization['@id']}}
     graph=[organization,website,page]
     if path != '/':

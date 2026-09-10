@@ -16,6 +16,7 @@ services:
           - chalet-web
     environment:
       SITE_URL: "${SITE_URL:-https://www.chalettogo.com}"
+      SITE_OFFICIAL_PROFILES: "${SITE_OFFICIAL_PROFILES:-}"
       GOOGLE_MAPS_API_KEY: "${GOOGLE_MAPS_API_KEY:-}"
       GOOGLE_MAPS_ADDRESS: "${GOOGLE_MAPS_ADDRESS:-Rte de Porrentruy 8, 2800 Delémont, Switzerland}"
       GOOGLE_SITE_VERIFICATION: "${GOOGLE_SITE_VERIFICATION:-}"

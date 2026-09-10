@@ -11,6 +11,7 @@ from .content import CONTENT, PRODUCTS
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
+from .company import company_context
 from .maps import map_context
 from urllib.parse import urlsplit
 import logging
@@ -39,6 +40,7 @@ def render(request,slug=None,article_slug=None):
     context=language_context(request)
     context['location_map'] = map_context(context['locale']) if not slug and not article_slug else None
     locale=context['locale']
+    context['company'] = company_context(locale)
     text=CONTENT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
                'whatsapp':whatsapp(text['plan_message'].format(model=p['name']))} for i,p in enumerate(PRODUCTS)]
@@ -108,7 +110,12 @@ def llms(request: Request):
         lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): CHF {item['price']:,}; scope and terms in the proposal.")
     lines += ['', '## Company and buying information']
     lines += [f"- [{item['title']}]({public_url('/'+item['slug'],'en')})" for item in resources('en')]
-    lines += ['', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
+    lines += ['', '## Company facts',
+              'Name: Chalet To GO.',
+              'Company address: Rte de Porrentruy 8, 2800 Delémont, Switzerland.',
+              'Brazil: initial production setup in Minas Caixa, Belo Horizonte; team prepared for the first unit.',
+              'Timber: kiln-dried, treated pine. Optional Generali coverage for Swiss timber chalets is available at extra cost, up to 20 years subject to contract. Brazilian timber warranty: 6 months, subject to proposal terms.',
+              '', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
     return '\n'.join(lines)+'\n'
 
 @router.post('/api/site-metrics',include_in_schema=False)
