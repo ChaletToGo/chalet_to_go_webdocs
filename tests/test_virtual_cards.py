@@ -19,7 +19,37 @@ def test_example_and_optional_fields(tmp_path):
     assert 'https://wa.me/553197471887' in body
     assert 'Conversar no WhatsApp' in body
     assert 'mailto:' not in body
+    assert 'class="profile-photo"' not in body
     assert headers[b'cache-control'] == b'private, no-store'
+
+
+@pytest.mark.parametrize('photo', ['static/images/ana silva.png', 'images/ana silva.png', '/static/cards/images/ana silva.png', 'app/virtual_cards/static/images/ana silva.png'])
+def test_optional_photo(tmp_path, photo):
+    images = tmp_path / 'static' / 'images'
+    images.mkdir(parents=True)
+    (images / 'ana silva.png').write_bytes(b'photo fixture')
+    (tmp_path / 'ana.json').write_text(json.dumps({'nome': 'Ana', 'cargo': 'Vendas', 'foto': photo}), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, _, body = get(path='/card/ana')
+    assert status == 200
+    assert 'class="profile-photo" src="/static/cards/images/ana%20silva.png"' in body
+
+
+@pytest.mark.parametrize('photo', ['', 'missing.jpg', '../private.png', 'https://example.com/photo.jpg', 'card.css'])
+def test_unavailable_photo_keeps_card_working(tmp_path, photo):
+    (tmp_path / 'private.png').write_bytes(b'private')
+    (tmp_path / 'ana.json').write_text(json.dumps({'nome': 'Ana', 'cargo': 'Vendas', 'foto': photo}), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, _, body = get(path='/card/ana')
+    assert status == 200
+    assert 'class="profile-photo"' not in body
+
+
+def test_home_without_map():
+    status, _, body = get({'lang': 'pt-BR'}, path='/')
+    assert status == 200
+    assert 'maps.googleapis.com' not in body
+    assert 'gmp-map' not in body
 
 
 def test_maps_and_translated_content(tmp_path):

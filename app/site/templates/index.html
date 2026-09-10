@@ -5,6 +5,5 @@
 <section id="chales" class="section collection" data-reveal><div class="section-heading"><p class="eyebrow">03 / {{ text.collection }}</p><h2>{{ text.collection_title }}</h2><p class="section-intro">{{ text.collection_intro }}</p></div><div class="product-grid">{% for item in products %}<article id="{{ item.slug }}">{% include '_product_photo.html' %}<div class="product-content"><div class="product-number">0{{ loop.index }} <span>CHALET TO GO</span></div><h3><a href="{{ url_for('site_product',slug=item.slug)|local_url }}?lang={{ locale }}">{{ item.name }}</a></h3><p>{{ item.description }}</p><div class="price">CHF {{ item.price|amount(locale) }}</div><a class="button sales-action" href="{{ item.whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.plan_cta }} <span aria-hidden="true">↗</span></a><a class="detail-link" href="{{ url_for('site_product',slug=item.slug)|local_url }}?lang={{ locale }}">{{ text.details }}</a></div></article>{% endfor %}</div><p class="image-note">{{ text.image_note }}</p><p class="price-note">{{ text.price_note }}</p></section>
 {% include '_gallery.html' %}
 {% include '_warranty.html' %}
-{% include '_map.html' %}
 <script src="{{ url_for('site_static',path='js/site.js')|local_url }}" defer></script>
 {% endblock %}
