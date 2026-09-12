@@ -2,7 +2,6 @@ import os
 import re
 from pathlib import Path
 from urllib.parse import urlencode
-from xml.sax.saxutils import escape
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, Response, PlainTextResponse
 from fastapi.templating import Jinja2Templates
@@ -11,7 +10,9 @@ from .content import CONTENT, PRODUCTS
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
+from .company import company_context
 from .maps import map_context
+from .sitemap import build_sitemap, GALLERY
 from urllib.parse import urlsplit
 import logging
 from starlette.concurrency import run_in_threadpool
@@ -39,6 +40,7 @@ def render(request,slug=None,article_slug=None):
     context=language_context(request)
     context['location_map'] = map_context(context['locale']) if not slug and not article_slug else None
     locale=context['locale']
+    context['company'] = company_context(locale)
     text=CONTENT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
                'whatsapp':whatsapp(text['plan_message'].format(model=p['name']))} for i,p in enumerate(PRODUCTS)]
@@ -46,7 +48,7 @@ def render(request,slug=None,article_slug=None):
     if slug and not selected:
         raise HTTPException(status_code=404)
     article=page_content(article_slug,locale) if article_slug else None
-    context.update(text=text,products=products,product=selected,article=article,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
+    context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
                    seo=metadata(request,text,locale,selected,article))
     response=templates.TemplateResponse(request,'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
@@ -77,13 +79,7 @@ def sitemap(request: Request):
     redirect=canonical_redirect(request)
     if redirect:
         return redirect
-    entries=[]
-    for path in ['/']+[f"/chales/{p['slug']}" for p in PRODUCTS]+['/'+slug for slug in PAGES]:
-        alternate=''.join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{escape(public_url(path,lang))}"/>' for lang in LOCALES)
-        alternate+=f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(public_url(path,"en"))}"/>'
-        for lang in LOCALES:
-            entries.append('<url><loc>'+escape(public_url(path,lang))+'</loc>'+alternate+'</url>')
-    return Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(entries)+'</urlset>',media_type='application/xml')
+    return Response(build_sitemap(), media_type='application/xml')
 
 @router.get('/sobre',response_class=HTMLResponse)
 async def about(request: Request):
@@ -108,7 +104,12 @@ def llms(request: Request):
         lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): CHF {item['price']:,}; scope and terms in the proposal.")
     lines += ['', '## Company and buying information']
     lines += [f"- [{item['title']}]({public_url('/'+item['slug'],'en')})" for item in resources('en')]
-    lines += ['', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
+    lines += ['', '## Company facts',
+              'Name: Chalet To GO.',
+              'Company address: Rte de Porrentruy 8, 2800 Delémont, Switzerland.',
+              'Brazil: initial production setup in Minas Caixa, Belo Horizonte; team prepared for the first unit.',
+              'Timber: kiln-dried, treated pine. Optional Generali coverage for Swiss timber chalets is available at extra cost, up to 20 years subject to contract. Brazilian timber warranty: 6 months, subject to proposal terms.',
+              '', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
     return '\n'.join(lines)+'\n'
 
 @router.post('/api/site-metrics',include_in_schema=False)

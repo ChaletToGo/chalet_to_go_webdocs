@@ -39,6 +39,7 @@
       <a class="brand" href="{{ url_for('site_home') | local_url }}" aria-label="Chalet to Go — {{ t.home }}">
         <img src="{{ url_for('static', path='images/Logomarca.png') | local_url }}" alt="Chalet to Go" width="300" height="300">
       </a>
+      {% if photo_url %}<img class="profile-photo" src="{{ photo_url }}" alt="{{ card.nome }}" width="112" height="112">{% endif %}
       <div class="person"><span class="eyebrow">{{ card.empresa }}</span><h1>{{ card.nome }}</h1><p class="role">{{ card.cargo }}</p>{% if card.localizacao %}<p class="location">{{ card.localizacao }}</p>{% endif %}</div>
       <span class="edition">BUILT TO MOVE. MADE TO INSPIRE.</span>
     </header>

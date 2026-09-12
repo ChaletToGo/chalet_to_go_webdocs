@@ -2,7 +2,7 @@ import json
 import logging
 import re
 from pathlib import Path
-from urllib.parse import urlsplit, urlencode
+from urllib.parse import urlsplit, urlencode, quote
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, Response
@@ -47,6 +47,7 @@ class Card(BaseModel):
     localizacao: str = ''
     sobre: str = ''
     traducoes: dict[str, CardTranslation] = Field(default_factory=dict)
+    foto: str = ''
 
     @field_validator('traducoes')
     @classmethod
@@ -95,6 +96,25 @@ class Card(BaseModel):
         return value
 
 
+def card_photo_url(value: str) -> str | None:
+    """Resolve optional photos only inside the cards' public static directory."""
+    if not value:
+        return None
+    value = value.replace('\\', '/')
+    for prefix in ('/static/cards/', 'app/virtual_cards/static/', 'static/'):
+        if value.startswith(prefix):
+            value = value[len(prefix):]
+            break
+    root = (CARD_DIR / 'static').resolve()
+    try:
+        path = (root / value).resolve()
+        if not path.is_relative_to(root) or path.suffix.lower() not in {'.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'} or not path.is_file():
+            return None
+        return '/static/cards/' + quote(path.relative_to(root).as_posix(), safe='/')
+    except (OSError, ValueError):
+        return None
+
+
 def load_card(slug: str) -> Card:
     if not re.fullmatch(r'[a-z0-9]+(?:[_-][a-z0-9]+)*', slug) or len(slug) > 100:
         raise HTTPException(404, 'Cartão não encontrado')
@@ -127,7 +147,7 @@ def card_page(request: Request, slug: str):
     for field, label, subtitle in [('site', t['site'], t['site_sub']), ('instagram', 'Instagram', t['instagram_sub']), ('linkedin', 'LinkedIn', t['linkedin_sub'])]:
         if value := getattr(card, field):
             actions.append((label, subtitle, value, 'arrow'))
-    response = templates.TemplateResponse(request, 'card.html', {**context, 't': t, 'card': card, 'slug': slug, 'actions': actions})
+    response = templates.TemplateResponse(request, 'card.html', {**context, 't': t, 'card': card, 'slug': slug, 'actions': actions, 'photo_url': card_photo_url(card.foto)})
     return apply_language_headers(response, request, context)
 
 

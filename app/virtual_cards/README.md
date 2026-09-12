@@ -35,3 +35,11 @@ Textos pessoais podem ser traduzidos pelo campo opcional `traducoes` em cada JSO
 ```
 
 Os campos `cargo` e `sobre` originais são o fallback para traduções ausentes. Nome, empresa, endereço e dados de contato são preservados. O `.vcf` usa o cargo e a apresentação do idioma selecionado. JSONs existentes continuam funcionando sem alterações.
+## Foto opcional
+
+Adicione ao JSON do cartão o campo `"foto": "static/images/rafael.jpg"` e coloque a imagem em `app/virtual_cards/static/images/rafael.jpg`.
+Use o caminho do **arquivo**, incluindo sua extensão. Também são aceitos `images/rafael.jpg`, `/static/cards/images/rafael.jpg` e `app/virtual_cards/static/images/rafael.jpg`.
+
+A foto aparece circular, acima do nome. São aceitos JPG, JPEG, PNG, WebP, AVIF e GIF. O arquivo deve estar dentro de `app/virtual_cards/static`; links externos não são aceitos. Prefira caminhos relativos para funcionar tanto no Windows quanto na VPS e no Docker.
+
+Sem o campo, com `"foto": ""` ou com arquivo inexistente, o cartão mantém a apresentação sem foto. O volume Docker existente inclui essa pasta.
