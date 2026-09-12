@@ -2,7 +2,6 @@ import os
 import re
 from pathlib import Path
 from urllib.parse import urlencode
-from xml.sax.saxutils import escape
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, Response, PlainTextResponse
 from fastapi.templating import Jinja2Templates
@@ -13,6 +12,7 @@ from .discovery import PAGES, page_content, resources
 from . import metrics
 from .company import company_context
 from .maps import map_context
+from .sitemap import build_sitemap, GALLERY
 from urllib.parse import urlsplit
 import logging
 from starlette.concurrency import run_in_threadpool
@@ -48,7 +48,7 @@ def render(request,slug=None,article_slug=None):
     if slug and not selected:
         raise HTTPException(status_code=404)
     article=page_content(article_slug,locale) if article_slug else None
-    context.update(text=text,products=products,product=selected,article=article,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
+    context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
                    seo=metadata(request,text,locale,selected,article))
     response=templates.TemplateResponse(request,'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
@@ -79,13 +79,7 @@ def sitemap(request: Request):
     redirect=canonical_redirect(request)
     if redirect:
         return redirect
-    entries=[]
-    for path in ['/']+[f"/chales/{p['slug']}" for p in PRODUCTS]+['/'+slug for slug in PAGES]:
-        alternate=''.join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{escape(public_url(path,lang))}"/>' for lang in LOCALES)
-        alternate+=f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(public_url(path,"en"))}"/>'
-        for lang in LOCALES:
-            entries.append('<url><loc>'+escape(public_url(path,lang))+'</loc>'+alternate+'</url>')
-    return Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(entries)+'</urlset>',media_type='application/xml')
+    return Response(build_sitemap(), media_type='application/xml')
 
 @router.get('/sobre',response_class=HTMLResponse)
 async def about(request: Request):

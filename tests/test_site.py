@@ -37,7 +37,7 @@ class SiteTests(TestCase):
         self.assertEqual(len(root),49)
         for entry in root:
             self.assertTrue(entry[0].text.startswith('https://www.chalettogo.com/'))
-            self.assertEqual(len(entry),9)
+            self.assertEqual(len(entry.findall('{http://www.w3.org/1999/xhtml}link')),8)
         self.assertIn('Disallow: /',get(path='/robots.txt')[2])
         self.assertIn('noindex',get(path='/')[1][b'x-robots-tag'].decode())
         self.assertIn('Sitemap: https://www.chalettogo.com/sitemap.xml',get(headers={'host':'www.chalettogo.com'},path='/robots.txt')[2])
