@@ -7,18 +7,25 @@ from .revista.routes import router as revista_router
 from .site.routes import router as site_router
 from .virtual_cards.routes import router as cards_router
 from .admin_pages.routes import router as admin_router
+from .landing_pages.eco_villa.routes import router as eco_villa_router
+from .showroom.routes import router as showroom_router
 BASE_DIR = Path(__file__).resolve().parent
 app = FastAPI(title="Chalet to Go")
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.mount('/static/showroom', StaticFiles(directory=BASE_DIR/'showroom'/'static'), name='showroom_static')
+app.mount('/models', StaticFiles(directory=BASE_DIR/'3d'), name='models')
 app.mount('/static/admin', StaticFiles(directory=BASE_DIR/'admin_pages'/'static'), name='admin_static')
 app.mount('/static/cards', StaticFiles(directory=BASE_DIR/'virtual_cards'/'static'), name='cards_static')
 app.mount('/static/revista', StaticFiles(directory=BASE_DIR/'revista'/'static'), name='revista_static')
 app.mount('/static/site', StaticFiles(directory=BASE_DIR/'site'/'static'), name='site_static')
+app.mount('/static/eco-villa', StaticFiles(directory=BASE_DIR/'landing_pages'/'eco_villa'/'static'), name='eco_villa_static')
 # Specific legacy paths must precede the shared /static mount.
 app.mount('/static/css', StaticFiles(directory=BASE_DIR/'revista'/'static'/'css'), name='legacy_css')
 app.mount('/static/js', StaticFiles(directory=BASE_DIR/'revista'/'static'/'js'), name='legacy_js')
 app.mount('/static', StaticFiles(directory=BASE_DIR/'shared'/'static'), name='static')
 app.include_router(site_router)
+app.include_router(showroom_router)
+app.include_router(eco_villa_router)
 app.include_router(revista_router)
 app.include_router(cards_router)
 app.include_router(admin_router)
