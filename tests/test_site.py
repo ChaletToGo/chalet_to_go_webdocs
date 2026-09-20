@@ -19,8 +19,8 @@ class SiteTests(TestCase):
                     self.assertIn(f'https://www.chalettogo.com/chales/{slug}?lang={locale}',body)
                     schema=json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>',body).group(1))
                     product=next(item for item in schema['@graph'] if item['@type']=='Product')
-                    self.assertEqual(product['offers']['price'],price)
-                    self.assertEqual(product['offers']['priceCurrency'],'CHF')
+                    self.assertEqual(product['offers']['lowPrice'],price)
+                    self.assertEqual(product['offers']['priceCurrency'],'EUR')
                     links=re.findall(r'class="[^"]*sales-action[^"]*" href="([^"]+)"',body)
                     self.assertGreaterEqual(len(links),3)
                     for link in links:

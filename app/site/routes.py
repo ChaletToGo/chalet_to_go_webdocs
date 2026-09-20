@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from ..shared.i18n import language_context, apply_language_headers, LOCALES
 from .content import CONTENT, PRODUCTS
 from .contact import CONTACT
+from .pricing import pricing_context, plan_price
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
@@ -41,7 +42,8 @@ def render(request,slug=None,article_slug=None,contact=False):
     context['company'] = company_context(locale)
     text=CONTENT[locale]
     context['contact_text'] = CONTACT[locale]
-    products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
+    price_config, currency = pricing_context(context['country'])
+    products=[{**p, **plan_price(price_config, currency, p['slug'], locale), 'description':text['models'][i],'benefit':text['benefits'][i],
                'whatsapp':whatsapp(text['plan_message'].format(model=p['name']), request)} for i,p in enumerate(PRODUCTS)]
     selected=next((p for p in products if p['slug']==slug),None)
     if slug and not selected:
@@ -101,8 +103,10 @@ def llms(request: Request):
         return redirect
     lines=['# Chalet To GO','', '> Timber chalets and tiny houses. Official product and company information.',
            '', '## Products']
+    price_config, _ = pricing_context('')
     for item in PRODUCTS:
-        lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): CHF {item['price']:,}; scope and terms in the proposal.")
+        prices = '; '.join(f"{currency}: {plan_price(price_config, currency, item['slug'], 'en')['price_display']}" for currency in ('BRL', 'EUR', 'CHF'))
+        lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): {prices}; final scope and terms in the proposal.")
     lines += ['', '## Company and buying information']
     lines += [f"- [{item['title']}]({public_url('/'+item['slug'],'en')})" for item in resources('en')]
     lines += ['', '## Company facts',

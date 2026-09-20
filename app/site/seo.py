@@ -59,8 +59,9 @@ def metadata(request,text,locale,product=None,article=None):
         graph.append({'@type':'Product','@id':canonical+'#product','name':'Chalet to Go '+product['name'],
           'description':product['description'],'image':public_url(f"/static/site/images/{product['slug']}-1440.webp"),
           'brand':{'@type':'Brand','name':'Chalet to Go'},'url':canonical,
-          'offers':{'@type':'Offer','url':canonical,'priceCurrency':'CHF','price':product['price'],
-                    'seller':{'@id':organization['@id']}}})
+          **({'offers': {'@type': 'AggregateOffer', 'url': canonical,
+                         'priceCurrency': product['currency'], 'lowPrice': product['price']}}
+             if product['price'] is not None else {})})
         page['mainEntity']={'@id':canonical+'#product'}
     return {'canonical':canonical,'alternates':[(code,public_url(path,code)) for code in LOCALES],
             'default_url':public_url(path,'en'),'title':page['name'],
