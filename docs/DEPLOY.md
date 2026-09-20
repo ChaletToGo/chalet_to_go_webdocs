@@ -76,3 +76,7 @@ sudo docker compose logs --tail 100 web
 ```
 
 Referências: [deploys e concorrência no GitHub Actions](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments) e [opções de docker compose up](https://docs.docker.com/reference/cli/docker/compose/up/).
+
+### Número comercial do WhatsApp
+
+Configure `WHATSAPP_NUMBER=5531984748754` no `.env` da VPS e recrie o serviço com `docker compose up -d --build web`. Valores já definidos no `.env` prevalecem sobre o padrão do Compose. Se usar `ECO_VILLA_WHATSAPP_NUMBER`, atualize-o para o mesmo número. Os cartões pessoais mantêm seus contatos individuais.

@@ -29,7 +29,7 @@ def amount(value,locale):
 templates.env.filters['amount']=amount
 
 def whatsapp(message):
-    number=os.getenv('WHATSAPP_NUMBER','5538998840910').strip().lstrip('+')
+    number=os.getenv('WHATSAPP_NUMBER','5531984748754').strip().lstrip('+')
     if not re.fullmatch(r'[1-9][0-9]{7,14}',number):
         raise ValueError('WHATSAPP_NUMBER must contain country code and digits only')
     return 'https://wa.me/'+number+'?'+urlencode({'text':message})

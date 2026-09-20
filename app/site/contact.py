@@ -5,6 +5,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import UUID
+from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import JSONResponse
@@ -27,6 +28,7 @@ class LeadInput(BaseModel):
     email: str = Field(default='', max_length=254)
     submission_id: UUID
     website: str = Field(default='', max_length=200)
+    source: Literal['/', '/contato'] = '/contato'
 
     @field_validator('name')
     @classmethod
@@ -58,7 +60,7 @@ def save_lead(payload, locale):
         # Retrying a submission after a lost response must not create duplicates.
         if not table.contains(Query().submission_id == str(payload.submission_id)):
             table.insert({**payload.model_dump(mode='json', exclude={'website'}),
-                          'locale': locale, 'source': '/contato',
+                          'locale': locale,
                           'created_at': datetime.now(timezone.utc).isoformat()})
 
 

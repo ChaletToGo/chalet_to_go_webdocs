@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
 @router.get('/eco-villa-natal', response_class=HTMLResponse, name='eco_villa')
 async def landing(request: Request):
-    number = os.getenv('ECO_VILLA_WHATSAPP_NUMBER', os.getenv('WHATSAPP_NUMBER', '5538998840910')).strip().lstrip('+')
+    number = os.getenv('ECO_VILLA_WHATSAPP_NUMBER', os.getenv('WHATSAPP_NUMBER', '5531984748754')).strip().lstrip('+')
     if not re.fullmatch(r'[1-9][0-9]{7,14}', number):
         raise ValueError('ECO_VILLA_WHATSAPP_NUMBER must contain country code and digits only')
     message = 'Olá! Tenho interesse em uma unidade Basic da Eco Villa em Natal. Gostaria de receber a apresentação, os valores e as condições de compra.'

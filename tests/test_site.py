@@ -26,7 +26,7 @@ class SiteTests(TestCase):
                     for link in links:
                         parsed=urlsplit(unescape(link))
                         self.assertEqual(parsed.netloc,'wa.me')
-                        self.assertEqual(parsed.path,'/5538998840910')
+                        self.assertEqual(parsed.path,'/5531984748754')
                         self.assertIn(slug.lower(),parse_qs(parsed.query)['text'][0].lower())
         self.assertEqual(get(path='/chales/unknown')[0],404)
 
@@ -54,7 +54,7 @@ class SiteTests(TestCase):
                 self.assertIn('/static/brand/brand.css',body)
                 self.assertIn('/static/images/Logomarca.svg',body)
                 self.assertNotIn('/revista',body)
-                self.assertIn('https://wa.me/5538998840910?',body)
+                self.assertIn('https://wa.me/5531984748754?',body)
                 self.assertEqual(body.count('alt="Suisse Garantie"'),4)
                 self.assertLess(body.index('id="produto"'),body.index('id="chales"'))
                 self.assertLess(body.index('id="madeira"'),body.index('id="chales"'))

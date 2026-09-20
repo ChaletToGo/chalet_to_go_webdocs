@@ -103,3 +103,16 @@ def test_contact_rejects_foreign_origins(monkeypatch, origin):
 def test_contact_local_same_origin():
     assert request('/api/contact', 'POST', payload(), auth=False, scheme='http',
         extra_headers={'host': 'localhost:8000', 'origin': 'http://localhost:8000'})[0] == 201
+
+
+def test_home_waitlist_uses_shared_form_and_records_source():
+    for locale in LOCALES:
+        _, _, html = get({'lang': locale}, path='/')
+        assert html.count('id="contact-form"') == 1
+        assert CONTACT[locale]['title'] in html
+        assert 'name="source" value="/"' in html
+        assert html.index('id="fila-de-espera"') < html.index('<footer>')
+    status, _, _ = request('/api/contact?lang=pt-BR', 'POST', payload(source='/'), auth=False)
+    assert status == 201
+    with database('leads') as table:
+        assert table.all()[0]['source'] == '/'

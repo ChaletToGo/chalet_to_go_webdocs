@@ -15,9 +15,9 @@ As gravações administrativas exigem autenticação e um cabeçalho de requisi�
 Testes: `.venv/Scripts/python -m pytest tests/test_admin_pages.py` (Windows).
 
 
-## Contato e leads
+## Fila de espera e leads
 
-A página pública `/contato` segue a negociação de idioma compartilhada (seleção explícita, preferência salva, país confiável e navegador), nos sete idiomas do site. É acessível pelo menu e pelos links do rodapé e consta no sitemap. O formulário solicita nome e WhatsApp com código do país; e-mail é opcional. Trata-se de um pedido de atendimento: a equipe combina o horário posteriormente, sem reserva automática de agenda ou envio de mensagens.
+A página pública `/contato` segue a negociação de idioma compartilhada (seleção explícita, preferência salva, país confiável e navegador), nos sete idiomas do site. É acessível pelo menu e pelos links do rodapé e consta no sitemap. O formulário solicita nome e WhatsApp com código do país; e-mail é opcional. O formulário inscreve o contato na fila de espera; a equipe atende pelo WhatsApp assim que possível, sem reserva automática de agenda ou envio de mensagens. A home inclui uma versão compacta do mesmo formulário antes do rodapé. Os registros identificam a origem como `/` ou `/contato`.
 
 `POST /api/contact?lang=...` recebe JSON, valida os campos e grava na tabela `leads` do mesmo `ADMIN_DB_PATH`, preservando `qrcodes`. Cada registro contém nome, telefone normalizado, e-mail, idioma, origem, data UTC e identificador de envio. Repetir o mesmo identificador não duplica o lead. Há limite de tamanho de requisição, verificação de origem e campo invisível contra bots simples; isso não substitui limites de tráfego no proxy para abuso em grande escala. O formulário depende de JavaScript; o contato direto por WhatsApp continua disponível na página.
 

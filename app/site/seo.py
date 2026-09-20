@@ -35,7 +35,7 @@ def metadata(request,text,locale,product=None,article=None):
     organization={'@type':'Organization','@id':origin()+'/#organization','name':'Chalet To GO','alternateName':'Chalettogo',
                   'url':origin()+'/', 'logo':public_url('/static/images/Logomarca.png')}
     organization['contactPoint']={'@type':'ContactPoint','contactType':'sales',
-        'telephone':'+'+os.getenv('WHATSAPP_NUMBER','5538998840910').lstrip('+')}
+        'telephone':'+'+os.getenv('WHATSAPP_NUMBER','5531984748754').lstrip('+')}
     organization['address'] = ADDRESS.copy()
     official_profiles = profiles()
     if official_profiles:

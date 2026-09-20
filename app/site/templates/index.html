@@ -7,3 +7,10 @@
 {% include '_warranty.html' %}
 <script src="{{ url_for('site_static',path='js/site.js')|local_url }}" defer></script>
 {% endblock %}
+
+{% block closing %}
+<section id="fila-de-espera" class="home-waitlist" aria-labelledby="waitlist-title">
+<div class="waitlist-heading"><p class="eyebrow">CHALET TO GO / {{ contact_text.nav }}</p><h2 id="waitlist-title">{{ contact_text.title }}</h2><p>{{ contact_text.intro }}</p></div>
+{% with contact_source='/' %}{% include '_contact_form.html' %}{% endwith %}
+</section>
+{% endblock %}
