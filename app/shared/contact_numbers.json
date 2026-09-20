@@ -1,0 +1,11 @@
+{
+  "default": { "env": "WHATSAPP_NUMBER" },
+  "countries": {
+    "BR": { "name": "Brasil", "env": "WHATSAPP_NUMBER" },
+    "CH": { "name": "Suíça", "number": "+41 79 191 46 38" },
+    "DE": { "name": "Alemanha", "number": "+41 79 191 46 38" },
+    "IT": { "name": "Itália", "number": "+41 79 191 46 38" },
+    "PT": { "name": "Portugal", "number": "+41 79 191 46 38" },
+    "FR": { "name": "França", "number": "+41 79 191 46 38" }
+  }
+}

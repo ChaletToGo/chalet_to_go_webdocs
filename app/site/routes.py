@@ -1,5 +1,3 @@
-import os
-import re
 from pathlib import Path
 from urllib.parse import urlencode
 from fastapi import APIRouter, Request, HTTPException
@@ -18,6 +16,7 @@ from urllib.parse import urlsplit
 import logging
 from starlette.concurrency import run_in_threadpool
 from ..shared.urls import local_url
+from ..shared.contact import whatsapp_number
 
 router=APIRouter()
 templates=Jinja2Templates(directory=Path(__file__).parent/'templates')
@@ -28,10 +27,8 @@ def amount(value,locale):
     return f'{value:,.0f}'.replace(',',separator)
 templates.env.filters['amount']=amount
 
-def whatsapp(message):
-    number=os.getenv('WHATSAPP_NUMBER','5531984748754').strip().lstrip('+')
-    if not re.fullmatch(r'[1-9][0-9]{7,14}',number):
-        raise ValueError('WHATSAPP_NUMBER must contain country code and digits only')
+def whatsapp(message, request=None):
+    number = whatsapp_number(request)
     return 'https://wa.me/'+number+'?'+urlencode({'text':message})
 
 def render(request,slug=None,article_slug=None,contact=False):
@@ -45,14 +42,14 @@ def render(request,slug=None,article_slug=None,contact=False):
     text=CONTENT[locale]
     context['contact_text'] = CONTACT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
-               'whatsapp':whatsapp(text['plan_message'].format(model=p['name']))} for i,p in enumerate(PRODUCTS)]
+               'whatsapp':whatsapp(text['plan_message'].format(model=p['name']), request)} for i,p in enumerate(PRODUCTS)]
     selected=next((p for p in products if p['slug']==slug),None)
     if slug and not selected:
         raise HTTPException(status_code=404)
     article=page_content(article_slug,locale) if article_slug else None
     if contact:
         article = {'slug': 'contato', 'title': CONTACT[locale]['title'], 'intro': CONTACT[locale]['intro']}
-    context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
+    context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message'], request),
                    seo=metadata(request,text,locale,selected,article))
     response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']

@@ -28,7 +28,9 @@ async def showroom(request: Request):
     response = templates.TemplateResponse(request, 'product.html', {
         'model_url': models[0]['url'], 'models': models, 'gallery': gallery,
         'plan_url': asset('planta_chale_basico.jpg'),
-        'contact_url': whatsapp('Olá! Explorei o Chalé Básico em 3D e gostaria de conversar sobre esse projeto.'),
+        'contact_url': whatsapp('Olá! Explorei o Chalé Básico em 3D e gostaria de conversar sobre esse projeto.', request),
     })
     response.headers['X-Robots-Tag'] = 'noindex, nofollow'
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Vary'] = 'CF-IPCountry'
     return response

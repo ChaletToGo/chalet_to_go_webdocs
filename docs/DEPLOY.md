@@ -79,4 +79,6 @@ Referências: [deploys e concorrência no GitHub Actions](https://docs.github.co
 
 ### Número comercial do WhatsApp
 
-Configure `WHATSAPP_NUMBER=5531984748754` no `.env` da VPS e recrie o serviço com `docker compose up -d --build web`. Valores já definidos no `.env` prevalecem sobre o padrão do Compose. Se usar `ECO_VILLA_WHATSAPP_NUMBER`, atualize-o para o mesmo número. Os cartões pessoais mantêm seus contatos individuais.
+Configure `WHATSAPP_NUMBER=5531984748754` no `.env` da VPS e recrie o serviço com `docker compose up -d --build web`. O Compose exige essa variável: não há número comercial fixo como fallback no código. Esse número atende o Brasil e acessos sem país cadastrado. Os demais países seguem `app/shared/contact_numbers.json`; veja `app/shared/CONTACTS.md`. A política é compartilhada pela home, páginas de produtos, showroom, Eco Villa e metadados. Em execução local, carregue o arquivo com `uv run uvicorn app.main:app --env-file .env`. Após alterar o `.env`, recrie o serviço para atualizar o ambiente do container. Os cartões pessoais mantêm seus contatos individuais.
+
+Para selecionar o contato pelo país, a VPS deve receber `CF-IPCountry` de um proxy confiável e usar `TRUST_COUNTRY_HEADER=true`. Mantenha desativado se a origem do cabeçalho não for controlada. A seleção de idioma não muda o país do contato.

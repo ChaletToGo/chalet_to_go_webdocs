@@ -28,7 +28,7 @@ services:
       ADMIN_DB_PATH: /app/data/admin.json
       QR_BASE_URL: "${QR_BASE_URL:-https://www.chalettogo.com}"
       SITE_INDEXABLE: "${SITE_INDEXABLE:-true}"
-      WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:-5531984748754}"
+      WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:?Configure WHATSAPP_NUMBER no .env}"
       TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
     read_only: true

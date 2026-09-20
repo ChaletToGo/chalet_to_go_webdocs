@@ -3,6 +3,7 @@ import os
 from .company import NAME, ADDRESS, profiles
 from urllib.parse import urlsplit, urlencode
 from ..shared.i18n import LOCALES
+from ..shared.contact import whatsapp_number
 from fastapi.responses import RedirectResponse
 
 def canonical_redirect(request):
@@ -35,7 +36,7 @@ def metadata(request,text,locale,product=None,article=None):
     organization={'@type':'Organization','@id':origin()+'/#organization','name':'Chalet To GO','alternateName':'Chalettogo',
                   'url':origin()+'/', 'logo':public_url('/static/images/Logomarca.png')}
     organization['contactPoint']={'@type':'ContactPoint','contactType':'sales',
-        'telephone':'+'+os.getenv('WHATSAPP_NUMBER','5531984748754').lstrip('+')}
+        'telephone':'+'+whatsapp_number(request)}
     organization['address'] = ADDRESS.copy()
     official_profiles = profiles()
     if official_profiles:
