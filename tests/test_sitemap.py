@@ -11,7 +11,7 @@ def test_sitemap_canonical_pages_alternates_and_images():
     assert status == 200
     entries = fromstring(xml).findall(f'{{{SM}}}url')
     locations = [entry.findtext(f'{{{SM}}}loc') for entry in entries]
-    assert len(locations) == len(set(locations)) == 49
+    assert len(locations) == len(set(locations)) == 56
     for entry, location in zip(entries, locations):
         url = urlsplit(location)
         status, _, html = get({k: v[0] for k, v in parse_qs(url.query).items()}, path=url.path,

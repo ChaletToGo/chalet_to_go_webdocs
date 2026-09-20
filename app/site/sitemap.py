@@ -22,6 +22,7 @@ def build_sitemap():
     pages = {'/': list(dict.fromkeys([p['slug'] for p in PRODUCTS] + [p[0] for p in GALLERY]))}
     pages.update({f"/chales/{p['slug']}": [p['slug']] for p in PRODUCTS})
     pages.update({'/' + slug: [] for slug in PAGES})
+    pages['/contato'] = []
     for path, images in pages.items():
         for locale in LOCALES:
             entry = SubElement(root, f'{{{SM}}}url')

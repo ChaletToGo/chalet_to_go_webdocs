@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block title %}Leads{% endblock %}{% block main %}
+<header><div><span class="eyebrow">Chalet to Go / Ferramentas</span><h1>Leads</h1><p>Solicitações de atendimento recebidas pelo site. Datas em UTC.</p></div></header>
+<form class="toolbar" method="get"><label for="lead-search">Pesquisar contatos</label><input id="lead-search" name="search" type="search" maxlength="200" value="{{ search }}" placeholder="Nome, WhatsApp ou e-mail"><button>Pesquisar</button><a href="/admin/leads">Limpar / atualizar</a></form>
+<p>{{ rows|length }} contato(s)</p><div class="table-scroll"><table><thead><tr><th scope="col">Nome</th><th scope="col">WhatsApp</th><th scope="col">E-mail</th><th scope="col">Idioma</th><th scope="col">Recebido em · UTC</th></tr></thead><tbody>
+{% for row in rows %}<tr><td>{{ row.name }}</td><td><a href="https://wa.me/{{ row.phone }}" target="_blank" rel="noopener noreferrer">+{{ row.phone }}</a></td><td>{% if row.email %}<a href="mailto:{{ row.email }}">{{ row.email }}</a>{% else %}Não informado{% endif %}</td><td>{{ row.locale }}</td><td><time datetime="{{ row.created_at }}">{{ row.created_at[:19]|replace('T',' ') }}</time></td></tr>{% else %}<tr><td colspan="5">Nenhum contato encontrado.</td></tr>{% endfor %}
+</tbody></table></div>{% endblock %}

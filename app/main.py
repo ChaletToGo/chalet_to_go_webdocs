@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.gzip import GZipMiddleware
 from .revista.routes import router as revista_router
 from .site.routes import router as site_router
+from .site.contact import router as contact_router
 from .virtual_cards.routes import router as cards_router
 from .admin_pages.routes import router as admin_router
 from .landing_pages.eco_villa.routes import router as eco_villa_router
@@ -23,6 +24,7 @@ app.mount('/static/eco-villa', StaticFiles(directory=BASE_DIR/'landing_pages'/'e
 app.mount('/static/css', StaticFiles(directory=BASE_DIR/'revista'/'static'/'css'), name='legacy_css')
 app.mount('/static/js', StaticFiles(directory=BASE_DIR/'revista'/'static'/'js'), name='legacy_js')
 app.mount('/static', StaticFiles(directory=BASE_DIR/'shared'/'static'), name='static')
+app.include_router(contact_router)
 app.include_router(site_router)
 app.include_router(showroom_router)
 app.include_router(eco_villa_router)

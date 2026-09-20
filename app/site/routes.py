@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse, Response, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from ..shared.i18n import language_context, apply_language_headers, LOCALES
 from .content import CONTENT, PRODUCTS
+from .contact import CONTACT
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
@@ -33,7 +34,7 @@ def whatsapp(message):
         raise ValueError('WHATSAPP_NUMBER must contain country code and digits only')
     return 'https://wa.me/'+number+'?'+urlencode({'text':message})
 
-def render(request,slug=None,article_slug=None):
+def render(request,slug=None,article_slug=None,contact=False):
     redirect=canonical_redirect(request)
     if redirect:
         return redirect
@@ -42,15 +43,18 @@ def render(request,slug=None,article_slug=None):
     locale=context['locale']
     context['company'] = company_context(locale)
     text=CONTENT[locale]
+    context['contact_text'] = CONTACT[locale]
     products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
                'whatsapp':whatsapp(text['plan_message'].format(model=p['name']))} for i,p in enumerate(PRODUCTS)]
     selected=next((p for p in products if p['slug']==slug),None)
     if slug and not selected:
         raise HTTPException(status_code=404)
     article=page_content(article_slug,locale) if article_slug else None
+    if contact:
+        article = {'slug': 'contato', 'title': CONTACT[locale]['title'], 'intro': CONTACT[locale]['intro']}
     context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
                    seo=metadata(request,text,locale,selected,article))
-    response=templates.TemplateResponse(request,'discovery.html' if article else 'product.html' if selected else 'index.html',context)
+    response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
     return apply_language_headers(response,request,context)
 
@@ -134,3 +138,8 @@ async def capture_click(request: Request):
         logging.getLogger(__name__).warning('Site click count could not be stored')
         return Response(status_code=503)
     return Response(status_code=204,headers={'Cache-Control':'no-store'})
+
+
+@router.get('/contato', response_class=HTMLResponse, name='site_contact')
+async def contact_page(request: Request):
+    return render(request, contact=True)

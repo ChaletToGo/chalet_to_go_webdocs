@@ -2,7 +2,6 @@ import csv
 import io
 import os
 import secrets
-from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -12,10 +11,9 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
-from filelock import FileLock
 from pydantic import BaseModel, Field, field_validator
-from tinydb import TinyDB, Query
-from tinydb.storages import Storage
+from tinydb import Query
+from app.shared.database import database
 
 import json
 
@@ -33,32 +31,6 @@ def admin(request: Request, credentials: HTTPBasicCredentials | None = Depends(s
         raise HTTPException(401, 'Autenticação necessária.', headers={'WWW-Authenticate': 'Basic realm="Chalet to Go Admin", charset="UTF-8"'})
     if request.method not in ('GET', 'HEAD') and request.headers.get('x-admin-request') != '1':
         raise HTTPException(403, 'Requisição não autorizada.')
-
-
-class AtomicStorage(Storage):
-    """Atomic replacement; all readers/writers also hold the same process-safe lock."""
-    def __init__(self, path):
-        self.path = Path(path)
-
-    def read(self):
-        return json.loads(self.path.read_text('utf-8')) if self.path.exists() else None
-
-    def write(self, data):
-        temporary = self.path.with_suffix('.tmp')
-        with temporary.open('w', encoding='utf-8') as stream:
-            json.dump(data, stream, ensure_ascii=False)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(temporary, self.path)
-
-
-@contextmanager
-def database():
-    path = Path(os.getenv('ADMIN_DB_PATH', 'data/admin.json')).resolve()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with FileLock(str(path) + '.lock', timeout=15):
-        with TinyDB(path, storage=AtomicStorage) as db:
-            yield db.table('qrcodes')
 
 
 def now():
@@ -124,10 +96,9 @@ def output(row):
     return result
 
 
-@router.get('/admin', response_class=HTMLResponse, dependencies=[Depends(admin)])
 @router.get('/admin/qrcodes', response_class=HTMLResponse, dependencies=[Depends(admin)])
 def dashboard(request: Request):
-    return templates.TemplateResponse(request=request, name='qrcodes.html', context={}, headers=HEADERS)
+    return templates.TemplateResponse(request=request, name='qrcodes.html', context={'section': 'qrcodes'}, headers=HEADERS)
 
 
 @router.get('/admin/api/qrcodes', dependencies=[Depends(admin)])
@@ -221,3 +192,31 @@ def site_metrics_report():
     from app.site.metrics import report, enabled
     return JSONResponse({'enabled':enabled(),'metric':'whatsapp_clicks','unique_visitors':False,
                          'retention_days':90,'rows':report()},headers=HEADERS)
+
+
+@router.get('/admin', response_class=HTMLResponse, dependencies=[Depends(admin)])
+def admin_home(request: Request):
+    with database('leads') as table:
+        leads_count = len(table)
+    with database() as table:
+        qr_count = len(table)
+    return templates.TemplateResponse(request=request, name='dashboard.html',
+        context={'section': 'home', 'leads_count': leads_count, 'qr_count': qr_count}, headers=HEADERS)
+
+
+@router.get('/admin/leads', response_class=HTMLResponse, dependencies=[Depends(admin)])
+def leads_page(request: Request, search: str = ''):
+    with database('leads') as table:
+        rows = sorted(table.all(), key=lambda row: row['created_at'], reverse=True)
+    query = search.strip().casefold()[:200]
+    if query:
+        rows = [row for row in rows if query in ' '.join(row.get(key, '') for key in ('name', 'phone', 'email')).casefold()]
+    return templates.TemplateResponse(request=request, name='leads.html',
+        context={'section': 'leads', 'rows': rows, 'search': search[:200]}, headers=HEADERS)
+
+
+@router.get('/admin/metrics', response_class=HTMLResponse, dependencies=[Depends(admin)])
+def metrics_page(request: Request):
+    from app.site.metrics import report, enabled
+    return templates.TemplateResponse(request=request, name='metrics.html',
+        context={'section': 'metrics', 'rows': report(), 'enabled': enabled()}, headers=HEADERS)
