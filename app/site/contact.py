@@ -4,7 +4,6 @@ import logging
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlsplit
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Request
@@ -15,6 +14,7 @@ from tinydb import Query
 
 from app.shared.database import database
 from app.shared.i18n import language_context, apply_language_headers
+from app.site.seo import origin as public_origin
 
 CONTACT = json.loads(Path(__file__).with_name('contact_content.json').read_text('utf-8'))
 router = APIRouter()
@@ -67,7 +67,10 @@ async def submit_contact(request: Request):
     context = language_context(request)
     error = CONTACT[context['locale']]['error']
     origin = request.headers.get('origin')
-    if origin and (urlsplit(origin).scheme, urlsplit(origin).netloc) != (request.url.scheme, request.url.netloc):
+    # TLS may terminate at the proxy, leaving an HTTP upstream URL. SITE_URL
+    # is the trusted browser origin; do not derive it from forwarded headers.
+    allowed_origins = {public_origin(), f'{request.url.scheme}://{request.url.netloc}'}
+    if origin and origin not in allowed_origins:
         raise HTTPException(403, error)
     if request.headers.get('content-type', '').split(';')[0].strip().lower() != 'application/json':
         raise HTTPException(415, error)

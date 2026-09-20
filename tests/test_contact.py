@@ -76,3 +76,30 @@ def test_parallel_leads_keep_qrcodes_and_escape_html():
     html = request('/admin/leads')[2].decode()
     assert '<script>alert(1)</script>' not in html
     assert '&lt;script&gt;' in html
+
+
+@pytest.mark.parametrize('host', ['www.chalettogo.com', 'chalet-web:8000'])
+def test_https_contact_behind_http_proxy(monkeypatch, host):
+    monkeypatch.setenv('SITE_URL', 'https://www.chalettogo.com')
+    status, _, _ = request('/api/contact?lang=pt-BR', 'POST', payload(), auth=False,
+        scheme='http', extra_headers={'host': host, 'origin': 'https://www.chalettogo.com'})
+    assert status == 201
+    with database('leads') as table:
+        assert len(table) == 1
+
+
+@pytest.mark.parametrize('origin', ['https://evil.example', 'null',
+    'https://www.chalettogo.com.evil.example', 'https://www.chalettogo.com:444'])
+def test_contact_rejects_foreign_origins(monkeypatch, origin):
+    monkeypatch.setenv('SITE_URL', 'https://www.chalettogo.com')
+    status, _, _ = request('/api/contact', 'POST', payload(), auth=False,
+        scheme='http', extra_headers={'host': 'chalet-web:8000', 'origin': origin,
+                                     'x-forwarded-host': 'evil.example', 'x-forwarded-proto': 'https'})
+    assert status == 403
+    with database('leads') as table:
+        assert len(table) == 0
+
+
+def test_contact_local_same_origin():
+    assert request('/api/contact', 'POST', payload(), auth=False, scheme='http',
+        extra_headers={'host': 'localhost:8000', 'origin': 'http://localhost:8000'})[0] == 201
