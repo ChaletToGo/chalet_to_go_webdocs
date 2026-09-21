@@ -52,7 +52,7 @@ class SiteTests(TestCase):
                 self.assertIn(CONTENT[locale]['hero'],body)
                 self.assertIn('/static/site/css/site.css',body)
                 self.assertIn('/static/brand/brand.css',body)
-                self.assertIn('/static/images/Logomarca.svg',body)
+                self.assertIn('/static/images/logo.svg',body)
                 self.assertNotIn('/revista',body)
                 self.assertIn('https://wa.me/5531984748754?',body)
                 self.assertEqual(body.count('alt="Suisse Garantie"'),4)

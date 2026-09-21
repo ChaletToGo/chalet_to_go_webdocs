@@ -34,7 +34,7 @@ def metadata(request,text,locale,product=None,article=None):
     path=f"/{article['slug']}" if article else f"/chales/{product['slug']}" if product else '/'
     canonical=public_url(path,locale)
     organization={'@type':'Organization','@id':origin()+'/#organization','name':'Chalet To GO','alternateName':'Chalettogo',
-                  'url':origin()+'/', 'logo':public_url('/static/images/Logomarca.png')}
+                  'url':origin()+'/', 'logo':public_url('/static/images/logo.svg')}
     organization['contactPoint']={'@type':'ContactPoint','contactType':'sales',
         'telephone':'+'+whatsapp_number(request)}
     organization['address'] = ADDRESS.copy()

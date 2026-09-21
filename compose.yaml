@@ -29,7 +29,8 @@ services:
       QR_BASE_URL: "${QR_BASE_URL:-https://www.chalettogo.com}"
       SITE_INDEXABLE: "${SITE_INDEXABLE:-true}"
       WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:?Configure WHATSAPP_NUMBER no .env}"
-      TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
+      # Production traffic arrives through Cloudflare and the controlled Nginx proxy.
+      TRUST_COUNTRY_HEADER: "true"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
     read_only: true
     volumes:

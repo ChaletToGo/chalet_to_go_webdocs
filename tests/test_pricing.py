@@ -35,6 +35,17 @@ def test_language_does_not_change_currency():
     assert 'A partir de € 40.000' in html
 
 
+@pytest.mark.parametrize('country,currency', [('BR', 'BRL'), ('CH', 'CHF'), ('FR', 'EUR')])
+def test_ip_country_wins_over_every_language_and_saved_cookie(country, currency):
+    for locale in LOCALES:
+        status, headers, _ = get({'lang': locale, 'country': 'US'}, path='/', trusted=True,
+            headers={'cf-ipcountry': country, 'cookie': 'chalet-language=it', 'accept-language': 'de'})
+        assert status == 200
+        assert headers[b'x-site-country'].decode() == country
+        assert headers[b'x-price-currency'].decode() == currency
+        assert headers[b'content-language'].decode() == locale
+
+
 def test_configurable_values_and_cents(monkeypatch, tmp_path):
     config = json.loads(pricing.CONFIG_PATH.read_text('utf-8'))
     config['plans']['basic']['BRL'] = 123456.78

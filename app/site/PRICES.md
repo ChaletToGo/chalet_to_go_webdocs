@@ -13,3 +13,5 @@ O país vem da política existente: cabeçalho `CF-IPCountry` de proxy confiáve
 Home, páginas dos planos e tabelas institucionais mostram “A partir de”, traduzido nos sete idiomas. Os metadados indicam o preço inicial (`lowPrice`), e `llms.txt` lista os valores configurados nas três moedas. O valor final e os itens incluídos são definidos na proposta. A revista e campanhas com condições próprias não usam esta tabela do site principal.
 
 Publique o arquivo atualizado para alterar os preços no container. Nenhuma alteração de banco de dados é necessária.
+
+O Compose de produção ativa a leitura do país explicitamente. Verifique `X-Site-Country` e `X-Price-Currency` na resposta HTTP para diagnosticar a origem da moeda, sem depender do idioma. Veja `docs/DEPLOY.md` para os requisitos de encaminhamento no Cloudflare/Nginx.

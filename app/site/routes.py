@@ -18,6 +18,7 @@ import logging
 from starlette.concurrency import run_in_threadpool
 from ..shared.urls import local_url
 from ..shared.contact import whatsapp_number
+from ..shared.geolocation import country_from_ip
 
 router=APIRouter()
 templates=Jinja2Templates(directory=Path(__file__).parent/'templates')
@@ -42,7 +43,7 @@ def render(request,slug=None,article_slug=None,contact=False):
     context['company'] = company_context(locale)
     text=CONTENT[locale]
     context['contact_text'] = CONTACT[locale]
-    price_config, currency = pricing_context(context['country'])
+    price_config, currency = pricing_context(country_from_ip(request))
     products=[{**p, **plan_price(price_config, currency, p['slug'], locale), 'description':text['models'][i],'benefit':text['benefits'][i],
                'whatsapp':whatsapp(text['plan_message'].format(model=p['name']), request)} for i,p in enumerate(PRODUCTS)]
     selected=next((p for p in products if p['slug']==slug),None)
@@ -55,6 +56,8 @@ def render(request,slug=None,article_slug=None,contact=False):
                    seo=metadata(request,text,locale,selected,article))
     response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
+    response.headers['X-Site-Country'] = country_from_ip(request) or 'unknown'
+    response.headers['X-Price-Currency'] = currency
     return apply_language_headers(response,request,context)
 
 @router.get('/',response_class=HTMLResponse,name='site_home')
