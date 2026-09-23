@@ -54,10 +54,10 @@ def metadata(request,text,locale,product=None,article=None):
     if article and article['slug']=='sobre':
         page['@type']='AboutPage'
         page['about']={'@id':organization['@id']}
-    image_slug=product['slug'] if product else 'premium'
+    image_file=product['image'] if product else 'plano_premium.png'
     if product:
         graph.append({'@type':'Product','@id':canonical+'#product','name':'Chalet to Go '+product['name'],
-          'description':product['description'],'image':public_url(f"/static/site/images/{product['slug']}-1440.webp"),
+          'description':product['description'],'image':public_url('/static/images/' + image_file),
           'brand':{'@type':'Brand','name':'Chalet to Go'},'url':canonical,
           **({'offers': {'@type': 'AggregateOffer', 'url': canonical,
                          'priceCurrency': product['currency'], 'lowPrice': product['price']}}
@@ -66,7 +66,7 @@ def metadata(request,text,locale,product=None,article=None):
     return {'canonical':canonical,'alternates':[(code,public_url(path,code)) for code in LOCALES],
             'default_url':public_url(path,'en'),'title':page['name'],
             'description':article['intro'] if article else product['description'] if product else text['seo_description'],
-            'image':public_url(f'/static/site/images/{image_slug}-1440.webp'),
+            'image':public_url('/static/images/' + image_file),
             'robots':'index, follow, max-image-preview:large' if indexable(request) else 'noindex, nofollow',
             'schema':{'@context':'https://schema.org','@graph':graph},
             'google_verification':os.getenv('GOOGLE_SITE_VERIFICATION',''),

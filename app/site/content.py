@@ -1,6 +1,6 @@
 """Sales content owned by the institutional site. No magazine imports."""
 PRODUCTS = (
-    {'slug':'basic','name':'Basic','image':'planbo_basic.png'},
+    {'slug':'basic','name':'Basic','image':'plano_basic.png'},
     {'slug':'standard','name':'Standard','image':'plano_standard.png'},
     {'slug':'premium','name':'Premium','image':'plano_premium.png'},
 )

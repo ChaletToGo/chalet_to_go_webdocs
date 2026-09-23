@@ -25,6 +25,7 @@ def test_sitemap_canonical_pages_alternates_and_images():
         for image in entry.findall(f'{{{IMAGE}}}image'):
             path = urlsplit(image.findtext(f'{{{IMAGE}}}loc')).path
             assert path in html
-            assert (Path('app/site/static') / path.removeprefix('/static/site/')).is_file()
+            asset = Path('app/site/static') / path.removeprefix('/static/site/') if path.startswith('/static/site/') else Path('app/shared/static') / path.removeprefix('/static/')
+            assert asset.is_file()
     assert len(entries[0].findall(f'{{{IMAGE}}}image')) == 8
     assert '<lastmod>' not in xml

@@ -82,3 +82,9 @@ body[data-reading-theme=night] .contact-page .contact-form button{background:#d7
 body[data-reading-theme=night] .home-waitlist .contact-form button:hover,
 body[data-reading-theme=night] .contact-page .contact-form button:hover{background:#e6c8a5;color:#122e24}
 body[data-reading-theme=night] #contact-status:not(:empty){color:#f0ede5;border-color:#90a294}
+
+/* The certification badge is a separate HTML overlay, never baked into the photo. */
+.plan-photo .plan-seal{display:grid;place-items:center;position:absolute;right:14px;bottom:14px;width:72px;height:72px;max-width:none;padding:10px;border-radius:50%;background:#fff;box-shadow:0 3px 14px #0003;border:1px solid #0e2a201a;overflow:hidden}
+.plan-photo .plan-seal img{display:block;width:100%;height:100%;object-fit:contain}
+.gallery-open .gallery-seal{border-radius:50%;padding:10px;background:#fff;object-fit:contain;box-shadow:0 3px 14px #0003}
+@media(max-width:600px){.plan-photo .plan-seal{width:64px;height:64px;padding:9px;right:12px;bottom:12px}}

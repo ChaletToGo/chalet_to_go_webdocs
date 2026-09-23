@@ -32,6 +32,6 @@ def build_sitemap():
                            href=public_url(path, 'en' if language == 'x-default' else language))
             for slug in images:
                 image = SubElement(entry, f'{{{IMAGE}}}image')
-                SubElement(image, f'{{{IMAGE}}}loc').text = public_url(f'/static/site/images/{slug}-1440.webp')
+                SubElement(image, f'{{{IMAGE}}}loc').text = public_url('/static/images/' + next(p['image'] for p in PRODUCTS if p['slug'] == slug)) if slug in {p['slug'] for p in PRODUCTS} else public_url(f'/static/site/images/{slug}-1440.webp')
     # Omit lastmod until editorial modification dates are maintained reliably.
     return tostring(root, encoding='utf-8', xml_declaration=True)

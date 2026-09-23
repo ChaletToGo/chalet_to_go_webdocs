@@ -5,7 +5,7 @@
   {% for slug,kind,w,h in gallery %}
     {% set caption = text.gallery_captions[loop.index0] %}
     <figure class="gallery-card">
-      <a href="{{ url_for('site_static',path='images/' ~ slug ~ '-1440.webp')|local_url }}" class="gallery-open" aria-label="{{ text.expand_image }} — {{ caption }}"><img src="{{ url_for('site_static',path='images/' ~ slug ~ '-960.webp')|local_url }}" alt="{{ caption }}" width="{{ w }}" height="{{ h }}" loading="lazy" decoding="async">{% if kind == 'plan' %}<img class="gallery-seal" src="{{ url_for('static',path='images/suisse_garantie.png')|local_url }}" alt="Suisse Garantie" width="68" height="68" loading="lazy">{% endif %}<span class="gallery-expand" aria-hidden="true">↗</span></a>
+      <a href="{{ (url_for('static',path='images/plano_premium.png') if kind == 'plan' else url_for('site_static',path='images/' ~ slug ~ '-1440.webp'))|local_url }}" class="gallery-open" aria-label="{{ text.expand_image }} — {{ caption }}"><img src="{{ (url_for('static',path='images/plano_premium.png') if kind == 'plan' else url_for('site_static',path='images/' ~ slug ~ '-960.webp'))|local_url }}" alt="{{ caption }}" width="{{ w }}" height="{{ h }}" loading="lazy" decoding="async">{% if kind == 'plan' %}<img class="gallery-seal" src="{{ url_for('static',path='images/suisse_garantie.png')|local_url }}" alt="Suisse Garantie" width="68" height="68" loading="lazy">{% endif %}<span class="gallery-expand" aria-hidden="true">↗</span></a>
       <figcaption><span class="gallery-index">0{{ loop.index }}</span><span>{{ caption }}</span></figcaption>
     </figure>
   {% endfor %}
