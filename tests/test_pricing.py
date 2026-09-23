@@ -58,3 +58,30 @@ def test_configurable_values_and_cents(monkeypatch, tmp_path):
     assert 'Sob consulta · EUR' in html
     graph = json.loads(re.search(r'application/ld\+json">(.*?)</script>', html).group(1))['@graph']
     assert 'offers' not in next(item for item in graph if item['@type'] == 'Product')
+
+
+@pytest.mark.parametrize('host,peer,expected', [
+    ('127.0.0.1', '127.0.0.1', 'BR'),
+    ('localhost', '::1', 'BR'),
+    ('www.chalettogo.com', '127.0.0.1', 'CH'),
+    ('localhost', '203.0.113.10', 'CH'),
+])
+def test_preview_country_is_limited_to_local_requests(monkeypatch, host, peer, expected):
+    from starlette.requests import Request
+    from app.shared.geolocation import country_from_ip
+    monkeypatch.setenv('LOCAL_PREVIEW_COUNTRY', 'BR')
+    monkeypatch.setenv('TRUST_COUNTRY_HEADER', 'true')
+    request = Request({'type': 'http', 'scheme': 'http', 'path': '/',
+        'headers': [(b'host', host.encode()), (b'cf-ipcountry', b'CH')],
+        'client': (peer, 1234), 'query_string': b''})
+    assert country_from_ip(request) == expected
+
+
+def test_local_product_and_home_share_brazilian_prices(monkeypatch):
+    monkeypatch.setenv('LOCAL_PREVIEW_COUNTRY', 'BR')
+    for path in ('/', '/chales/basic'):
+        status, headers, body = get({'lang': 'pt-BR'}, path=path,
+            headers={'host': 'localhost'}, scheme='http')
+        assert status == 200
+        assert headers[b'x-price-currency'] == b'BRL'
+        assert 'A partir de R$ 40.000' in body

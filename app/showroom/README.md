@@ -1,30 +1,27 @@
-# Chalé Básico · Atelier 3D
+# Produto Chalé Básico
 
-Página local `/experiencia-3d`, com `noindex, nofollow` e fora do sitemap.
+`/chales/basic` apresenta foto principal, 3D, planta e interiores em quatro abas acessíveis por teclado. Descrição e contato permanecem visíveis no desktop. A aba inicial usa imagens WebP responsivas; a biblioteca e o renderizador 3D só são iniciados ao selecionar o modelo. Trocar de aba preserva a cena e pausa o tour. Ferramentas avançadas estão em um painel recolhível.
 
-## Conteúdo
+## Conteúdo e navegação
 
-O catálogo explícito está em `routes.py`, na pasta `app/3d/chalé_basico`:
+Catálogo explícito em `routes.py`: modelos e fotos de `app/3d/chalé_basico`. Foto principal derivada de `app/shared/static/images/plano_basic.png`, com versões WebP em `static/basic-exterior-*`. Para adicionar modelos de produto no futuro, criar entradas de catálogo e associar as respectivas mídias.
 
-- `basico_exterior_modelagem.glb`: modelo inicial do exterior.
-- `basico_estrutura_modelagem.glb`: modelo estrutural, carregado somente quando selecionado.
-- `planta_chale_basico.jpg`: planta do térreo e mezanino.
-- `interior_basico.jpg`, `interior_basico2.jpg`, `interior_basico3.jpg`, `interior_basico4.jpg`: galeria de interiores.
+Página com canonical, dados de produto, sitemap e indexação apenas no domínio oficial quando SITE_INDEXABLE permite. A coleção aponta o Basic para esta página em todos os idiomas, com navegação, identidade visual, preços e metadados compartilhados com o site. `/experiencia-3d` redireciona permanentemente para `/chales/basic`, preservando os parâmetros. O HTML mantém `private, no-store` devido ao contato regional. Nenhuma publicação foi feita automaticamente.
 
-A pasta fornecida não contém fotografias externas separadas. O exterior é apresentado pelo GLB. URLs com acentos são codificadas e relativas à origem, compatíveis com proxy HTTPS.
+## Cache
 
-## Visualizador
+`cache.ModelFiles` mantém representações gzip em memória no servidor, preparadas na inicialização para os dois GLBs do Básico. Limite LRU de 160 MiB por processo; reinícios recriam o cache. Arquivos acima desse tamanho são servidos normalmente. Compressão é executada fora do event loop e reutilizada. Suporte a ETag/304 e Range/206 preservado.
 
-Escala, centro e enquadramento calculados por modelo. Trocas descartam geometrias, materiais e texturas do modelo anterior; respostas atrasadas não substituem a escolha mais recente. O corte e a malha são reiniciados em cada troca; a atmosfera escolhida é preservada. Em falhas, é possível selecionar outro modelo. Ambos os GLBs têm uma única malha: não há desmontagem por peças nem medidas reais. O corte é apenas visual, sem fechamento da seção.
+URLs usam versão por mtime em nanossegundos e tamanho. Versão atual recebe `Cache-Control: public, max-age=31536000, immutable`; URLs sem versão ou antigas exigem revalidação. Ao substituir um arquivo, preserve um timestamp novo. Navegador e caches intermediários podem reutilizar os bytes. Não existe CDN provisionada por este código.
 
-Giro, zoom, quatro vistas, tour, três atmosferas, corte, malha, tela cheia e PNG. Galeria e planta usam diálogo com fechamento por Escape, botão ou fundo. Galeria funciona independentemente de WebGL. Imagens abaixo da dobra usam carregamento tardio.
-
-Three.js 0.180.0 via jsDelivr requer internet. GLBs e imagens são servidos pelo próprio app em `/models`. Modelos Draco/KTX2 exigem configurar seus decodificadores antes de usar.
+Após carregar a foto principal, prefetch de baixa prioridade antecipa o exterior quando o navegador permite. É omitido em conexões 2G/3G ou economia de dados. Estrutura continua sob demanda. O primeiro acesso ainda precisa transferir o arquivo, e cada nova página precisa decodificar e enviar a geometria à GPU; cache não garante abertura instantânea. O GLB exterior atual tem aproximadamente 82 MB, portanto simplificação de malha/texturas continua recomendável para conexões lentas.
 
 ## Executar
 
 ```powershell
-.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8083
+.venv/Scripts/python.exe -m uvicorn app.main:app --env-file .env --host 127.0.0.1 --port 8084
 ```
 
-Abra http://127.0.0.1:8083/experiencia-3d.
+O `.env` é necessário para os contatos comerciais regionais existentes. Three.js 0.180.0 via jsDelivr precisa de internet. Testes: `pytest tests/test_showroom.py tests/test_site.py tests/test_sitemap.py tests/test_proxy_urls.py -q`.
+
+A iluminação 3D inicia em Noturno. Para simular a política brasileira em localhost, use `LOCAL_PREVIEW_COUNTRY=BR` no `.env`; a opção só se aplica a host e cliente loopback. Produção continua usando o país informado pelo proxy confiável, nunca o idioma.

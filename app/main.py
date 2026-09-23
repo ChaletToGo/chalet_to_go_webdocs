@@ -1,4 +1,6 @@
 from pathlib import Path
+from contextlib import asynccontextmanager
+from starlette.concurrency import run_in_threadpool
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -10,11 +12,22 @@ from .virtual_cards.routes import router as cards_router
 from .admin_pages.routes import router as admin_router
 from .landing_pages.eco_villa.routes import router as eco_villa_router
 from .showroom.routes import router as showroom_router
+from .showroom.cache import ModelFiles, file_version
 BASE_DIR = Path(__file__).resolve().parent
-app = FastAPI(title="Chalet to Go")
+model_files = ModelFiles(directory=BASE_DIR/'3d')
+
+@asynccontextmanager
+async def lifespan(app):
+    # Prepare transfer representations before accepting requests.
+    for path in (BASE_DIR/'3d').rglob('basico_*_modelagem.glb'):
+        if path.stat().st_size <= model_files.budget:
+            await run_in_threadpool(model_files._compressed, str(path), file_version(path.stat()))
+    yield
+
+app = FastAPI(title="Chalet to Go", lifespan=lifespan)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.mount('/static/showroom', StaticFiles(directory=BASE_DIR/'showroom'/'static'), name='showroom_static')
-app.mount('/models', StaticFiles(directory=BASE_DIR/'3d'), name='models')
+app.mount('/models', model_files, name='models')
 app.mount('/static/admin', StaticFiles(directory=BASE_DIR/'admin_pages'/'static'), name='admin_static')
 app.mount('/static/cards', StaticFiles(directory=BASE_DIR/'virtual_cards'/'static'), name='cards_static')
 app.mount('/static/revista', StaticFiles(directory=BASE_DIR/'revista'/'static'), name='revista_static')

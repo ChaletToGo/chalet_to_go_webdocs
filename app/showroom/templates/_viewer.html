@@ -1,0 +1,21 @@
+  <section id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden class="experience" aria-label="Explorador do chalé">
+    <div id="viewport" data-atmosphere="night" data-model="{{ model_url }}">
+      <div class="scene-label"><span class="live-dot"></span> ESTÚDIO 3D <span>/ MODELO CONCEITUAL</span></div>
+      <div id="loading" role="status"><span class="loader-mark">⌂</span><strong id="loading-title">Preparando seu refúgio</strong><span id="loading-text">Carregando experiência 3D…</span><progress id="progress" max="100" value="0" aria-label="Carregamento"></progress><button id="retry" hidden onclick="location.reload()">Tentar novamente</button></div>
+      <div class="scene-actions"><button id="reset" disabled title="Restaurar vista" aria-label="Restaurar vista">↺</button><button id="fullscreen" disabled title="Tela cheia" aria-label="Tela cheia">⛶</button><button id="capture" disabled title="Salvar imagem" aria-label="Salvar imagem">↓</button></div>
+      <div class="view-tabs" role="group" aria-label="Vistas da câmera"><button data-view="perspective" class="active" aria-pressed="true" disabled>Perspectiva</button><button data-view="front" aria-pressed="false" disabled>Frontal</button><button data-view="side" aria-pressed="false" disabled>Lateral</button><button data-view="top" aria-pressed="false" disabled>Superior</button></div>
+      <p class="gesture">ARRASTE PARA GIRAR <span>·</span> ROLE OU PINCE PARA APROXIMAR</p>
+      <span class="axis" aria-hidden="true">Y ↑<br>↙ Z &nbsp; X →</span>
+    </div>
+    <aside>
+      <div class="model-picker" role="group" aria-label="Modelo 3D">{% for model in models %}<button data-model-id="{{ model.id }}" data-model-url="{{ model.url }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" class="{{ 'selected' if loop.first else '' }}" {% if not model.url %}disabled{% endif %}>{{ model.label }}</button>{% endfor %}</div><p id="model-caption" class="control-note" role="status">Exterior · acabamentos e volumetria</p>
+      <div class="section-heading"><span>01</span><h3>Explore a arquitetura</h3></div>
+      <button class="tour" id="tour" disabled><span>▷ &nbsp; Fazer um tour</span><small>4 perspectivas</small></button>
+      <label class="toggle"><span>Rotação automática</span><input id="rotate" type="checkbox" disabled><span class="switch"></span></label>
+<details class="advanced"><summary>Ferramentas de visualiza&#231;&#227;o</summary>      <div class="section-heading"><span>02</span><h3>Escolha a atmosfera</h3></div>
+      <div class="atmospheres" role="group" aria-label="Iluminação"><button data-light="studio" aria-pressed="false" disabled><i class="studio"></i>Estúdio</button><button data-light="sunset" aria-pressed="false" disabled><i class="sunset"></i>Entardecer</button><button data-light="night" class="selected" aria-pressed="true" disabled><i class="night"></i>Noturno</button></div>
+      <div class="section-heading"><span>03</span><h3>Olhe além da superfície</h3></div>
+      <label class="toggle"><span>Visualizar malha</span><input id="wireframe" type="checkbox" disabled><span class="switch"></span></label>
+      <label class="range-label" for="section">Corte exploratório <output id="section-value">Inteiro</output></label><input id="section" type="range" min="0" max="100" value="100" disabled><p class="control-note">Deslize para revelar o interior da geometria.</p>
+</details>    </aside>
+  </section>

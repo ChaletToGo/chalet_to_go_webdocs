@@ -22,7 +22,7 @@ class SiteTests(TestCase):
                     self.assertEqual(product['offers']['lowPrice'],price)
                     self.assertEqual(product['offers']['priceCurrency'],'EUR')
                     links=re.findall(r'class="[^"]*sales-action[^"]*" href="([^"]+)"',body)
-                    self.assertGreaterEqual(len(links),3)
+                    self.assertGreaterEqual(len(links),1 if slug == 'basic' else 3)
                     for link in links:
                         parsed=urlsplit(unescape(link))
                         self.assertEqual(parsed.netloc,'wa.me')

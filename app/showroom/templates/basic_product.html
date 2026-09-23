@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ '/static/showroom/product.css'|local_url }}">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+{% endblock %}
+{% block closing %}{% endblock %}
+{% block main %}<div class="basic-product" data-viewer-script="{{ '/static/showroom/showroom.js'|local_url }}">
+<p class="breadcrumb"><a href="/?lang={{ locale }}">{{ text.home }}</a><span>/</span>{{ product.name }}</p>
+<div class="product-layout">
+<div class="media-hub">
+<div class="media-tabs" role="tablist" aria-label="Explore o Chalé Básico">
+{% for id,label in [('overview','Visão geral'),('model','Modelo 3D'),('plan','Planta'),('interior','Interiores')] %}<button type="button" role="tab" id="tab-{{ id }}" aria-controls="panel-{{ id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}" data-panel="{{ id }}">{{ label }}</button>{% endfor %}
+</div>
+<section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" class="media-panel"><button class="photo-open hero-photo" data-image="{{ hero_url }}" data-title="Chalé Básico · exterior" aria-label="Ampliar foto principal"><img src="/static/showroom/basic-exterior-1440.webp" srcset="/static/showroom/basic-exterior-480.webp 480w, /static/showroom/basic-exterior-960.webp 960w, /static/showroom/basic-exterior-1440.webp 1440w" sizes="(max-width:700px) 92vw, 65vw" alt="Chalé Básico em madeira com mezanino, telhado metálico e base sobre rodas" fetchpriority="high" width="1545" height="1018"><span>↗</span></button><div class="media-caption"><span>Seu refúgio, por todos os ângulos.</span><button data-open-model>Explorar em 3D ↗</button></div></section>
+{% include '_viewer.html' %}
+<section id="panel-plan" role="tabpanel" aria-labelledby="tab-plan" class="media-panel" hidden>{% if plan_url %}<button class="photo-open product-plan" data-image="{{ plan_url }}" data-title="Planta · térreo e mezanino" aria-label="Ampliar planta"><img src="{{ plan_url }}" alt="Planta do térreo com sala, cozinha e banheiro e planta do mezanino com dormitório" loading="lazy"></button><div class="media-caption"><span>Térreo + mezanino</span><button class="photo-open" data-image="{{ plan_url }}" data-title="Planta · térreo e mezanino">Ampliar planta ↗</button></div>{% else %}<p>Planta em atualização.</p>{% endif %}</section>
+<section id="panel-interior" role="tabpanel" aria-labelledby="tab-interior" class="media-panel" hidden><div class="compact-gallery">{% for photo in interior_photos %}<figure><button class="photo-open" data-image="{{ photo.url }}" data-title="{{ photo.title }}" aria-label="Ampliar: {{ photo.title }}"><img src="{{ photo.url }}" alt="{{ photo.title }}" loading="lazy"><span>↗</span></button><figcaption>{{ photo.title }}</figcaption></figure>{% endfor %}</div></section>
+<p class="media-note">{{ text.image_note }}</p>
+</div>
+<aside class="product-summary"><p class="eyebrow">CHALET TO GO / {{ text.collection }}</p><h1>{{ product.name }}</h1><p class="product-tagline">{{ product.benefit }}</p><p class="product-copy">{{ product.description }}</p><div class="purchase"><p class="price">{{ product.price_display }}</p><p class="price-note">{{ text.price_note }}</p><a class="button sales-action" href="{{ product.whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.plan_cta }} <span aria-hidden="true">↗</span></a></div><details class="product-info"><summary>{{ text.material_title }}</summary><p>{{ text.material_body }}</p></details><a class="back-link" href="/?lang={{ locale }}#chales">← {{ text.back }}</a></aside>
+</div>
+
+<dialog id="photo-dialog" aria-labelledby="photo-title"><div class="dialog-toolbar"><h2 id="photo-title"></h2><button id="photo-close" aria-label="Fechar imagem">✕</button></div><img id="photo-full" alt=""><p>Amplie com o gesto de pinça do navegador.</p></dialog>
+<p id="announcement" class="sr-only" role="status" aria-live="polite"></p><noscript><style>[role=tabpanel][hidden]{display:block!important}.media-tabs{display:none}</style><p>Ative o JavaScript para explorar o modelo 3D.</p></noscript>
+<script src="{{ '/static/showroom/gallery.js'|local_url }}" defer></script><script src="{{ '/static/showroom/product.js'|local_url }}" defer></script>
+
+</div>{% endblock %}

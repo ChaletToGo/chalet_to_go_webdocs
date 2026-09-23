@@ -6,6 +6,7 @@
 <script type="application/ld+json">{{ seo.schema|tojson }}</script>
 {% if seo.google_verification %}<meta name="google-site-verification" content="{{ seo.google_verification }}">{% endif %}
 {% if seo.bing_verification %}<meta name="msvalidate.01" content="{{ seo.bing_verification }}">{% endif %}
+{% block extra_head %}{% endblock %}
 </head><body>
 {% include '_header.html' %}
 <main>{% block main %}{% endblock %}</main>

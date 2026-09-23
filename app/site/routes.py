@@ -21,7 +21,7 @@ from ..shared.contact import whatsapp_number
 from ..shared.geolocation import country_from_ip
 
 router=APIRouter()
-templates=Jinja2Templates(directory=Path(__file__).parent/'templates')
+templates=Jinja2Templates(directory=[Path(__file__).parent/'templates', Path(__file__).parent.parent/'showroom/templates'])
 templates.env.filters['local_url'] = local_url
 
 def amount(value,locale):
@@ -54,7 +54,10 @@ def render(request,slug=None,article_slug=None,contact=False):
         article = {'slug': 'contato', 'title': CONTACT[locale]['title'], 'intro': CONTACT[locale]['intro']}
     context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message'], request),
                    seo=metadata(request,text,locale,selected,article))
-    response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'product.html' if selected else 'index.html',context)
+    if slug == 'basic':
+        from ..showroom.routes import product_media
+        context.update(product_media(request))
+    response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'basic_product.html' if slug == 'basic' else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
     response.headers['X-Site-Country'] = country_from_ip(request) or 'unknown'
     response.headers['X-Price-Currency'] = currency

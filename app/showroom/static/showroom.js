@@ -78,6 +78,7 @@ try {
   });
   function resize() {
     const w = viewport.clientWidth, h = viewport.clientHeight;
+    if (!w || !h) return;
     renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
     if (model) {
       const size = bounds.getSize(new THREE.Vector3());
@@ -134,7 +135,7 @@ try {
       } catch (error) { console.error(error); fail('Não foi possível preparar este modelo. Selecione outra opção.'); }
     }, event => {
       if (version !== loadVersion) return;
-      if (event.total) { const n = Math.round(event.loaded / event.total * 100); $('#progress').value = n; $('#loading-text').textContent = n < 100 ? `Carregando o modelo · ${n}%` : 'Preparando materiais e iluminação…'; }
+      if (event.total) { const n = Math.min(100, Math.round(event.loaded / event.total * 100)); $('#progress').value = n; $('#loading-text').textContent = n < 100 ? `Carregando o modelo · ${n}%` : 'Preparando materiais e iluminação…'; }
     }, () => { clearTimeout(timeout); if (version === loadVersion) fail('Não foi possível carregar este modelo. Selecione uma opção para tentar novamente.'); });
   }
   document.querySelectorAll('[data-model-id]').forEach(button => button.onclick = () => loadModel(button));
@@ -149,12 +150,15 @@ try {
     sunset: { bg: '#e9d3b8', ground: '#d8bd9b', sun: '#ffac59', intensity: 4, ambient: 1.2, exposure: 1.05, env: .6 },
     night: { bg: '#253544', ground: '#304350', sun: '#a6cbff', intensity: 2, ambient: .7, exposure: .85, env: .35 },
   };
-  document.querySelectorAll('[data-light]').forEach(b => b.onclick = () => {
-    const a = atmospheres[b.dataset.light];
+  function setAtmosphere(name) {
+    const a = atmospheres[name];
     scene.background.set(a.bg); ground.material.color.set(a.ground); sun.color.set(a.sun); sun.intensity = a.intensity; ambient.intensity = a.ambient; renderer.toneMappingExposure = a.exposure; scene.environmentIntensity = a.env;
-    viewport.style.color = b.dataset.light === 'night' ? '#e1e7df' : '';
-    document.querySelectorAll('[data-light]').forEach(el => { el.classList.toggle('selected', el === b); el.setAttribute('aria-pressed', String(el === b)); });
-  });
+    viewport.dataset.atmosphere = name;
+    viewport.style.color = name === 'night' ? '#e1e7df' : '';
+    document.querySelectorAll('[data-light]').forEach(el => { const active = el.dataset.light === name; el.classList.toggle('selected', active); el.setAttribute('aria-pressed', String(active)); });
+  }
+  document.querySelectorAll('[data-light]').forEach(button => button.onclick = () => setAtmosphere(button.dataset.light));
+  setAtmosphere('night');
   $('#tour').onclick = () => {
     if (tourTimer) { stopTour(); return; }
     const steps = Object.keys(views); let index = 0;
@@ -174,6 +178,7 @@ try {
   };
   let visible = true, previous = performance.now();
   new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }).observe(viewport);
+  document.addEventListener('product-panel', event => { if (event.detail !== 'model') { stopTour(); controls.autoRotate = false; $('#rotate').checked = false; } else resize(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopTour(); });
   renderer.domElement.addEventListener('webglcontextlost', (event) => { event.preventDefault(); renderer.setAnimationLoop(null); stopTour(); fail('A conexão com o renderizador foi interrompida. Recarregue para continuar.'); });
   renderer.setAnimationLoop(now => {
