@@ -7,7 +7,10 @@ const studies = {
  F:{file:'conceito-f.png',box:'60 60 904 904',name:'Forma em movimento'},
  '01':{file:'referencia-01.png',box:'105 145 760 800',name:'Modelo inicial 01',full:true},
  '02':{file:'referencia-02.png',box:'300 65 925 905',name:'Modelo inicial 02',full:true},
- '03':{file:'referencia-03.png',box:'300 65 925 905',name:'Modelo inicial 03',full:true}
+ '03':{file:'referencia-03.png',box:'300 65 925 905',name:'Modelo inicial 03',full:true},
+ G:{file:'conceito-g.png',box:'50 50 924 924',name:'Memória alpina'},
+ H:{file:'conceito-h.png',box:'50 50 924 924',name:'Herança artesanal'},
+ I:{file:'conceito-i.png',box:'50 50 924 924',name:'Arquitetura de ofício'}
 };
 let instance=0;
 function renderLogo(element){

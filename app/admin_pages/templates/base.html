@@ -1,5 +1,5 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>{% block title %}Painel{% endblock %} · Chalet to Go</title><link rel="stylesheet" href="/static/admin/admin.css"></head><body>
-<aside><a class="brand" href="/admin"><img src="/static/images/logo.svg" alt="Chalet to Go"></a><span class="eyebrow">Administração</span><nav aria-label="Administração">
+<aside><a class="brand" href="/admin"><img src="/static/images/logo.svg?v=oficio-alpino-1" alt="Chalet to Go"></a><span class="eyebrow">Administração</span><nav aria-label="Administração">
 <a href="/admin" {% if section=='home' %}class="selected" aria-current="page"{% endif %}>Visão geral</a><span class="eyebrow">Ferramentas</span>
 {% for key,url,label in [('qrcodes','/admin/qrcodes','QR Codes'),('leads','/admin/leads','Leads'),('metrics','/admin/metrics','Métricas do site')] %}<a href="{{ url }}" {% if section==key %}class="selected" aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
 <a href="/">Visitar site ↗</a></nav></aside><main>{% block main %}{% endblock %}</main>{% block scripts %}{% endblock %}</body></html>
