@@ -1,24 +1,27 @@
-import os
-import re
 from pathlib import Path
 from urllib.parse import urlencode
-from xml.sax.saxutils import escape
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, Response, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from ..shared.i18n import language_context, apply_language_headers, LOCALES
 from .content import CONTENT, PRODUCTS
+from .contact import CONTACT
+from .pricing import pricing_context, plan_price
 from .seo import metadata, public_url, indexable, canonical_redirect
 from .discovery import PAGES, page_content, resources
 from . import metrics
+from .company import company_context
 from .maps import map_context
+from .sitemap import build_sitemap, GALLERY
 from urllib.parse import urlsplit
 import logging
 from starlette.concurrency import run_in_threadpool
 from ..shared.urls import local_url
+from ..shared.contact import whatsapp_number
+from ..shared.geolocation import country_from_ip
 
 router=APIRouter()
-templates=Jinja2Templates(directory=Path(__file__).parent/'templates')
+templates=Jinja2Templates(directory=[Path(__file__).parent/'templates', Path(__file__).parent.parent/'showroom/templates'])
 templates.env.filters['local_url'] = local_url
 
 def amount(value,locale):
@@ -26,30 +29,38 @@ def amount(value,locale):
     return f'{value:,.0f}'.replace(',',separator)
 templates.env.filters['amount']=amount
 
-def whatsapp(message):
-    number=os.getenv('WHATSAPP_NUMBER','5538998840910').strip().lstrip('+')
-    if not re.fullmatch(r'[1-9][0-9]{7,14}',number):
-        raise ValueError('WHATSAPP_NUMBER must contain country code and digits only')
+def whatsapp(message, request=None):
+    number = whatsapp_number(request)
     return 'https://wa.me/'+number+'?'+urlencode({'text':message})
 
-def render(request,slug=None,article_slug=None):
+def render(request,slug=None,article_slug=None,contact=False):
     redirect=canonical_redirect(request)
     if redirect:
         return redirect
     context=language_context(request)
     context['location_map'] = map_context(context['locale']) if not slug and not article_slug else None
     locale=context['locale']
+    context['company'] = company_context(locale)
     text=CONTENT[locale]
-    products=[{**p,'description':text['models'][i],'benefit':text['benefits'][i],
-               'whatsapp':whatsapp(text['plan_message'].format(model=p['name']))} for i,p in enumerate(PRODUCTS)]
+    context['contact_text'] = CONTACT[locale]
+    price_config, currency = pricing_context(country_from_ip(request))
+    products=[{**p, **plan_price(price_config, currency, p['slug'], locale), 'description':text['models'][i],'benefit':text['benefits'][i],
+               'whatsapp':whatsapp(text['plan_message'].format(model=p['name']), request)} for i,p in enumerate(PRODUCTS)]
     selected=next((p for p in products if p['slug']==slug),None)
     if slug and not selected:
         raise HTTPException(status_code=404)
     article=page_content(article_slug,locale) if article_slug else None
-    context.update(text=text,products=products,product=selected,article=article,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message']),
+    if contact:
+        article = {'slug': 'contato', 'title': CONTACT[locale]['title'], 'intro': CONTACT[locale]['intro']}
+    context.update(text=text,products=products,product=selected,article=article,gallery=GALLERY,resources=resources(locale),metrics_enabled=metrics.enabled(),whatsapp=whatsapp(text['message'], request),
                    seo=metadata(request,text,locale,selected,article))
-    response=templates.TemplateResponse(request,'discovery.html' if article else 'product.html' if selected else 'index.html',context)
+    if slug == 'basic':
+        from ..showroom.routes import product_media
+        context.update(product_media(request))
+    response=templates.TemplateResponse(request,'contact.html' if contact else 'discovery.html' if article else 'basic_product.html' if slug == 'basic' else 'product.html' if selected else 'index.html',context)
     response.headers['X-Robots-Tag']=context['seo']['robots']
+    response.headers['X-Site-Country'] = country_from_ip(request) or 'unknown'
+    response.headers['X-Price-Currency'] = currency
     return apply_language_headers(response,request,context)
 
 @router.get('/',response_class=HTMLResponse,name='site_home')
@@ -77,13 +88,7 @@ def sitemap(request: Request):
     redirect=canonical_redirect(request)
     if redirect:
         return redirect
-    entries=[]
-    for path in ['/']+[f"/chales/{p['slug']}" for p in PRODUCTS]+['/'+slug for slug in PAGES]:
-        alternate=''.join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{escape(public_url(path,lang))}"/>' for lang in LOCALES)
-        alternate+=f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape(public_url(path,"en"))}"/>'
-        for lang in LOCALES:
-            entries.append('<url><loc>'+escape(public_url(path,lang))+'</loc>'+alternate+'</url>')
-    return Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+''.join(entries)+'</urlset>',media_type='application/xml')
+    return Response(build_sitemap(), media_type='application/xml')
 
 @router.get('/sobre',response_class=HTMLResponse)
 async def about(request: Request):
@@ -104,11 +109,18 @@ def llms(request: Request):
         return redirect
     lines=['# Chalet To GO','', '> Timber chalets and tiny houses. Official product and company information.',
            '', '## Products']
+    price_config, _ = pricing_context('')
     for item in PRODUCTS:
-        lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): CHF {item['price']:,}; scope and terms in the proposal.")
+        prices = '; '.join(f"{currency}: {plan_price(price_config, currency, item['slug'], 'en')['price_display']}" for currency in ('BRL', 'EUR', 'CHF'))
+        lines.append(f"- [{item['name']}]({public_url('/chales/'+item['slug'],'en')}): {prices}; final scope and terms in the proposal.")
     lines += ['', '## Company and buying information']
     lines += [f"- [{item['title']}]({public_url('/'+item['slug'],'en')})" for item in resources('en')]
-    lines += ['', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
+    lines += ['', '## Company facts',
+              'Name: Chalet To GO.',
+              'Company address: Rte de Porrentruy 8, 2800 Delémont, Switzerland.',
+              'Brazil: initial production setup in Minas Caixa, Belo Horizonte; team prepared for the first unit.',
+              'Timber: kiln-dried, treated pine. Optional Generali coverage for Swiss timber chalets is available at extra cost, up to 20 years subject to contract. Brazilian timber warranty: 6 months, subject to proposal terms.',
+              '', '## Languages', ', '.join(LOCALES), '', 'Specifications and warranty availability must be confirmed in the quotation.']
     return '\n'.join(lines)+'\n'
 
 @router.post('/api/site-metrics',include_in_schema=False)
@@ -133,3 +145,8 @@ async def capture_click(request: Request):
         logging.getLogger(__name__).warning('Site click count could not be stored')
         return Response(status_code=503)
     return Response(status_code=204,headers={'Cache-Control':'no-store'})
+
+
+@router.get('/contato', response_class=HTMLResponse, name='site_contact')
+async def contact_page(request: Request):
+    return render(request, contact=True)

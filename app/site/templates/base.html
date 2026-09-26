@@ -2,16 +2,18 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ seo.title }}</title><meta name="description" content="{{ seo.description }}"><meta name="robots" content="{{ seo.robots }}"><meta name="theme-color" content="#0e2a20">
 <link rel="canonical" href="{{ seo.canonical }}">{% for code,url in seo.alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}">{% endfor %}<link rel="alternate" hreflang="x-default" href="{{ seo.default_url }}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Chalet to Go"><meta property="og:title" content="{{ seo.title }}"><meta property="og:description" content="{{ seo.description }}"><meta property="og:url" content="{{ seo.canonical }}"><meta property="og:image" content="{{ seo.image }}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ seo.title }}"><meta name="twitter:description" content="{{ seo.description }}"><meta name="twitter:image" content="{{ seo.image }}">
-<link rel="icon" href="{{ url_for('static',path='images/Logomarca.svg')|local_url }}" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',path='brand/brand.css')|local_url }}"><link rel="stylesheet" href="{{ url_for('site_static',path='css/site.css')|local_url }}">
+<link rel="icon" href="{{ url_for('static',path='images/logo.svg')|local_url }}?v=oficio-alpino-1" type="image/svg+xml"><link rel="stylesheet" href="{{ url_for('static',path='brand/brand.css')|local_url }}"><link rel="stylesheet" href="{{ url_for('site_static',path='css/site.css')|local_url }}"><link rel="stylesheet" href="{{ url_for('site_static',path='css/editorial.css')|local_url }}">
 <script type="application/ld+json">{{ seo.schema|tojson }}</script>
 {% if seo.google_verification %}<meta name="google-site-verification" content="{{ seo.google_verification }}">{% endif %}
 {% if seo.bing_verification %}<meta name="msvalidate.01" content="{{ seo.bing_verification }}">{% endif %}
+{% block extra_head %}{% endblock %}
 </head><body>
 {% include '_header.html' %}
 <main>{% block main %}{% endblock %}</main>
-<section class="sales-cta"><p class="eyebrow">CHALET TO GO</p><h2>{{ text.closing_title }}</h2><p>{{ text.closing_body }}</p><a class="button sales-action" href="{{ product.whatsapp if product else whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.whatsapp }} <span aria-hidden="true">↗</span></a></section>
-<div class="discovery-links">{% for item in resources %}<a href="/{{ item.slug }}?lang={{ locale }}">{{ item.title }}</a>{% endfor %}</div>
-<footer><span>CHALET TO GO</span><a href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">WhatsApp</a><span>© 2026</span></footer>
+{% block closing %}<section class="sales-cta"><p class="eyebrow">CHALET TO GO</p><h2>{{ text.closing_title }}</h2><p>{{ text.closing_body }}</p><a class="button sales-action" href="{{ product.whatsapp if product else whatsapp }}" target="_blank" rel="noopener noreferrer">{{ text.whatsapp }} <span aria-hidden="true">↗</span></a></section>{% endblock %}
+<div class="discovery-links"><a href="/contato?lang={{ locale }}">{{ contact_text.nav }}</a>{% for item in resources %}<a href="/{{ item.slug }}?lang={{ locale }}">{{ item.title }}</a>{% endfor %}</div>
+<footer><a class="footer-brand" href="/?lang={{ locale }}" aria-label="{{ company.name }}"><img src="{{ url_for('static',path='images/logo.svg')|local_url }}?v=oficio-alpino-1" alt="{{ company.name }}" width="160" height="120"></a><div><span>{{ company.labels[0] }}</span><address>{{ company.address }}</address></div><a href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">WhatsApp</a><span>© 2026</span></footer>
+{% if company.profiles %}<nav class="discovery-links" aria-label="{{ company.labels[1] }}">{% for profile in company.profiles %}<a href="{{ profile.url }}" target="_blank" rel="noopener noreferrer">{{ profile.label }}</a>{% endfor %}</nav>{% endif %}
 {% include '_reading.html' %}
 {% if metrics_enabled %}<script src="{{ url_for('site_static',path='js/metrics.js')|local_url }}" defer></script>{% endif %}
 </body></html>

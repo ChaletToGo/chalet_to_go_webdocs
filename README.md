@@ -79,6 +79,8 @@ O seletor de idioma mantém o capítulo atual e grava uma preferência no navega
 
 A escolha explícita e a preferência salva têm prioridade sobre a detecção. A política por país é Brasil → pt-BR, Suíça → inglês, Itália → italiano, França → francês, Alemanha → alemão e Portugal → pt-PT. Os visitantes suíços podem escolher inglês, romanche, alemão, italiano ou francês; as duas variantes de português também permanecem disponíveis.
 
-Para detecção de país em produção, habilitar IP Geolocation no Cloudflare e definir `TRUST_COUNTRY_HEADER=true` na aplicação somente atrás do proxy controlado, que deve encaminhar o `CF-IPCountry` sobrescrito pelo Cloudflare. O acesso direto à origem deve estar restrito. Sem esse cabeçalho (inclusive em localhost), a aplicação usa `Accept-Language`; o idioma do navegador é uma alternativa, não prova de localização. Países detectados fora da política usam inglês por padrão. A aplicação não solicita GPS nem envia IPs a serviços externos.
+Para detecção de país em produção, habilitar IP Geolocation no Cloudflare. O Compose ativa `TRUST_COUNTRY_HEADER=true` explicitamente para o deploy atrás do proxy controlado, que deve encaminhar o `CF-IPCountry` sobrescrito pelo Cloudflare. O acesso direto à origem deve estar restrito. Sem esse cabeçalho (inclusive em localhost), a aplicação usa `Accept-Language`; o idioma do navegador é uma alternativa, não prova de localização. Países detectados fora da política usam inglês por padrão. A aplicação não solicita GPS nem envia IPs a serviços externos.
 
 Detalhes de manutenção em `app/revista/locales/README.md`. Testes: `.venv/Scripts/python.exe -m unittest discover -s tests -v` no Windows, ou `uv run python -m unittest discover -s tests -v`.
+
+Preços usam exclusivamente o país identificado pelo IP: BR→BRL, CH→CHF e demais/indisponível→EUR. O idioma e seu cookie não mudam a moeda. Os cabeçalhos `X-Site-Country` e `X-Price-Currency` permitem conferir a seleção na resposta.

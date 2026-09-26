@@ -1,0 +1,9 @@
+<form id="contact-form" class="contact-form" action="/api/contact?lang={{ locale }}" method="post" data-sending="{{ contact_text.sending }}" data-success="{{ contact_text.success }}" data-error="{{ contact_text.error }}">
+<div class="contact-field"><label for="contact-name">{{ contact_text.name }}</label><input id="contact-name" name="name" autocomplete="name" required minlength="2" maxlength="120"></div>
+<div class="contact-field"><label for="contact-phone">{{ contact_text.phone }}</label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" required minlength="8" maxlength="40" aria-describedby="phone-hint"><small id="phone-hint">{{ contact_text.phone_hint }}</small></div>
+<div class="contact-field"><label for="contact-email">{{ contact_text.email }}</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254"></div>
+<div hidden aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" tabindex="-1" autocomplete="off"></div>
+<input type="hidden" name="source" value="{{ contact_source|default('/contato') }}">
+<p class="contact-notice">{{ contact_text.notice }}</p><button class="button" type="submit" disabled>{{ contact_text.submit }}</button><p id="contact-status" role="status" aria-live="polite" tabindex="-1"></p>
+</form>
+<script src="{{ url_for('site_static',path='js/contact.js')|local_url }}" defer></script>

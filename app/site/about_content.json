@@ -1,0 +1,205 @@
+{
+  "de": [
+    {
+      "id": "historia",
+      "title": "Von Rons Erfahrung zum Aufbau des Unternehmens.",
+      "section": "Unsere Geschichte",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Montage der Holzkonstruktion eines Chalets",
+      "intro": "Chalet to Go steht am Anfang seines organisatorischen Aufbaus. Die Erfahrung dahinter gehört Ron Lima: rund 25 Jahre im Bau und in der Entwicklung von Chalets.",
+      "body": "Die Arbeit in den Vereinigten Staaten, Brasilien und der Schweiz verbindet zwei Etappen: das Bauen erlernen und ein Unternehmen organisieren, das fertigen, verkaufen und liefern kann. Darauf baut das heutige Projekt auf; der nächste konkrete Schritt ist die erste Einheit des brasilianischen Betriebs."
+    },
+    {
+      "id": "madeira",
+      "title": "Präzision beim Bauen. Natur beim Wohnen.",
+      "section": "Unser Wesen",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Details der Fassade, Verkleidung und Fenster eines Holzchalets",
+      "intro": "Holz ist der Ausgangspunkt. Sorgfalt in jedem Schritt macht aus einem Material einen Ort zum Leben.",
+      "body": "Chalet to Go verbindet Holzbau, standardisierte Komponenten und individuelle Gestaltung. Abmessungen, Ausstattung und Oberflächen können an die Nutzung und den Markt jedes Projekts angepasst werden."
+    },
+    {
+      "id": "brasil",
+      "title": "Das nächste Kapitel beginnt hier.",
+      "section": "Brasilien in Bewegung",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Fachkraft bei Arbeiten am Dach eines Gebäudes",
+      "intro": "Minas Caixa, Belo Horizonte. Ein Team ist bereit, die erste Einheit dieser neuen Etappe zu fertigen und zu verkaufen.",
+      "body": "Der Aufbau in Brasilien umfasst die physische und digitale Infrastruktur, die Organisation der Arbeitskräfte und die Vertriebsstruktur. Diese praktische Arbeit läuft parallel zur Projektvorstellung in der Schweiz."
+    }
+  ],
+  "en": [
+    {
+      "id": "historia",
+      "title": "From Ron’s experience to building a company.",
+      "section": "Our story",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Assembly of a chalet’s timber structure",
+      "intro": "Chalet to Go is at the beginning of its organisational development. The experience behind it belongs to Ron Lima, with approximately 25 years in construction and chalet development.",
+      "body": "Work in the United States, Brazil and Switzerland connects two distinct stages: learning to build and organising a company able to manufacture, sell and deliver. Today’s project draws on that journey, with the Brazilian operation’s first unit as the next concrete step."
+    },
+    {
+      "id": "madeira",
+      "title": "Precision in making. Nature in living.",
+      "section": "Our essence",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Façade, cladding and window details of a timber chalet",
+      "intro": "Wood is the starting point. Care at every stage turns a material into a place to live.",
+      "body": "Chalet to Go combines timber construction, standardised components and freedom to personalise. Dimensions, equipment and finishes can be adapted to the use and market of each project."
+    },
+    {
+      "id": "brasil",
+      "title": "The next chapter starts here.",
+      "section": "Brazil in motion",
+      "image": "homem_trabalhando.jpg",
+      "alt": "A professional working on a building’s roof",
+      "intro": "Minas Caixa, Belo Horizonte. A team ready to build and sell the first unit of this new stage.",
+      "body": "The Brazilian operation brings together physical and digital infrastructure, workforce organisation and commercial preparation. This practical work progresses alongside the project’s presentation in Switzerland."
+    }
+  ],
+  "fr": [
+    {
+      "id": "historia",
+      "title": "De l’expérience de Ron à la création de l’entreprise.",
+      "section": "Notre histoire",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Assemblage de la structure en bois d’un chalet",
+      "intro": "Chalet to Go débute sa structuration. L’expérience qui la précède est celle de Ron Lima, qui réunit environ 25 ans de travail dans la construction et le développement de chalets.",
+      "body": "Le parcours aux États-Unis, au Brésil et en Suisse relie deux étapes : apprendre à construire, puis organiser une entreprise capable de fabriquer, vendre et livrer. Le projet actuel s’appuie sur ce chemin, avec la première unité brésilienne comme prochaine étape concrète."
+    },
+    {
+      "id": "madeira",
+      "title": "La précision du geste. La nature au quotidien.",
+      "section": "Notre essence",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Détails de la façade, du bardage et des fenêtres d’un chalet en bois",
+      "intro": "Le bois est le point de départ. Le soin apporté à chaque étape transforme la matière en un lieu de vie.",
+      "body": "Chalet to Go associe construction en bois, composants standardisés et liberté de personnalisation. Dimensions, équipements et finitions peuvent s’adapter à l’usage et au marché de chaque projet."
+    },
+    {
+      "id": "brasil",
+      "title": "Le prochain chapitre commence ici.",
+      "section": "Le Brésil en mouvement",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Professionnel travaillant sur la toiture d’un bâtiment",
+      "intro": "Minas Caixa, Belo Horizonte. Une équipe prête à fabriquer et vendre la première unité de cette nouvelle étape.",
+      "body": "L’implantation brésilienne réunit la préparation des infrastructures physiques et numériques, l’organisation de la main-d’œuvre et la structuration commerciale. Ce travail concret avance en parallèle de la présentation du projet en Suisse."
+    }
+  ],
+  "it": [
+    {
+      "id": "historia",
+      "title": "Dall’esperienza di Ron alla creazione dell’impresa.",
+      "section": "La nostra storia",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Montaggio della struttura in legno di uno chalet",
+      "intro": "Chalet to Go è all’inizio della propria organizzazione. L’esperienza che la precede è quella di Ron Lima: circa 25 anni di lavoro nella costruzione e nello sviluppo di chalet.",
+      "body": "Il percorso negli Stati Uniti, in Brasile e in Svizzera collega due fasi: imparare a costruire e organizzare un’impresa capace di fabbricare, vendere e consegnare. Il progetto attuale parte da questo cammino, con la prima unità brasiliana come prossimo passo concreto."
+    },
+    {
+      "id": "madeira",
+      "title": "Precisione nel fare. Natura nel vivere.",
+      "section": "La nostra essenza",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Dettagli di facciata, rivestimento e finestre di uno chalet in legno",
+      "intro": "Il legno è il punto di partenza. La cura in ogni fase trasforma la materia in un luogo in cui vivere.",
+      "body": "Chalet to Go combina costruzione in legno, componenti standardizzati e libertà di personalizzazione. Dimensioni, attrezzature e finiture possono adattarsi all’uso e al mercato di ogni progetto."
+    },
+    {
+      "id": "brasil",
+      "title": "Il prossimo capitolo inizia qui.",
+      "section": "Il Brasile in movimento",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Professionista al lavoro sulla copertura di un edificio",
+      "intro": "Minas Caixa, Belo Horizonte. Un gruppo di lavoro pronto a fabbricare e vendere la prima unità di questa nuova fase.",
+      "body": "L’avvio in Brasile comprende infrastrutture fisiche e digitali, organizzazione della manodopera e struttura commerciale. È il lavoro concreto che procede in parallelo alla presentazione del progetto in Svizzera."
+    }
+  ],
+  "pt-BR": [
+    {
+      "id": "historia",
+      "title": "Da experiência de Ron à criação da empresa.",
+      "section": "Nossa história",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Trabalho de montagem da estrutura de madeira de um chalé",
+      "intro": "A Chalet to Go está no início de sua estruturação. A experiência que a antecede pertence a Ron Lima, que reúne aproximadamente 25 anos de trabalho em construção e desenvolvimento de chalés.",
+      "body": "A passagem pelos Estados Unidos, pelo Brasil e pela Suíça aproxima duas etapas distintas: aprender a construir e organizar uma empresa capaz de fabricar, vender e entregar. O projeto atual parte desse percurso, com a primeira unidade da operação brasileira como próximo passo concreto."
+    },
+    {
+      "id": "madeira",
+      "title": "Precisão no fazer. Natureza no viver.",
+      "section": "A essência",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Detalhes da fachada, revestimento e janelas de um chalé de madeira",
+      "intro": "A madeira é o ponto de partida. O cuidado com cada etapa é o que transforma matéria em um lugar para viver.",
+      "body": "A proposta da Chalet to Go combina construção em madeira, componentes padronizados e liberdade de personalização. Dimensões, equipamentos e acabamentos podem se adaptar ao uso e ao mercado de cada projeto."
+    },
+    {
+      "id": "brasil",
+      "title": "O próximo capítulo começa aqui.",
+      "section": "Brasil em movimento",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Profissional trabalhando na cobertura de uma construção",
+      "intro": "Minas Caixa, Belo Horizonte. Uma equipe preparada para fabricar e vender a primeira unidade desta nova etapa.",
+      "body": "A implantação brasileira reúne preparação da infraestrutura física e digital, organização da mão de obra e estruturação comercial. É a frente prática que avança em paralelo à apresentação do projeto na Suíça."
+    }
+  ],
+  "pt-PT": [
+    {
+      "id": "historia",
+      "title": "Da experiência de Ron à criação da empresa.",
+      "section": "Nossa história",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Trabalho de montagem da estrutura de madeira de um chalé",
+      "intro": "A Chalet to Go está no início de sua estruturação. A experiência que a antecede pertence a Ron Lima, que reúne aproximadamente 25 anos de trabalho em construção e desenvolvimento de chalés.",
+      "body": "A passagem pelos Estados Unidos, pelo Brasil e pela Suíça aproxima duas etapas distintas: aprender a construir e organizar uma empresa capaz de fabricar, vender e entregar. O projeto atual parte desse percurso, com a primeira unidade da operação brasileira como próximo passo concreto."
+    },
+    {
+      "id": "madeira",
+      "title": "Precisão no fazer. Natureza no viver.",
+      "section": "A essência",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Detalhes da fachada, revestimento e janelas de um chalé de madeira",
+      "intro": "A madeira é o ponto de partida. O cuidado com cada etapa é o que transforma matéria em um lugar para viver.",
+      "body": "A proposta da Chalet to Go combina construção em madeira, componentes padronizados e liberdade de personalização. Dimensões, equipamentos e acabamentos podem se adaptar ao uso e ao mercado de cada projeto."
+    },
+    {
+      "id": "brasil",
+      "title": "O próximo capítulo começa aqui.",
+      "section": "Brasil em movimento",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Profissional trabalhando na cobertura de uma construção",
+      "intro": "Minas Caixa, Belo Horizonte. Uma equipa preparada para fabricar e vender a primeira unidade desta nova etapa.",
+      "body": "A implantação brasileira reúne preparação da infraestrutura física e digital, organização da mão de obra e estruturação comercial. É a frente prática que avança em paralelo à apresentação do projeto na Suíça."
+    }
+  ],
+  "rm": [
+    {
+      "id": "historia",
+      "title": "Da l’experientscha da Ron a la creaziun da l’interpresa.",
+      "section": "Nossa istorgia",
+      "image": "homens_trabalhando.jpg",
+      "alt": "Montascha da la structura en lain d’in chalet",
+      "intro": "Chalet to Go è al cumenzament da sia organisaziun. L’experientscha precedenta è quella da Ron Lima: circa 25 onns lavur en la construcziun ed il svilup da chalets.",
+      "body": "La via tras ils Stadis Unids, il Brasil e la Svizra collia duas etappas: emprender da construir ed organisar in’interpresa che po fabritgar, vender e furnir. Il project actual sa basa sin questa via, cun l’emprima unitad brasiliana sco proxim pass concret."
+    },
+    {
+      "id": "madeira",
+      "title": "Precisiun en il far. Natira en il viver.",
+      "section": "Nossa essenza",
+      "image": "chale_exterior_2.jpg",
+      "alt": "Detagls da la fatschada, dal revestgiment e da las fanestras d’in chalet en lain",
+      "intro": "Il lain è il punct da partenza. La premura en mintga etappa transfurma il material en in lieu per viver.",
+      "body": "Chalet to Go cumbinescha construcziun en lain, cumponentas standardisadas e libertad da persunalisar. Dimensiuns, equipament e finiziuns pon vegnir adattads a l’utilisaziun ed al martgà da mintga project."
+    },
+    {
+      "id": "brasil",
+      "title": "Il proxim chapitel cumenza qua.",
+      "section": "Il Brasil en moviment",
+      "image": "homem_trabalhando.jpg",
+      "alt": "Ina persuna spezialisada lavura sin il tetg d’in edifizi",
+      "intro": "Minas Caixa, Belo Horizonte. In’equipa pronta per fabritgar e vender l’emprima unitad da questa nova etappa.",
+      "body": "La realisaziun en il Brasil cumpiglia l’infrastructura fisica e digitala, l’organisaziun da la forza da lavur e la structura commerziala. Questa lavur pratica avanza parallel a la preschentaziun dal project en Svizra."
+    }
+  ]
+}

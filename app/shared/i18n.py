@@ -1,5 +1,5 @@
 """Language negotiation shared by all Chalet to Go projects."""
-import os
+from .geolocation import country_from_ip
 
 LOCALES = {
     'pt-BR': 'Português · Brasil', 'pt-PT': 'Português · Portugal',
@@ -44,13 +44,7 @@ def browser_locale(header):
 def resolve_locale(request):
     explicit = normalize_locale(request.query_params.get('lang'))
     saved = None if request.query_params.get('lang') == 'auto' else normalize_locale(request.cookies.get('chalet-language'))
-    # Enable only behind the controlled proxy, which must overwrite this header.
-    # Country is used for presentation only, never for authentication/authorization.
-    country = ''
-    if os.getenv('TRUST_COUNTRY_HEADER', '').lower() in ('1', 'true'):
-        candidate = request.headers.get('cf-ipcountry', '').upper()
-        if len(candidate) == 2 and candidate.isascii() and candidate.isalpha() and candidate not in ('XX', 'T1'):
-            country = candidate
+    country = country_from_ip(request)
     if explicit:
         return explicit, country, 'explicit'
     if saved:

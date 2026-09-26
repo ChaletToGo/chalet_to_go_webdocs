@@ -1,5 +1,10 @@
 """Public buying information; no inferred specifications or delivery promises."""
 from .content import CONTENT, PRODUCTS
+import json
+from pathlib import Path
+
+# Independent editorial snapshot, maintained by the institutional site.
+ABOUT = json.loads((Path(__file__).parent / 'about_content.json').read_text(encoding='utf-8'))
 
 LABELS = {
  'pt-BR': ['Sobre a Chalet to Go','Perguntas frequentes sobre chalés','Chalés para hospedagem','Quanto custa um chalé?','Qual madeira é utilizada?','Como funcionam as garantias?','Como pedir uma proposta?','Compare os modelos','Modelo','Preço de referência','Próximos passos'],
@@ -27,7 +32,7 @@ def resources(locale):
 
 def page_content(slug, locale):
     text, labels, story = CONTENT[locale], LABELS[locale], STORIES[locale]
-    return {'slug':slug,'title':labels[PAGES[slug]], 'labels':labels,
+    return {'slug':slug,'title':labels[PAGES[slug]], 'labels':labels, 'chapters': ABOUT[locale] if slug=='sobre' else [],
             'intro':story[0] if slug=='sobre' else text['collection_intro'] if slug=='perguntas-frequentes' else story[2],
             'paragraphs':story[:2] if slug=='sobre' else story[2:] if slug=='chales-para-hospedagem' else [],
             'questions':[(labels[3], text['price_note']), (labels[4],text['material_body']),

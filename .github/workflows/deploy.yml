@@ -103,5 +103,6 @@ jobs:
           fi
           "${docker_cmd[@]}" compose exec -T web python -c \
             'import json; from urllib.request import urlopen; response=urlopen("http://127.0.0.1:8000/healthz", timeout=10); assert response.status == 200; assert json.load(response)["status"] == "ok"'
+          "${docker_cmd[@]}" compose exec -T web python -m app.shared.check_geolocation
           echo "Deployment healthy: $expected_sha"
           REMOTE

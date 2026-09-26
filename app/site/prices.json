@@ -1,0 +1,24 @@
+{
+  "country_currencies": {
+    "BR": "BRL",
+    "CH": "CHF"
+  },
+  "default_currency": "EUR",
+  "plans": {
+    "basic": {
+      "BRL": 40000,
+      "EUR": 40000,
+      "CHF": 40000
+    },
+    "standard": {
+      "BRL": 65000,
+      "EUR": 65000,
+      "CHF": 65000
+    },
+    "premium": {
+      "BRL": 100000,
+      "EUR": 100000,
+      "CHF": 100000
+    }
+  }
+}
