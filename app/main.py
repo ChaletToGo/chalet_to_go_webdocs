@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from starlette.concurrency import run_in_threadpool
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.gzip import GZipMiddleware
 from .revista.routes import router as revista_router
@@ -44,6 +45,15 @@ app.include_router(eco_villa_router)
 app.include_router(revista_router)
 app.include_router(cards_router)
 app.include_router(admin_router)
+
+
+@app.get("/identidade", response_class=FileResponse, include_in_schema=False)
+async def identity_presentation():
+    return FileResponse(
+        BASE_DIR/'shared'/'static'/'estudo-identidade'/'index.html',
+        media_type="text/html",
+        headers={"X-Robots-Tag": "noindex, nofollow"},
+    )
 
 
 @app.get("/healthz", include_in_schema=False)

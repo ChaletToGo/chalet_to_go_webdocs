@@ -1,0 +1,27 @@
+Built-in image_gen tool.
+
+Use case: ads-marketing.
+Create a finished, exceptionally polished commercial A4 portrait poster in Portuguese for CHALET TO GO. Flat print-ready artwork, not a mockup, no paper edges. Aspect ratio 210:297, high resolution ideally 2480x3508.
+Inputs: image 1 reference brochure content and chalet product photos; image 2 brand logo and colors reference; image 3 identity reference and photographic spokesperson insert.
+Preserve the man's recognizable face, skin tone, smiling expression, white suit and natural proportions exactly as reference 3. He is the main spokesperson, prominently shown waist up on the right in the central hero image, next to a beautiful wooden mobile chalet inspired by the brochure on the left, in a lush natural setting with warm golden light. Do not invent his name or quote.
+Design: sophisticated Swiss-inspired premium real estate advertising, dark forest green, warm ivory and restrained terracotta accent, disciplined editorial grid, generous whitespace, crisp modern sans serif, excellent reading hierarchy. Reproduce the simple chalet/tree brand mark and CHALET TO GO name from image 2 neatly at the top, with small red Swiss cross. Upper ivory header contains brand and a bold high-impact headline. Main photo occupies middle ~48 percent of page and integrates person and product harmoniously. Lower ivory commercial area has 3 clear evenly spaced price columns and a dark green bottom CTA bar. Avoid overcrowding; all copy highly legible and carefully proofread. Keep all text 10mm away from edges.
+Exact text, no other copy:
+"CHALET TO GO"
+"FEITO PARA MOVER."
+"CRIADO PARA INSPIRAR."
+"Seu próximo destino começa aqui."
+"Chalés para morar, hospedar e viver mais perto da natureza."
+"BASIC"
+"CHF 40.000"
+"Compacto e funcional."
+"STANDARD"
+"CHF 65.000"
+"Conforto e versatilidade."
+"PREMIUM"
+"CHF 100.000"
+"Acabamentos de alto padrão."
+"Valores e condições sujeitos à proposta."
+"VAMOS CONSTRUIR SEU PRÓXIMO PASSO?"
+"CHALETTOGO.COM"
+"Conheça os modelos e solicite uma proposta."
+Do not add QR code, fake contact info, awards, claims or testimonials. Make the headline and website memorable and the man unmistakably the person in reference 3.
