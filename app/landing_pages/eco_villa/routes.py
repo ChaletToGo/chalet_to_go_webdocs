@@ -11,6 +11,16 @@ router = APIRouter()
 templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
 
+@router.get('/eco-villa-natal/maquete', response_class=HTMLResponse, name='eco_villa_model')
+async def model_preview(request: Request):
+    response = templates.TemplateResponse(request, 'maquete.html', {
+        'embedded': request.query_params.get('embed') == '1',
+    })
+    response.headers['X-Robots-Tag'] = 'noindex, nofollow'
+    response.headers['Content-Language'] = 'pt-BR'
+    return response
+
+
 @router.get('/eco-villa-natal', response_class=HTMLResponse, name='eco_villa')
 async def landing(request: Request):
     number = whatsapp_number(request)

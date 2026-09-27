@@ -1,0 +1,113 @@
+/* Landing adapter for the shared website/magazine editorial identity.
+   Brand colors and font come from shared/static/brand/brand.css. */
+.villa-landing{
+ --paper:var(--snow);--ink:var(--forest);--muted:#657067;
+ --line:rgba(14,42,32,.19);--surface:#eae7df;
+ --villa-scene-background:var(--snow);
+ font-family:var(--brand-font);font-size:16px;line-height:1.7;
+ background:var(--paper);color:var(--ink);
+}
+.villa-landing h1,.villa-landing h2,.villa-landing h3{
+ font-family:var(--brand-font);font-weight:500;line-height:1.06;
+ letter-spacing:-.045em;text-wrap:balance;
+}
+.villa-landing em{font-family:inherit;font-style:normal;font-weight:inherit}
+.villa-landing p{text-wrap:pretty}
+.villa-landing .eyebrow{font-size:10px;font-weight:600;letter-spacing:1.8px;line-height:1.6;text-transform:uppercase}
+.villa-landing .header{
+ height:100px;padding:0 5%;gap:30px;background:var(--paper);
+ border-bottom:1px solid var(--line);
+}
+.villa-landing .header .brand{width:110px;height:90px;display:flex;justify-content:center;flex-shrink:0}
+.villa-landing .header .brand img{display:block;width:100%;height:70px;object-fit:contain}
+.villa-edition{font-size:10px;font-weight:600;letter-spacing:1.8px;white-space:nowrap}
+.villa-edition span{padding:0 12px;color:var(--stone)}
+.villa-landing .header nav{margin-left:auto;gap:24px;font-size:12px}
+.villa-landing .header nav a:hover{color:var(--wood)}
+.villa-landing .header-cta{font-size:12px;white-space:nowrap;border-color:var(--line)}
+.villa-landing .story-intro{top:140px;max-width:440px}
+.villa-landing .story-intro h1{font-family:var(--brand-font);font-size:clamp(50px,5.1vw,86px);font-weight:500;line-height:1.04;letter-spacing:-.055em}
+.villa-landing .story-intro h1 em{color:var(--wood)}
+.villa-landing .story-intro .eyebrow:before{content:'+';color:var(--clay);font-size:23px;font-weight:400;margin-right:12px;vertical-align:-2px}
+.villa-landing .story-intro>p:last-child{font-size:14px;color:var(--muted);max-width:30ch}
+.villa-landing .story-caption p{font-family:var(--brand-font);font-weight:500;letter-spacing:-.055em}
+.villa-landing .story-caption em{color:var(--wood)}
+.villa-landing .study-label{color:var(--muted);letter-spacing:.35px}
+.villa-landing .story-progress{background:var(--surface)}
+.villa-landing .story-progress span{background:var(--wood)}
+.villa-landing .button,.villa-landing #explore-model{
+ border-radius:0;min-height:48px;background:var(--forest);color:var(--snow);
+ box-shadow:none;border:1px solid transparent;letter-spacing:.02em;
+ transition:background .18s,color .18s,transform .18s;
+}
+.villa-landing .button:hover,.villa-landing #explore-model:hover{background:var(--moss);transform:translateY(-2px)}
+.villa-landing .button.clay{background:var(--clay)}
+.villa-landing .button.clay:hover{background:var(--wood)}
+.villa-landing .scroll-cue{border-radius:0;background:var(--paper);border-bottom:1px solid var(--line);letter-spacing:.02em}
+.villa-landing .ribbon{background:var(--paper);border-color:var(--line)}
+.villa-landing .ribbon>span{font-size:11px;border-color:var(--line)}
+.villa-landing .ribbon small{color:var(--muted);line-height:1.6}
+.villa-landing .section{padding:96px 6%;border-bottom:1px solid var(--line)}
+.villa-landing .section h2{font-size:clamp(38px,4.5vw,68px);letter-spacing:-.055em}
+.villa-landing .concept-copy{border-left:1px solid var(--line);padding-left:32px}
+.villa-landing .concept-copy>p:not(.large){font-size:16px;color:var(--muted)}
+.villa-landing .concept-copy .large{font-size:24px;line-height:1.45}
+.villa-landing .values span,.villa-landing .feature-grid article>span{color:var(--wood)}
+.villa-landing .values h3{font-size:20px;line-height:1.2}
+.villa-landing .model,.villa-landing .materials{background:var(--surface)}
+.villa-landing .model-grid{background:var(--paper);border:1px solid var(--line)}
+.villa-landing .model-details h3{font-size:36px;letter-spacing:-.05em}
+.villa-landing .model-details .eyebrow{color:var(--wood)}
+.villa-landing .feature-grid h3{font-size:24px;line-height:1.16;letter-spacing:-.025em}
+.villa-landing .feature-grid p,.villa-landing .values p{color:var(--muted);line-height:1.75}
+.villa-landing .study-numbers strong{font-family:var(--brand-font);font-weight:400;font-size:64px;color:var(--wood);letter-spacing:-.055em;line-height:1.15}
+.villa-landing .location{background:var(--forest);color:var(--snow)}
+.villa-landing .location-card{border-color:#ffffff40;border-radius:0}
+.villa-landing .location-card h3{font-family:var(--brand-font);font-size:32px;font-weight:500;letter-spacing:-.035em}
+.villa-landing .closing{background:var(--surface);border-bottom:1px solid var(--line);padding:80px 6%}
+.villa-landing .closing h2{font-size:clamp(40px,4.5vw,68px);letter-spacing:-.055em}
+.villa-landing footer{border-top:1px solid var(--line);padding:38px 6%;font-size:12px}
+.villa-landing .footer-brand{display:block;width:160px;height:120px;flex-shrink:0}
+.villa-landing .footer-brand img{width:100%;height:100%;object-fit:contain}
+.villa-landing footer>span{letter-spacing:1.8px}
+.villa-landing footer p{color:var(--muted);font-size:11px}
+/* The 3D interface uses the same flat paper surfaces as the reader controls. */
+.villa-landing .viewer{background:var(--paper)}
+.villa-landing .viewer .selection,.villa-landing .view-tools,.villa-landing .zoom-tools button,.villa-landing .bottom-tools button,.villa-landing #loading{
+ border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);box-shadow:none;
+}
+.villa-landing .viewer .selection h2{font-family:var(--brand-font);font-size:28px;font-weight:500;letter-spacing:-.045em}
+.villa-landing .view-tools button,.villa-landing .unit-buttons button{border-radius:0;color:var(--ink)}
+.villa-landing .unit-buttons button{border-color:var(--line)}
+.villa-landing .viewer button[aria-pressed=true]{background:var(--forest);color:var(--snow);border-color:var(--forest)}
+.villa-landing .live-dot{background:var(--wood)}
+.villa-landing .viewer .selection .eyebrow{color:var(--wood)}
+.villa-landing .viewer .selection>p:not(.eyebrow),.villa-landing .reset{color:var(--muted)}
+@media(max-width:1050px){.villa-edition{font-size:9px;letter-spacing:1px}.villa-landing .header{gap:18px}.villa-landing .header nav{gap:15px}.villa-landing .header nav a:last-child{display:none}}
+@media(max-width:760px){
+ .villa-landing .header{height:76px;padding:0 20px;gap:12px}
+ .villa-landing .header .brand{width:80px;height:64px}
+ .villa-landing .header .brand img{height:56px}
+ .villa-edition{font-size:8px;letter-spacing:1.2px;white-space:normal;line-height:1.7}
+ .villa-edition span{padding:0 5px}
+ .villa-landing .header nav{display:none}
+ .villa-landing .header-cta{margin-left:auto;font-size:10px}
+ .villa-landing .story-intro{top:108px;left:24px;right:24px;max-width:350px}
+ .villa-landing .story-intro h1{font-size:clamp(44px,10vw,60px);letter-spacing:-.055em}
+ .villa-landing .story-intro>p:last-child{font-size:13px;max-width:32ch}
+ .villa-landing .story-intro .eyebrow{font-size:9px;letter-spacing:1.4px}
+ .villa-landing .story-intro .eyebrow:before{font-size:20px;margin-right:9px}
+ .villa-landing .section{padding:52px 24px}
+ .villa-landing .section h2{font-size:38px}
+ .villa-landing .concept-copy{border:0;padding:0}
+ .villa-landing .concept-copy .large{font-size:21px}
+ .villa-landing .ribbon{padding:24px;gap:14px}
+ .villa-landing .ribbon>span{font-size:9px;letter-spacing:1px}
+ .villa-landing .model-details h3{font-size:32px}
+ .villa-landing .closing{padding:52px 24px}
+ .villa-landing footer{padding:28px 24px;gap:24px}
+ .villa-landing .footer-brand{width:130px;height:96px}
+ .villa-landing .viewer .selection h2{font-size:23px}
+}
+@media(max-width:400px){.villa-edition{max-width:85px;font-size:7px}.villa-landing .header{gap:8px;padding:0 16px}.villa-landing .header .brand{width:68px}}
+@media(prefers-reduced-motion:reduce){.villa-landing .button,.villa-landing #explore-model{transition:none}.villa-landing .button:hover,.villa-landing #explore-model:hover{transform:none}}
