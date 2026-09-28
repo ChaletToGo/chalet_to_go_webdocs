@@ -16,6 +16,7 @@ services:
           - chalet-web
     environment:
       SITE_URL: "${SITE_URL:-https://www.chalettogo.com}"
+      SITE_OFFICIAL_PROFILES: "${SITE_OFFICIAL_PROFILES:-}"
       GOOGLE_MAPS_API_KEY: "${GOOGLE_MAPS_API_KEY:-}"
       GOOGLE_MAPS_ADDRESS: "${GOOGLE_MAPS_ADDRESS:-Rte de Porrentruy 8, 2800 Delémont, Switzerland}"
       GOOGLE_SITE_VERIFICATION: "${GOOGLE_SITE_VERIFICATION:-}"
@@ -27,8 +28,9 @@ services:
       ADMIN_DB_PATH: /app/data/admin.json
       QR_BASE_URL: "${QR_BASE_URL:-https://www.chalettogo.com}"
       SITE_INDEXABLE: "${SITE_INDEXABLE:-true}"
-      WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:-5538998840910}"
-      TRUST_COUNTRY_HEADER: "${TRUST_COUNTRY_HEADER:-false}"
+      WHATSAPP_NUMBER: "${WHATSAPP_NUMBER:?Configure WHATSAPP_NUMBER no .env}"
+      # Production traffic arrives through Cloudflare and the controlled Nginx proxy.
+      TRUST_COUNTRY_HEADER: "true"
       FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
     read_only: true
     volumes:

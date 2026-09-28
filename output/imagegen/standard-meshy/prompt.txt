@@ -1,0 +1,2 @@
+Modo: ferramenta integrada image_gen.
+Pedido: quatro vistas do chale Standard para modelagem: principal, esquerda, tras e direita. Fundo branco, preservar varanda, proporcoes, quatro janelas superiores e tres inferiores nas laterais. Revestimento horizontal plano tongue and groove. Engate exclusivamente centralizado na travessa traseira, oposta a varanda, seguindo o eixo longitudinal, nunca na lateral. Faces nao visiveis propostas: lateral simetrica e traseira fechada. Imagens conceituais geradas, sem escala metrica garantida.

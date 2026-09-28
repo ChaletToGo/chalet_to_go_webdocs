@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict
 
 class Click(BaseModel):
     model_config = ConfigDict(extra='forbid')
-    page: Literal['/', '/sobre', '/perguntas-frequentes', '/chales-para-hospedagem', '/chales/basic', '/chales/standard', '/chales/premium']
+    page: Literal['/', '/contato', '/sobre', '/perguntas-frequentes', '/chales-para-hospedagem', '/chales/basic', '/chales/standard', '/chales/premium']
     lang: Literal['pt-BR','pt-PT','en','fr','de','it','rm']
     model: Literal['general','basic','standard','premium'] = 'general'
 

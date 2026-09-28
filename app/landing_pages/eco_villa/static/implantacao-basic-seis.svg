@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="670" viewBox="0 0 1300 670" role="img" aria-labelledby="title desc">
+ <title id="title">Estudo de seis chalés Basic fixos</title>
+ <desc id="desc">Seis chalés lado a lado com decks e acesso aos jardins. Fogueira central e quatro vagas na frente. Desenho conceitual sem escala.</desc>
+ <defs><pattern id="wood" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#bc915d"/><path d="M0 9h12" stroke="#a77846"/></pattern><g id="basic"><rect x="14" y="0" width="88" height="212" rx="3" fill="#444f48"/><path d="M58 0v212" stroke="#b6b9ab" stroke-width="3"/><rect x="14" y="32" width="22" height="102" fill="#c49c69"/><path d="M22 46v19m0 14v19m0 14v13" stroke="#384b48" stroke-width="8"/><rect x="0" y="215" width="116" height="52" fill="url(#wood)"/><path d="M47 285h22m-22 21h22m-22 21h22" stroke="#b4b5a1" stroke-width="12"/><rect x="16" y="227" width="20" height="23" rx="2" fill="#eee6cb"/><rect x="80" y="227" width="20" height="23" rx="2" fill="#eee6cb"/></g><g id="car"><rect width="37" height="77" rx="10" fill="#4d6261"/><rect x="4" y="18" width="29" height="39" rx="4" fill="#243e3e"/></g></defs>
+ <rect width="1300" height="670" fill="#f1f3e9"/>
+ <rect x="32" y="43" width="1236" height="548" rx="12" fill="#8c9b74"/>
+ <path d="M65 65v490M65 431h1171" stroke="#c6c4b0" stroke-width="21"/>
+ <rect x="88" y="452" width="1148" height="118" rx="4" fill="#b2b0a0"/>
+ <g fill="#4b6746"><circle cx="202" cy="67" r="19"/><circle cx="402" cy="67" r="19"/><circle cx="602" cy="67" r="19"/><circle cx="802" cy="67" r="19"/><circle cx="1002" cy="67" r="19"/><circle cx="1195" cy="67" r="19"/></g>
+ <use href="#basic" x="112" y="90"/><use href="#basic" x="312" y="90"/><use href="#basic" x="512" y="90"/><use href="#basic" x="712" y="90"/><use href="#basic" x="912" y="90"/><use href="#basic" x="1112" y="90"/>
+ <g font-family="Arial,sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#fff"><text x="170" y="398">BASIC 01</text><text x="370" y="398">BASIC 02</text><text x="570" y="398">BASIC 03</text><text x="770" y="398">BASIC 04</text><text x="970" y="398">BASIC 05</text><text x="1170" y="398">BASIC 06</text></g>
+ <circle cx="670" cy="510" r="50" fill="#d5cbb4"/><circle cx="670" cy="510" r="19" fill="#4b4e40"/><circle cx="670" cy="510" r="11" fill="#c58d40"/>
+ <use href="#car" x="153" y="473"/><use href="#car" x="353" y="473"/><use href="#car" x="953" y="473"/><use href="#car" x="1153" y="473"/>
+ <text x="40" y="632" font-family="Arial,sans-serif" font-size="20" fill="#304b39">ECO VILLA · 06 CHALÉS BASIC · BASE FIXA</text><text x="1260" y="632" text-anchor="end" font-family="Arial,sans-serif" font-size="14" fill="#62725c">Estudo conceitual · Sem escala</text>
+</svg>

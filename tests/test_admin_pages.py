@@ -17,14 +17,15 @@ def settings(monkeypatch, tmp_path):
     monkeypatch.setenv('QR_BASE_URL', 'https://chalet.example')
 
 
-def request(path, method='GET', data=None, auth=True, csrf=True):
+def request(path, method='GET', data=None, auth=True, csrf=True, extra_headers=None, scheme='https'):
     messages = []
     headers = [(b'content-type', b'application/json')]
+    headers.extend((key.lower().encode(), value.encode()) for key, value in (extra_headers or {}).items())
     if auth:
         headers.append((b'authorization', b'Basic ' + base64.b64encode(b'admin:test-password')))
     if csrf:
         headers.append((b'x-admin-request', b'1'))
-    scope = {'type':'http','asgi':{'version':'3.0'},'http_version':'1.1','method':method,'scheme':'https','path':path.split('?')[0],'raw_path':path.split('?')[0].encode(),'root_path':'','query_string':path.partition('?')[2].encode(),'headers':headers,'client':('127.0.0.1',1234),'server':('testserver',443)}
+    scope = {'type':'http','asgi':{'version':'3.0'},'http_version':'1.1','method':method,'scheme':scheme,'path':path.split('?')[0],'raw_path':path.split('?')[0].encode(),'root_path':'','query_string':path.partition('?')[2].encode(),'headers':headers,'client':('127.0.0.1',1234),'server':('testserver',443)}
     async def receive():
         return {'type':'http.request','body':json.dumps(data).encode() if data is not None else b'','more_body':False}
     async def send(message):

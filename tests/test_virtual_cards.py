@@ -7,6 +7,47 @@ import pytest
 from fastapi import HTTPException
 from test_i18n import get
 from app.virtual_cards.routes import load_card
+from app.shared.i18n import LOCALES
+
+
+CAROL_ROLES = {
+    'pt-BR': 'Diretora Executiva - Chalet to Go Brasil',
+    'pt-PT': 'Diretora Executiva - Chalet to Go Brasil',
+    'en': 'Executive Director - Chalet to Go Brazil',
+    'de': 'Geschäftsführerin - Chalet to Go Brasilien',
+    'fr': 'Directrice exécutive - Chalet to Go Brésil',
+    'it': 'Direttrice esecutiva - Chalet to Go Brasile',
+    'rm': 'Directura executiva - Chalet to Go Brasil',
+}
+
+
+@pytest.mark.parametrize('locale', LOCALES)
+def test_carol_executive_role_in_page_and_vcard(locale):
+    card = load_card('carol_moreira')
+    assert set(CAROL_ROLES) == set(LOCALES) == set(card.traducoes)
+    assert card.cargo == CAROL_ROLES['pt-BR']
+    assert card.traducoes[locale].cargo == CAROL_ROLES[locale]
+    for suffix in ('', '/contact.vcf'):
+        status, _, body = get({'lang': locale}, path='/card/carol_moreira' + suffix)
+        assert status == 200
+        body = body.replace('\r\n ', '')
+        assert 'General Manager' not in body
+        if suffix:
+            assert 'TITLE:' + CAROL_ROLES[locale] in body.split('\r\n')
+        else:
+            assert '<p class="role">' + CAROL_ROLES[locale] + '</p>' in body
+
+
+def test_carol_default_role_without_translation_in_page_and_vcard():
+    # Exercise the fallback used if a translation is missing or empty.
+    card = load_card('carol_moreira').model_copy(update={'traducoes': {}})
+    with patch('app.virtual_cards.routes.load_card', return_value=card):
+        for suffix in ('', '/contact.vcf'):
+            status, _, body = get(path='/card/carol_moreira' + suffix)
+            assert status == 200
+            body = body.replace('\r\n ', '')
+            assert CAROL_ROLES['pt-BR'] in body
+            assert 'General Manager' not in body
 
 
 def test_example_and_optional_fields(tmp_path):
@@ -19,7 +60,37 @@ def test_example_and_optional_fields(tmp_path):
     assert 'https://wa.me/553197471887' in body
     assert 'Conversar no WhatsApp' in body
     assert 'mailto:' not in body
+    assert 'class="profile-photo"' not in body
     assert headers[b'cache-control'] == b'private, no-store'
+
+
+@pytest.mark.parametrize('photo', ['static/images/ana silva.png', 'images/ana silva.png', '/static/cards/images/ana silva.png', 'app/virtual_cards/static/images/ana silva.png'])
+def test_optional_photo(tmp_path, photo):
+    images = tmp_path / 'static' / 'images'
+    images.mkdir(parents=True)
+    (images / 'ana silva.png').write_bytes(b'photo fixture')
+    (tmp_path / 'ana.json').write_text(json.dumps({'nome': 'Ana', 'cargo': 'Vendas', 'foto': photo}), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, _, body = get(path='/card/ana')
+    assert status == 200
+    assert 'class="profile-photo" src="/static/cards/images/ana%20silva.png"' in body
+
+
+@pytest.mark.parametrize('photo', ['', 'missing.jpg', '../private.png', 'https://example.com/photo.jpg', 'card.css'])
+def test_unavailable_photo_keeps_card_working(tmp_path, photo):
+    (tmp_path / 'private.png').write_bytes(b'private')
+    (tmp_path / 'ana.json').write_text(json.dumps({'nome': 'Ana', 'cargo': 'Vendas', 'foto': photo}), encoding='utf-8')
+    with patch('app.virtual_cards.routes.CARD_DIR', tmp_path):
+        status, _, body = get(path='/card/ana')
+    assert status == 200
+    assert 'class="profile-photo"' not in body
+
+
+def test_home_without_map():
+    status, _, body = get({'lang': 'pt-BR'}, path='/')
+    assert status == 200
+    assert 'maps.googleapis.com' not in body
+    assert 'gmp-map' not in body
 
 
 def test_maps_and_translated_content(tmp_path):

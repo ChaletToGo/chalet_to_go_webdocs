@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block main %}
+<header><div><span class="eyebrow">Chalet to Go / Administração</span><h1>Visão geral</h1><p>Seus contatos e ferramentas em um só lugar.</p></div></header>
+<h2>Ferramentas</h2><section class="tool-grid">
+<a class="tool-card" href="/admin/leads"><span>{{ leads_count }} contatos recebidos</span><h2>Leads →</h2><p>Consulte os pedidos de atendimento e entre em contato.</p></a>
+<a class="tool-card" href="/admin/qrcodes"><span>{{ qr_count }} códigos criados</span><h2>QR Codes →</h2><p>Crie, edite, exporte e acompanhe seus códigos.</p></a>
+<a class="tool-card" href="/admin/metrics"><span>Estatísticas</span><h2>Métricas do site →</h2><p>Acompanhe os cliques no WhatsApp por página e idioma.</p></a></section>{% endblock %}

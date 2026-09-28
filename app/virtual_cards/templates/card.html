@@ -37,8 +37,9 @@
         <path d="M10 190 190 10 370 190H10l180-160 160 160M45 190v160h235M60 190v146h220M32 350h248v12H32ZM90 336V210h96v126M101 336V223h73v113M199 210h55v62h-55ZM226 210v62M199 241h55M73 160h206M100 135h152M127 110h99M155 85h44M73 194v140M197 283v53M213 283v53M229 283v53M245 283v53"/>
       </svg>
       <a class="brand" href="{{ url_for('site_home') | local_url }}" aria-label="Chalet to Go — {{ t.home }}">
-        <img src="{{ url_for('static', path='images/Logomarca.png') | local_url }}" alt="Chalet to Go" width="300" height="300">
+        <img src="{{ url_for('static', path='images/logo.svg') | local_url }}?v=oficio-alpino-1" alt="Chalet to Go" width="300" height="300">
       </a>
+      {% if photo_url %}<img class="profile-photo" src="{{ photo_url }}" alt="{{ card.nome }}" width="112" height="112">{% endif %}
       <div class="person"><span class="eyebrow">{{ card.empresa }}</span><h1>{{ card.nome }}</h1><p class="role">{{ card.cargo }}</p>{% if card.localizacao %}<p class="location">{{ card.localizacao }}</p>{% endif %}</div>
       <span class="edition">BUILT TO MOVE. MADE TO INSPIRE.</span>
     </header>
