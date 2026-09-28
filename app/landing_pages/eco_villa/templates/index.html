@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-immersive.css').path }}?v=1">
 <link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-brand.css').path }}?v=3">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
-<script defer src="{{ url_for('eco_villa_static', path='villa-scroll.js').path }}"></script>
+<script defer src="{{ url_for('eco_villa_static', path='villa-scroll.js').path }}?v=2"></script>
+<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='viewer-ui.css').path }}?v=1">
 </head>
 <body class="villa-landing">
 <a class="skip" href="#conceito">Pular a maquete e conhecer o projeto</a>
@@ -82,6 +83,6 @@
 <script type="module">
 const fail = () => { const box = document.querySelector('#loading'); box.hidden = false; box.innerHTML = '<strong>Consulte a implantação ilustrativa.</strong><span>O 3D não pôde carregar neste navegador. Continue rolando para conhecer o projeto.</span>'; document.querySelectorAll('.viewer button, #explore-model').forEach(button => button.disabled = true); };
 window.addEventListener('villa-viewer-error', fail);
-import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=landing-six-1').catch(fail);
+import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=viewer-ui-2').catch(fail);
 </script>
 </body></html>

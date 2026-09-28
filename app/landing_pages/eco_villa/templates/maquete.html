@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="{{ url_for('eco_villa_static', path='maquete.css').path }}">
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='viewer-ui.css').path }}?v=1">
 </head>
 <body class="{% if embedded %}embedded{% endif %}">
   <header class="page-header"><a href="{{ url_for('eco_villa').path }}">CHALET <span>TO GO</span></a><span>ECO VILLA / ESTUDO INTERATIVO</span></header>
@@ -18,7 +19,7 @@
   <script type="module">
     const fail = () => { const box = document.querySelector('#loading'); box.hidden = false; box.innerHTML = '<strong>A visualização 3D não está disponível.</strong><span>Você pode consultar a planta de referência. Tente recarregar em um navegador com WebGL.</span>'; document.querySelectorAll('.viewer button').forEach(button => button.disabled = true); };
     window.addEventListener('villa-viewer-error', fail);
-    import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=basic-six-1').catch(fail);
+    import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=viewer-ui-2').catch(fail);
   </script>
 </body>
 </html>

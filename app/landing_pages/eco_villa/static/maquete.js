@@ -159,9 +159,17 @@ $('#night').addEventListener('click',()=>{
 });
 function zoom(factor){tween=null;const offset=camera.position.clone().sub(controls.target);offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,controls.minDistance,controls.maxDistance));camera.position.copy(controls.target).add(offset);controls.update();invalidate();}
 $('#zoom-in').addEventListener('click',()=>zoom(.8));$('#zoom-out').addEventListener('click',()=>zoom(1.25));
-if(!document.fullscreenEnabled)$('#fullscreen').hidden=true;
-$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('.viewer').requestFullscreen();}catch{ $('#fullscreen').hidden=true; }});
-document.addEventListener('fullscreenchange',()=>$('#fullscreen').setAttribute('aria-label',document.fullscreenElement?'Sair da tela cheia':'Abrir em tela cheia'));
+function showChaletPanel(open) {
+ $('#chalet-panel').hidden = !open;
+ $('#selection-open').hidden = open;
+ $('#selection-open').setAttribute('aria-expanded', String(open));
+ (open ? $('#selection-close') : $('#selection-open')).focus({preventScroll:true});
+}
+$('#selection-close').addEventListener('click',()=>showChaletPanel(false));
+$('#selection-open').addEventListener('click',()=>showChaletPanel(true));
+if(!document.fullscreenEnabled && !landingMode)$('#fullscreen').hidden=true;
+$('#fullscreen').addEventListener('click',async()=>{if(landingMode){window.dispatchEvent(new Event('villa:exit'));return;}try{if(document.fullscreenElement)await document.exitFullscreen();else await $('.viewer').requestFullscreen();}catch{ $('#fullscreen').hidden=true; }});
+document.addEventListener('fullscreenchange',()=>$('#fullscreen').setAttribute('aria-label',(document.fullscreenElement || landingMode)?'Sair da tela cheia':'Abrir em tela cheia'));
 controls.addEventListener('start',()=>{tween=null;});controls.addEventListener('change',invalidate);
 let down=null;const raycaster=new THREE.Raycaster();
 renderer.domElement.addEventListener('pointerdown',e=>{down=e.isPrimary?{x:e.clientX,y:e.clientY}:null;});
@@ -192,6 +200,7 @@ if (landingMode) {
  let exploring = false;
  window.addEventListener('villa:explore', event => {
   exploring = Boolean(event.detail.enabled);
+  $('#fullscreen').setAttribute('aria-label','Sair da tela cheia');
   controls.enabled = exploring;
   renderer.domElement.style.touchAction = exploring ? 'none' : 'pan-y';
   if (!exploring) {

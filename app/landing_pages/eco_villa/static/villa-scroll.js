@@ -32,15 +32,41 @@
   window.addEventListener('resize', schedule, { passive: true });
   window.addEventListener('villa:ready', schedule);
   reduced.addEventListener('change', schedule);
-  explore.addEventListener('click', () => {
-    exploring = !exploring;
+  let nativeFullscreen = false;
+  function setExploring(enabled) {
+    exploring = enabled;
     story.classList.toggle('exploring', exploring);
     document.body.classList.toggle('is-exploring', exploring);
     explore.setAttribute('aria-pressed', String(exploring));
     explore.innerHTML = exploring ? 'Continuar a leitura <span>↓</span>' : 'Explorar a maquete <span>↗</span>';
     window.dispatchEvent(new CustomEvent('villa:explore', { detail: { enabled: exploring } }));
-    if (!exploring) document.querySelector('#conceito').scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth' });
     schedule();
+  }
+  async function leave() {
+    if (!exploring) return;
+    setExploring(false);
+    if (document.fullscreenElement === stage) {
+      try { await document.exitFullscreen(); } catch { /* Fixed viewport remains reversible. */ }
+    }
+    document.querySelector('#conceito').scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth' });
+    document.querySelector('#conceito').setAttribute('tabindex', '-1');
+    document.querySelector('#conceito').focus({preventScroll:true});
+  }
+  explore.addEventListener('click', () => {
+    if (exploring) { leave(); return; }
+    setExploring(true);
+    // Request during the user's click; fixed positioning covers unsupported browsers.
+    if (document.fullscreenEnabled && stage.requestFullscreen) {
+      stage.requestFullscreen().catch(() => {});
+    }
+  });
+  window.addEventListener('villa:exit', leave);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && exploring && !document.fullscreenElement) leave();
+  });
+  document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement === stage) nativeFullscreen = true;
+    else if (nativeFullscreen) { nativeFullscreen = false; leave(); }
   });
   // Sections remain readable if JS or an optional animation API is unavailable.
   if ('IntersectionObserver' in window && !reduced.matches) {
