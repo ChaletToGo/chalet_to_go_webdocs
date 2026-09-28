@@ -111,3 +111,37 @@
 }
 @media(max-width:400px){.villa-edition{max-width:85px;font-size:7px}.villa-landing .header{gap:8px;padding:0 16px}.villa-landing .header .brand{width:68px}}
 @media(prefers-reduced-motion:reduce){.villa-landing .button,.villa-landing #explore-model{transition:none}.villa-landing .button:hover,.villa-landing #explore-model:hover{transform:none}}
+
+/* Banner, then immersive model, then project details. */
+.villa-landing .header{position:relative}
+.villa-banner{min-height:calc(100svh - 100px);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:6%;padding:64px 6%;border-bottom:1px solid var(--line)}
+.banner-copy h1{font-size:clamp(50px,5.5vw,86px);margin:22px 0;letter-spacing:-.055em}
+.banner-copy h1 em,.villa-landing .story-intro h2 em{color:var(--wood)}
+.banner-copy>p:not(.eyebrow){max-width:36ch;color:var(--muted);font-size:18px}
+.banner-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:32px}
+.banner-visual{margin:0;min-width:0}
+.banner-visual img{display:block;width:100%;height:clamp(330px,52vh,620px);object-fit:cover}
+.banner-visual figcaption{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px}
+.villa-landing .story-intro{top:48px}
+.villa-landing .story-intro h2{font-size:clamp(38px,4vw,62px);margin:0 0 18px;letter-spacing:-.055em}
+@media(max-width:760px){
+ .villa-banner{min-height:calc(100svh - 76px);grid-template-columns:1fr;padding:40px 24px;gap:32px}
+ .banner-copy h1{font-size:clamp(44px,10vw,60px)}
+ .banner-copy>p:not(.eyebrow){font-size:16px}
+ .banner-actions{gap:18px;margin-top:24px}
+ .banner-visual img{height:280px}
+ .villa-landing .story-intro{top:34px}
+ .villa-landing .story-intro h2{font-size:38px}
+}
+
+/* Editorial opening without photography. */
+.villa-landing .villa-banner{grid-template-columns:1fr;min-height:calc(85svh - 100px);padding:80px 6%}
+.villa-banner .banner-copy{max-width:1000px}
+.villa-banner .banner-copy h1{font-size:clamp(56px,7.5vw,112px)}
+.villa-banner .banner-copy>p:not(.eyebrow){max-width:48ch}
+.model-grid figure>a{display:block}
+.model-grid figure>a:focus-visible{outline:3px solid var(--wood);outline-offset:5px}
+@media(max-width:760px){
+ .villa-landing .villa-banner{min-height:calc(85svh - 76px);padding:56px 24px}
+ .villa-banner .banner-copy h1{font-size:clamp(44px,11vw,64px)}
+}

@@ -5,27 +5,30 @@
 <title>Eco Villa Natal — Explore seu próximo refúgio | Chalet to Go</title>
 <meta name="description" content="Explore a maquete interativa da Eco Villa Natal: seis chalés Basic fixos, jardins privativos e lareira externa para convivência.">
 <meta name="theme-color" content="#f6f4f0">
-<link rel="icon" href="{{ url_for('static', path='images/logo.svg') }}?v=oficio-alpino-1" type="image/svg+xml">
-<link rel="stylesheet" href="{{ url_for('static', path='brand/brand.css') }}">
-<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa.css') }}">
-<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-immersive.css') }}?v=1">
-<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-brand.css') }}?v=1">
+<link rel="icon" href="{{ url_for('static', path='images/logo.svg').path }}?v=oficio-alpino-1" type="image/svg+xml">
+<link rel="stylesheet" href="{{ url_for('static', path='brand/brand.css').path }}">
+<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa.css').path }}">
+<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-immersive.css').path }}?v=1">
+<link rel="stylesheet" href="{{ url_for('eco_villa_static', path='villa-brand.css').path }}?v=3">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
-<script defer src="{{ url_for('eco_villa_static', path='villa-scroll.js') }}"></script>
+<script defer src="{{ url_for('eco_villa_static', path='villa-scroll.js').path }}"></script>
 </head>
 <body class="villa-landing">
 <a class="skip" href="#conceito">Pular a maquete e conhecer o projeto</a>
 <header class="header">
-<a class="brand" href="{{ url_for('site_home') }}" aria-label="Chalet to Go, início"><img src="{{ url_for('static', path='images/logo.svg') }}?v=oficio-alpino-1" width="100" height="76" alt="Chalet to Go"></a>
+<a class="brand" href="{{ url_for('site_home').path }}" aria-label="Chalet to Go, início"><img src="{{ url_for('static', path='images/logo.svg').path }}?v=oficio-alpino-1" width="100" height="76" alt="Chalet to Go"></a>
 <div class="villa-edition">CHALET TO GO <span>/</span> ECO VILLA NATAL</div>
 <nav aria-label="Navegação principal"><a href="#conceito">A villa</a><a href="#modelo">Chalé Basic</a><a href="#localizacao">Localidade</a><a href="/revista?lang=pt-BR">Revista</a></nav>
 <a class="header-cta" href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">Consultar unidades ↗</a>
 </header>
 <main id="conteudo">
+<section class="villa-banner" id="inicio" aria-labelledby="banner-title">
+<div class="banner-copy"><p class="eyebrow">ECO VILLA · NATAL, RN</p><h1 id="banner-title">Seu refúgio.<br><em>Um novo ritmo.</em></h1><p>Seis chalés Basic. Natureza por perto. Um lugar para viver com mais calma.</p><div class="banner-actions"><a class="button" href="#maquete">Conhecer a maquete <span>↓</span></a><a class="text-link" href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">Consultar unidades ↗</a></div></div>
+</section>
 <section class="villa-story" id="maquete" aria-label="Explore a Eco Villa em três dimensões">
 <div class="model-stage">
 {% set landing_mode = true %}{% include '_maquete_viewer.html' %}
-<div class="story-intro"><p class="eyebrow">ECO VILLA · NATAL, RN</p><h1>Seu refúgio.<br><em>Um novo ritmo.</em></h1><p>Seis chalés Basic. Natureza por perto.<br>Um lugar para viver com mais calma.</p></div>
+<div class="story-intro"><p class="eyebrow">EXPLORE A ECO VILLA</p><h2>Encontre seu<br><em>ponto de vista.</em></h2><p>Role para percorrer a villa ou explore os seis chalés livremente.</p></div>
 <div class="story-caption" aria-hidden="true"><span>01 / UM LUGAR PARA VOCÊ</span><p>Seu espaço.<br><em>Seu tempo.</em></p></div>
 <div class="story-actions"><button id="explore-model" type="button" aria-pressed="false">Explorar a maquete <span>↗</span></button><a href="#conceito" class="scroll-cue">Conheça o projeto <span>↓</span></a></div>
 <p class="study-label">Visualização conceitual · 06 chalés Basic com base fixa</p>
@@ -38,7 +41,7 @@
 </section>
 <section class="model section" id="modelo" data-reveal>
 <div class="model-top"><div><p class="eyebrow">02 / SEU CHALÉ</p><h2>Basic.<br><em>Essencial por escolha.</em></h2></div><p>Madeira, linhas simples e um interior que aproveita cada espaço. Na villa, o Basic ganha uma implantação fixa no chão.</p></div>
-<div class="model-grid"><figure><img src="{{ url_for('showroom_static', path='basic-exterior-960.webp') }}" loading="lazy" width="960" height="633" alt="Referência arquitetônica do Basic: fachada de madeira, porta central, janelas escuras e cobertura de duas águas"><figcaption>Referência arquitetônica. A imagem mostra a versão móvel; a proposta da villa é fixa, sem rodas, como na maquete.</figcaption></figure><div class="model-details"><p class="eyebrow">CHALET TO GO / BASIC</p><h3>Seu espaço,<br>em dois níveis.</h3><dl><div><dt>Implantação</dt><dd>Fixa no terreno</dd></div><div><dt>Térreo</dt><dd>Sala, cozinha e banheiro</dd></div><div><dt>Mezanino</dt><dd>Dormitório</dd></div><div><dt>Área externa</dt><dd>Deck e jardim</dd></div></dl><a class="button" href="#maquete">Explorar os seis chalés <span>↑</span></a><p class="note">A maquete permite remover a cobertura e visualizar o mezanino e o térreo. Medidas e especificações finais serão detalhadas no projeto.</p></div></div>
+<div class="model-grid"><figure><a href="/chales/basic" aria-label="Conhecer o chalé Basic no site"><img src="{{ url_for('showroom_static', path='basic-madeira-lisa-960.webp').path }}" loading="lazy" width="960" height="633" alt="Referência arquitetônica do Basic: acabamento de madeira em tábuas planas, porta central, janelas escuras e cobertura de duas águas"></a><figcaption>Referência arquitetônica. A imagem mostra a versão móvel; a proposta da villa é fixa, sem rodas, como na maquete.</figcaption></figure><div class="model-details"><p class="eyebrow">CHALET TO GO / BASIC</p><h3>Seu espaço,<br>em dois níveis.</h3><dl><div><dt>Implantação</dt><dd>Fixa no terreno</dd></div><div><dt>Térreo</dt><dd>Sala, cozinha e banheiro</dd></div><div><dt>Mezanino</dt><dd>Dormitório</dd></div><div><dt>Área externa</dt><dd>Deck e jardim</dd></div></dl><a class="button" href="/chales/basic">Conhecer o chalé Basic <span>↗</span></a><p class="note">A maquete permite remover a cobertura e visualizar o mezanino e o térreo. Medidas e especificações finais serão detalhadas no projeto.</p></div></div>
 </section>
 <section class="section rooms" id="ambientes" data-reveal>
 <div class="section-top"><div><p class="eyebrow">03 / POR DENTRO E POR FORA</p><h2>Sete formas de<br><em>viver a villa.</em></h2></div><p>Os ambientes da prancha de referência orientam a experiência. Na nova implantação, o dormitório ocupa o mezanino do Basic e as áreas externas conectam os seis chalés.</p></div>
@@ -67,18 +70,18 @@
 <details><summary>Quantos chalés estão previstos?</summary><p>A proposta atual reúne seis chalés Basic com base fixa no terreno, sem rodas. A maquete apresenta essa ampliação do estudo original de quatro cabanas. Consulte a equipe sobre disponibilidade comercial.</p></details>
 <details><summary>Qual é a área de cada chalé?</summary><p>A metragem do Basic e as áreas da implantação com seis unidades serão confirmadas no projeto e na proposta. Os 720 m² de terreno e os 160 m² construídos da prancha pertencem ao estudo original de quatro cabanas.</p></details>
 <details><summary>A maquete mostra o projeto definitivo?</summary><p>A maquete reconstrói visualmente as referências do Basic: madeira, cobertura de duas águas, sala e cozinha no térreo, banheiro ao fundo e dormitório no mezanino. Volumes, fundações, medidas e paisagismo ainda precisam de compatibilização técnica.</p></details>
-<details><summary>Como explorar o interior?</summary><p>Na abertura da página, selecione “Explorar a maquete”. Escolha um dos seis chalés e use “Ver interiores”. A opção “Ver térreo” oculta o mezanino. Use “Continuar a leitura” para voltar à navegação por rolagem.</p></details>
+<details><summary>Como explorar o interior?</summary><p>Na seção da maquete, selecione “Explorar a maquete”. Escolha um dos seis chalés e use “Ver interiores”. A opção “Ver térreo” oculta o mezanino. Use “Continuar a leitura” para voltar à navegação por rolagem.</p></details>
 <details><summary>Onde fica o terreno?</summary><p>Natal é a localização informada para o projeto. A referência disponível é o Sítio Melosa Daniel e Dalva, com indicação de acesso pela BR-304. O botão “Ver localidade” pesquisa essa referência no Maps; o município exato, o ponto do terreno e o percurso precisam ser confirmados pela equipe.</p></details>
 <details><summary>Qual é o valor e o que está incluído?</summary><p>Solicite a proposta com valores, condições de pagamento, materiais, acabamentos, condições relativas ao terreno e às áreas comuns, documentação e cronograma.</p></details>
 <details><summary>O que inspira o conceito de eco-villa?</summary><p>A integração com a natureza, o conforto e a privacidade: chalés de madeira, jardins e convivência ao ar livre. O termo descreve a proposta; o material de referência não apresenta certificação ambiental ou sistemas de energia e reúso.</p></details>
 </div></section>
 <section class="closing" id="contato" data-reveal><p class="eyebrow">SEU PRÓXIMO CAPÍTULO</p><h2>Imagine seu refúgio.<br><em>Vamos conversar?</em></h2><p>Receba a apresentação da Eco Villa Natal e conheça a proposta para ter seu Basic.</p><a class="button clay" href="{{ whatsapp }}" target="_blank" rel="noopener noreferrer">Tenho interesse na Eco Villa <span>↗</span></a><small>Atendimento pelo WhatsApp · Valores e disponibilidade sob consulta</small></section>
 </main>
-<footer><a class="footer-brand" href="{{ url_for('site_home') }}" aria-label="Chalet to Go"><img src="{{ url_for('static', path='images/logo.svg') }}?v=oficio-alpino-1" alt="Chalet to Go" width="160" height="120"></a><span>ECO VILLA / NATAL · RN</span><p>Projeto em desenvolvimento. Imagens e maquete conceituais. Especificações e condições serão apresentadas na proposta comercial.</p></footer>
+<footer><a class="footer-brand" href="{{ url_for('site_home').path }}" aria-label="Chalet to Go"><img src="{{ url_for('static', path='images/logo.svg').path }}?v=oficio-alpino-1" alt="Chalet to Go" width="160" height="120"></a><span>ECO VILLA / NATAL · RN</span><p>Projeto em desenvolvimento. Imagens e maquete conceituais. Especificações e condições serão apresentadas na proposta comercial.</p></footer>
 <noscript><style>.villa-story{height:100svh!important}#loading{display:none}#viewport .fallback{opacity:1}.story-actions button{display:none}</style><p class="note">Ative o JavaScript para explorar a maquete. As informações do projeto estão disponíveis abaixo.</p></noscript>
 <script type="module">
 const fail = () => { const box = document.querySelector('#loading'); box.hidden = false; box.innerHTML = '<strong>Consulte a implantação ilustrativa.</strong><span>O 3D não pôde carregar neste navegador. Continue rolando para conhecer o projeto.</span>'; document.querySelectorAll('.viewer button, #explore-model').forEach(button => button.disabled = true); };
 window.addEventListener('villa-viewer-error', fail);
-import('{{ url_for("eco_villa_static", path="maquete.js") }}?v=landing-six-1').catch(fail);
+import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=landing-six-1').catch(fail);
 </script>
 </body></html>

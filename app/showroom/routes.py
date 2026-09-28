@@ -28,5 +28,5 @@ def product_media(request: Request):
         ('interior_basico3.jpg', 'Um refúgio no mezanino', 'O espaço de descanso ocupa o nível superior.'),
         ('interior_basico4.jpg', 'Conforto na medida', 'Soluções compactas para a rotina dentro do chalé.'),
     ] if (ASSETS / name).is_file()]
-    return {'hero_url': '/static/images/plano_basic.png', 'model_url': models[0]['url'],
+    return {'hero_url': '/static/images/basic-madeira-lisa.png', 'model_url': models[0]['url'],
             'models': models, 'interior_photos': gallery, 'plan_url': asset('planta_chale_basico.jpg')}

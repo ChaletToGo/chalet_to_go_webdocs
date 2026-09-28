@@ -4,11 +4,11 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Explore a villa — Maquete interativa</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="{{ url_for('eco_villa_static', path='maquete.css') }}">
+  <link rel="stylesheet" href="{{ url_for('eco_villa_static', path='maquete.css').path }}">
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 </head>
 <body class="{% if embedded %}embedded{% endif %}">
-  <header class="page-header"><a href="{{ url_for('eco_villa') }}">CHALET <span>TO GO</span></a><span>ECO VILLA / ESTUDO INTERATIVO</span></header>
+  <header class="page-header"><a href="{{ url_for('eco_villa').path }}">CHALET <span>TO GO</span></a><span>ECO VILLA / ESTUDO INTERATIVO</span></header>
   <main id="experience">
     <div class="intro"><div><p class="eyebrow">SEIS CHALÉS BASIC. UM LUGAR EM COMUM.</p><h1>Encontre o seu <em>ponto de vista.</em></h1></div><p>Explore os jardins, conheça cada chalé<br>e imagine os dias por aqui.</p></div>
     {% include '_maquete_viewer.html' %}
@@ -18,7 +18,7 @@
   <script type="module">
     const fail = () => { const box = document.querySelector('#loading'); box.hidden = false; box.innerHTML = '<strong>A visualização 3D não está disponível.</strong><span>Você pode consultar a planta de referência. Tente recarregar em um navegador com WebGL.</span>'; document.querySelectorAll('.viewer button').forEach(button => button.disabled = true); };
     window.addEventListener('villa-viewer-error', fail);
-    import('{{ url_for("eco_villa_static", path="maquete.js") }}?v=basic-six-1').catch(fail);
+    import('{{ url_for("eco_villa_static", path="maquete.js").path }}?v=basic-six-1').catch(fail);
   </script>
 </body>
 </html>
